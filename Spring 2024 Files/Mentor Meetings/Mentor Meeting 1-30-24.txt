@@ -1,0 +1,47 @@
+Mentor Meetin for 1-30
+
+Documents are currently "moving" from what Ethan said but our priority should be Risk Reduction activities from technical TA
+Everything is due at the end of next week 
+Our System Design Report requires that the risk reduction activities done
+
+Our front end has been making progress with initial errors being addressed 
+- Getting the arranged groups displayed is important 
+
+We can upload the the CSV
+- Make the file we need to parse as simple as possible
+	- Break it into two files, one for projects and one for students
+	- Make sure that they have the same features 
+	- "Parsing is hell" Mentor says from experience
+	- Any data not entered must be flagged and noticable (we need version 1 as soon as possible)
+	- Definitely use the Data Labs and Data Principles tools like Pandas or Numpy tools 
+- Make sure to have some kind of version, can make it user friendly later 
+	- Make a note for later so to not forget about features not yet implemented or also a comment 
+	- Stay within the bounds of the assignment 
+	- Just list the catagories in one file to try and compare to the projects and students 
+		- Again flag any problematic data 
+		- Make sure we have an agreement on the data structures for ease of implementations 
+		- Front end should flag any issues for risk mitigation 
+- One structure for students and one for projects 
+- Need to get this done by Friday 
+
+We need a way to display code for 1.0 and that is critical 
+- Need layout for react 
+
+Design Report is at the end of next week 
+
+The different algorithms are a pain so we should focus on getting the simplest first and modify it from there
+- Editing is easier than creating 
+
+We need code by the next time we meet
+- Basic Display, Simple Algo, Reasonable Data Structure
+
+We are running a little late so we need to have code to show 
+
+
+Post Meeting Notes with Team 
+Data strucutre (Pandas Dataframes)
+- Array of Students 
+	- Use dataframes with rows for each students, columns for features
+- Array of Projects
+	- Use dataframes with rows for each projects, columns for features
+- We all have experience with pandas so we can figure out errors together 

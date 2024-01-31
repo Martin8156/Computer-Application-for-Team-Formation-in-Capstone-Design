@@ -1,0 +1,24 @@
+First step of risk reduction activity is is to demonstrate that product will work or not
+
+And to test something, there are uncertainties, and you want to eliminate that as much as possible. So you can do something. First type of risk reduction activiites, and he generalized that to include some sort of your work into your risk reduction activiites, you can implement something that you will use later on. 
+
+Minimum viable product. I will suggest what is the goal for risk reduction activities. A set of your end goal. 
+
+What do we deliver in terms of risk reduction activity- 
+
+some examples - needed to deploy something to the internet, so they implemented a webpage that can store into a database
+
+separate risk reduction to deploy a webpage which is part 1, and how to save the data which is part 2. 
+
+There are three parts of your case, webpage, sorting, and such. I would say dive a bit deeper on two, not all three. each individual must submit a risk reduction activity report. independent experiment. 
+
+Accomplished by all. 
+
+you need to have a group risk reduction activity. 
+
+a page describing what you did. There are descriptions, submit a report.
+Most emergent thing is to finish your risk reduction activities, and system design report. 
+
+Revised System Design Report in the current class due week 6. 
+
+For the weekly meeting, I would suggest for the 10 and 15 minutes, and I would have what we plan to do for the coming week and stuff. The rest of the time is what we need to solve. You might not need as much as others in terms of time. 

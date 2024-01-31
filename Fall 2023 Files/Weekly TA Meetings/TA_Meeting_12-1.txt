@@ -1,0 +1,10 @@
+Quick Notes (TA meeting 12-1)
+- Gabe should email Dennis about his absence 
+- We need to turn in peer assessment 3
+- We can do the project report and prior art report by the coming Monday 
+- We need to attend the project showcase next Monday
+- For the standards section requires a statement on the sort of relevant regulations for data collection for ethical practice and legality (he doesn't seem to care much about it as he does technical grading)
+	- This also includes following IEEE standards for the transfer of data so that others can use it
+- We will have to specify who will be presenting the risk reduction activities and project report for next semester
+- We have to have the risk reduction activities and the system design report done in the first four weeks of the next semester
+- Grades based on stuff we turned in and meetings we attended 

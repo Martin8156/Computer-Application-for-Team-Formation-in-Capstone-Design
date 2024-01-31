@@ -1,0 +1,63 @@
+Team Meeting 1-22-2024
+
+Professor messaged us about previous meeting, she was teaching
+- Rescheduled for Wednesday 1-23 @ 1pm to 2pm
+
+Objective, achieve a minimum viable product for the future groups to finish
+- We have some debt from last semester that we need to conclude
+- We have presentations as well as some more reports for this semester
+
+Minimal Viable Product
+- Take in a set of data and create groups
+- No additional data and no additional questions
+- Give data in a CSV and output CSV or Excel 
+
+Academic Debt = System Design Report and Risk Reduction Activities and Risk Reduction Plan
+- We have till the 4th week of school, probably by the Dennis meeting to get this done (MAKE SURE ABOUT THIS DUE DATE)
+	- We need 5 Risk Reduction Activities (3 individual and 2 teams)
+		- Risk Reduction Activities = Concrete Objective tasks to see how they work 
+		- Individual is for smaller sections of the groups and Team is for the whole group, less applicable for a team of 3
+		- Need to come up with some risk reduction activities
+			- Ability to translate CSV to Python
+			- Ability to translate Python to CSV
+			- User interface that allows easier upload of CSV
+			- User interface that displays information of finalized groups
+			- Valid Solution Checker, checks for irregularities 
+	- The Risk Reduction Plan
+		- Not an assignment but a link with an upload?
+		- ASK DENNIS about
+		- Supposed to be made with the technical mentor and TA to help figure out activities
+	- System Design Report
+		- Has instructions and ruberic
+		- A design approach, concept, and how we plan to achieve it
+		- A test plan and talks about risk reduction activity
+		- Also asks for several management explainers for how we structure ourselves including schedule and budget
+
+This Semester Deliverables = Project Presentation Poster, Project Video, Oral Final Report, Written Final Report
+- Project Presentation Poster
+	- Banner Poster to show in oral presentation
+	- Must go to a workshop on poster design 
+- Project video
+	- Time is 2min to 5min
+	- Like a power point with specific look requirements
+- Oral Final Report
+	- Showcase to stakeholders
+- Semester Writings 
+	- Like updates on our current situation 
+- Peer Assessment (1 through 3)
+
+If push comes to shove, we can have a crunch night to finish up the Academic Debt before the final due date 
+
+We don't have a super big plan of where everything goes froma more technical level. We have a big picture but we need to individual steps 
+
+We don't have an algorithm to actual assign people.
+- We need to create a plan for the algorithm
+	- Take inspiration from other universities for the algo to create a minimum viable product  
+	- Need to get this our quick to know what to fill out 
+
+
+Next Steps
+- Nate - Get a basic risk reduction activity like getting a CSV file to python in a readable file
+- Ethan - System Design report work
+- Gabe - Working on a front end including interactions with CSV files 
+		- 
