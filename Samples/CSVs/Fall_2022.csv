@@ -1,0 +1,400 @@
+﻿"Name [Last, First]",EID,GPA,Honors or SP Project?,"AAA Please list the Project number, Title, and (if available) Faculty Mentor here, if any",,"Communication, Signal Processing, Networks and Systems",Electronics and Integrated Circuits,Energy Systems and Renewable Energy,"Fields, Waves and Electromagnetic Systems", Nanoelectronics and Nanotechnology,Computer Architecture and Embedded Systems,Data Science and Information Processing,Software Engineering and Design,internet of things (IOT), internet / connectivity,"battery chargers, power",Rust programming,C programming,computer-aided design (CAD),machine learning principles,robotics,mechatronics," FreeRTOS, IWi-SUN, CoAP, and IPv6 multicast",algorithm design,system modeling,dynamics,UX flow,system modeling,control systems,hardware interfacing,FPGA,image processing,RF signal processing,sensor characterization,design of experiment,navigation algorithm,blockchain,5G Networks,Hardware or software?,Non-Disclosure Agreement?,Intellectual Property Waiver?,Avail lab days,A person to team with?,EID ,importance level?," I1  Machine learning for Digital Predistortion (DPD) (Rohde&Schwarz USA)                  Type of Project: Software Only 
+ 
+Technical Cores: 
+• Electronics and Integrated Circuits 
+• Data Science and Information Processing 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: Knowledge in Machine Learning principles 
+ 
+Intellectual Property Requirements: IP Agreement, NDA ","I2: Sprayer Pump Control (John Deere)                                                                             Type of Project: Software Only 
+ 
+Technical Cores: 
+Software Engineering and Design                           Signal Processing 
+ 
+Additional Technical Specialization: Controls Engineering,                  Controls Theory,                              algorithm design
+ 
+Intellectual Property Requirements: None ","I3: Smart sensor (Radar and/or Stereo Camera) (John Deere)                   Type of Project: About equal Hardware and Software 
+ 
+Technical Cores: 
+Embedded Systems 
+ 
+Additional Technical Specialization: (see description)                                      FPGA,                                    
+GNSS AW2
+ 
+Intellectual Property Requirements: None      ","I4: Shading Detection (John Deere)                    Type of Project: Software dominant, with some hardware requirement 
+ 
+ 
+Technical Cores: Data Science and Information Processing 
+ 
+Additional Technical Specialization: (see description) 
+GNSS receiver (e.g. a uBlox receiver)              
+machine learning techniques  
+ 
+Intellectual Property Requirements: None  ","I5: Inertial Sensor and Inertial Navigation Techniques (John Deere)                                                               Type of Project: About equal Hardware and Software 
+ 
+Technical Cores: Embedded Systems 
+ 
+Additional Technical Specialization: (see description) 
+ sensor characterization,                   design of experiment, 
+navigation algorithm
+ 
+Intellectual Property Requirements: None  ","I6: UX Flow and procedure to systematically determine implement dimensions (John Deere)                     Type of Project: Software only 
+ 
+Technical Cores: 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: (see description) 
+ GPS/IMU data
+ 
+Intellectual Property Requirements: None    ","I7: Vehicle crab detection using Wheel Angle Sensor data (John Deere) 
+Type of Project: Software only 
+ 
+Technical Cores: Software Engineering and Design 
+ 
+Additional Technical Specialization: (see description) 
+Algorithm design                                           system modeling,                                          dynamics
+ 
+Intellectual Property Requirements: None ","I8: S-ing detector (John Deere)                                          Type of Project: Software only 
+ 
+Technical Cores: 
+• Embedded Systems 
+• Data Science and Information Processing 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: (see description) 
+ GPS/IMU data 
+ 
+Intellectual Property Requirements: None ","I9: A means for an active antenna module to send a short, fixed data message to a receiver module when powered up (John Deere)                                   Type of Project: Significant hardware with some software component 
+ 
+Technical Cores: Embedded Systems 
+ 
+Additional Technical Specialization: 
+ RF Circuit Design 
+ RF signal source and modulator. 
+ 
+Intellectual Property Requirements: None  ","I10: BreakerBOT 2.0 (RWE Renewables Americas)                                                                               Type of Project: About equal Hardware and Software 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Energy Systems and Renewable Energy 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: 
+Special request for mechanical engineering student or someone with a mechatronics and CAD 
+background. 
+ 
+ 
+Intellectual Property Requirements: IP Agreement; NDA ","I11: Loop breaking of strongly connected component in a graph (Cadence Design System)                             Type of Project: Software only 
+ 
+Technical Cores:  Software Engineering and Design 
+ 
+ 
+Additional Technical Specialization: 
+ 
+ 
+Intellectual Property Requirements: IP Agreement  ","I12: Wi-SUN project for smart grid (Texas Instruments)                                      Type of Project: About equal Hardware and Software 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: 
+FreeRTOS, Internet protocols, Wi-SUN, CoAP and IPv6 multicast 
+ 
+ 
+Intellectual Property Requirements: None ","I13: Teleconferencing robot for hybrid office environments (Texas Instruments)                                                                                                        Type of Project: Software dominant with some hardware requirement 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: 
+Robotics, Mechatronics, Internet 
+ 
+ 
+Intellectual Property Requirements: None  ","I14: RUST programming for robotics (Texas Instruments)                                        Type of Project: Software dominant with some hardware requirement 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: 
+Rust programming, C programming 
+ 
+ 
+Intellectual Property Requirements: None  ","I15: LTE Cat M1/NB1 Cellular Gateway for TI LaunchPad (Texas Instruments)                                           Type of Project: About equal Hardware and Software 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: 
+IoT, Internet / Connectivity, C programming 
+ 
+ 
+Intellectual Property Requirements: None ","I16: Materials Handling System for Test Stations (Texas Instruments)                 Type of Project: Significant hardware with some software component 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Embedded Systems 
+• Software Engineering and Design 
+ 
+Additional Technical Specialization: 
+Robotics, mechatronics 
+ 
+ 
+Intellectual Property Requirements: None","I17: N-Gauge Battery Charger (Texas Instruments)                                                      Type of Project: Significant hardware with some software component 
+ 
+Technical Cores:  
+• Electronics and Integrated Circuits 
+• Energy Systems and Renewable Energy 
+• Embedded Systems 
+ 
+Additional Technical Specialization: 
+Battery chargers, power, analog 
+ 
+ 
+Intellectual Property Requirements: None        ","I18: Vision system for pipe straightness measurement (Tenaris)                                          Type of Project: About equal hardware and software 
+Technical Cores: 
+ Electronics and Integrated Circuits
+ Embedded Systems
+ Data Science and Information Processing
+ Software Engineering and Design
+Intellectual Property Requirements: IP Agreement   ","I19: Application of Blockchain Technology for Identity & Location Management over 5G IoT (Boeing)                                     Type of Project: Software dominant with some hardware requirement 
+ 
+Technical Cores: Data Science and Information Processing 
+ 
+Additional Technical Specialization: Blockchain, IoT, 5G Networks 
+ 
+Intellectual Property Requirements: NDA; IP Agreement                                       ", I20: Delicate Balancing Act: Photonic Tensor Cores for Edge Compute  Download Delicate Balancing Act: Photonic Tensor Cores for Edge Compute (GXC),Honors Project Preference Please weight your interest in the following Honors projects (see Canva... - Project Interest - FH8: Extending an existing ISA (Prof. Yale Patt),FH11: Testing Java Compilers Using Template Java Programs (Prof. Milos Gligoric),FH13: Computer Architecture Explorer (Prof. Mattan Erez),FH14: Processor Simulator Validation Toolset (Prof. Mattan Erez),FH18: Modeling Tele-Operated Takeovers for Autonomous Vehicles Using Virtual Reality (Prof. Sandeep Chinchali),IH3: Solid Stat Transformer for 2023 International Future Energy Challenge (SynQor; Prof. Alex Hanson),unique expertise or experience
+Name01,EID001,NA,No,i04,,3,2,1,1,1,3,5,5,1,3,1,1,3,2,5,1,1,1,4,3,3,3,3,2,1,3,3,1,1,1,2,4,3,Software,Yes,Yes,"Mondays,Wednesdays",No,,,4,1,1,"DS5,SW5,ML5-MW-3",1,2,1,3,1,1,4,1,1,1,1,1,1,1,4,1,2,3,1,3,2,1,
+Name02,EID002,NA,No,i10,,4,1,5,3,2,3,3,4,4,4,4,3,3,3,3,4,4,3,3,4,5,3,4,3,3,3,3,2,3,4,3,3,5,Both,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,No,,Very Important,1,4,3,3,1,3,3,3,3,5,1,3,1,1,3,3,3,3,1,1,1,1,1,2,4,5,
+Name03,EID003,NA,No,i12,,2,3,3,1,3,3,5,5,4,4,3,2,2,3,5,3,3,3,4,4,3,3,3,3,3,3,4,2,2,2,2,4,4,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID024,,4,3,2,2,3,4,4,3,2,3,2,"Pa*-DS5,SW5-MW-3",4,3,3,3,3,3,Good-5,2,2,3,3,3,4,3,
+Name04,EID004,NA,No,i17,,3,4,5,3,2,2,2,3,2,3,5,2,4,4,3,2,2,2,3,3,3,2,4,3,2,3,2,4,0,0,0,3,2,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,3,3,3,2,2,2,3,2,3,5,2,2,2,2,2,2,tr4-5,3,3,2,2,2,2,2,3,5,"I worked on a one month internship in summer regarding a Spanish Naturgy Renewable Energy project in MRC, so I've got more of an interest in the Renewable Energy based projects."
+Name05,EID005,NA,No,i17,,2,4,5,2,2,2,2,4,3,3,5,3,4,5,3,4,4,2,2,3,3,2,3,4,3,2,2,2,3,4,3,3,3,Software,No,Yes,"Mondays,Wednesdays",No,,,3,4,3,3,3,3,3,3,2,4,2,4,4,3,3,4,tr4-5,4,2,2,2,3,3,3,3,2,"Last summmer I was an intern in a battery company, thats why I think that I could really help with the I17: N-Gauge Battery Charger project"
+Name06,EID006,4,No,i08,,4,4,1,1,1,5,5,4,5,4,2,3,3,2,5,5,4,3,3,2,2,2,2,2,4,4,4,2,2,3,5,3,3,Both,Yes,"Yes, but I would rather not",Wednesdays,No,,,4,2,2,2,2,2,2,"ES5,DS5(ML5)SW4-W-2",2,2,2,2,2,2,2,2,2,2,4,2,5,2,5,5,4,1,"I am familiar with using PyTorch to write and train ML models. 
+I am familiar with using Android Studio Code to program Android apps. 
+I am familiar with using TorchScript to make ML models able to run on Android phones. 
+I have taken Computer Architecture class, and I am interested in doing it more. 
+I am excited to do projects related to ML and computer architecture. "
+Name07,EID007,3.96,No,i01,,3,1,1,1,3,3,5,5,5,4,2,3,3,2,5,3,3,2,5,4,2,3,3,3,2,1,5,4,2,3,4,4,3,Software,"Yes, but I would rather not","Yes, but I would rather not",Mondays,Yes,EID029,Very Important,"DS5,SW5,ML5-M--5",5,2,2,2,2,5,2,2,2,2,2,4,2,2,2,2,2,3,2,1,1,1,1,5,1,"N/A, but I have strong experience in Computer Vision and AI/ML applications!"
+Name08,EID008,3.94,No,i07,,2,2,3,1,2,3,4,5,3,3,2,2,2,3,4,4,4,2,4,3,2,3,3,3,3,2,4,2,3,3,3,3,2,Software,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,Yes,EID014,Very Important,4,2,3,4,2,2,tr4-4,3,2,5,3,2,5,2,3,2,2,3,3,3,2,2,3,3,3,3,
+Name09,EID009,3.93,No,i10,,2,3,1,1,1,5,1,4,5,5,3,1,5,5,2,4,4,1,4,3,1,1,1,1,5,4,1,1,4,4,1,1,1,Both,Yes,Yes,Mondays,Yes,EID040,Very Important,1,1,1,1,1,1,1,1,3,5,1,4,4,5,3,1,1,1,1,1,1,1,1,1,1,1,"I'm looking to request to be assigned with a trio rather than just one other person. Because of my disability, I have challenges with communication and other things, so if I am able to work with both of these two individuals, it would make it much easier for myself and for the remainder of my assigned group. They already know how I work and can help me communicate with whomever I end up with. Not only this, but it limits the amount of people who need to be aware that I am an SSD student to only those who already know."
+Name10,EID010,3.93,No,i14,,4,5,1,2,1,5,5,5,5,5,4,5,5,5,4,5,5,5,4,4,1,1,4,2,5,5,2,2,2,3,4,1,1,Both,Yes,Yes,"Mondays,Wednesdays",Yes,EID025,Very Important,1,1,1,1,1,1,2,1,1,1,1,3,3,tr2-5,3,1,1,1,1,1,1,1,3,1,1,1,"Project: I14 RUST programming for robotics
+
+Experience:
+- Started the initial research and development of running bare metal Rust firmware on Tesla‚Äôs proprietary Autopilot SoC, got a Rust demo running
+- Extensive experience with firmware, Rust, scripting, robotics
+- Previous robotics experience with 3 years of IEEE Robotics and Automation Society leader + FIRST robotics competition
+"
+Name11,EID011,3.91,No,i08,,1,1,1,1,2,4,3,5,4,3,2,3,5,3,3,2,2,2,3,4,3,2,3,3,3,2,2,1,2,4,4,3,3,Software,Yes,"Yes, but I would rather not",Wednesdays,No,,,4,4,3,4,4,3,3,"ES4,SW5-W-3",1,3,1,2,4,5,2,2,1,3,1,3,2,5,2,2,1,1,
+Name12,EID012,3.9,No,i10,,1,2,1,1,1,5,4,5,5,4,1,5,5,1,4,3,2,4,4,1,2,1,1,4,5,5,3,1,1,4,1,3,3,Both,Yes,Yes,"Mondays,Wednesdays",Yes,EID040,Very Important,3,1,1,1,1,1,3,1,5,5,4,5,5,5,4,1,1,1,2,5,5,4,5,5,3,1,
+Name13,EID013,3.89,No,i03,,2,4,2,2,1,5,1,4,4,3,3,3,4,4,1,5,2,2,3,2,1,1,3,2,5,4,3,3,3,3,3,2,2,Hardware,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,No,,,3,1,"IC4,ES5,SW4,FPGA4-W-5",4,4,2,2,2,2,3,3,5,4,5,4,3,4,2,3,4,3,4,2,3,5,5,
+Name14,EID014,3.89,No,i07,,1,1,1,1,1,3,3,5,1,1,1,2,4,2,2,2,2,1,4,3,3,5,3,2,2,2,3,2,1,3,4,3,3,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID008,Somewhat Important,3,3,2,3,2,5,tr4-5,3,1,1,4,4,5,4,3,2,1,4,no-5,2,2,2,2,1,3,1,
+Name15,EID015,3.89,No,i14,,1,2,1,1,1,5,3,5,5,5,2,5,5,2,2,2,1,5,5,2,2,4,4,4,5,4,2,2,2,3,3,2,2,Both,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,2,2,2,2,3,2,3,2,2,3,2,3,3,tr2-5,3,3,1,2,2,2,4,4,2,2,2,1,
+Name16,EID016,3.88,No,i07,,1,1,1,1,1,3,4,5,3,2,1,3,3,1,4,2,2,1,5,4,2,3,4,3,3,3,4,1,1,5,4,3,3,Software,Yes,Yes,Wednesdays,Yes,,,3,4,4,3,3,4,tr4-5,5,3,1,2,2,5,2,2,2,1,3,4,3,1,5,1,1,4,3,
+Name17,EID017,3.86,No,i13,,5,3,2,3,1,4,4,4,4,4,3,1,4,5,4,4,4,1,2,2,2,2,2,4,3,2,4,4,3,3,2,2,2,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID046,,2,2,3,2,3,2,2,2,3,5,1,3,"Pc-(SP5)ES4,DS4,SW4-MW-5",1,2,3,2,1,2,1,1,1,1,1,4,1,I have lots of MCAD Experience for the Breakerbot project
+Name18,EID018,3.84,No,i06,,2,3,2,2,2,5,3,4,5,3,3,2,5,4,1,3,3,2,4,3,2,3,4,5,5,4,2,2,3,3,4,1,1,Both,Yes,"Yes, but I would rather not",Mondays,No,,,1,4,4,4,4,"ES5,SW4-M-4",4,3,2,3,1,2,3,3,3,3,3,3,1,3,2,3,3,3,3,3,
+Name19,EID019,3.83,No,i09,,2,5,4,4,2,4,1,3,3,3,4,1,5,2,1,4,4,1,1,2,1,1,1,1,5,4,1,2,4,3,1,1,1,Hardware,Yes,Yes,"Mondays,Wednesdays",Yes,EID059,Very Important,1,1,5,1,2,1,1,1,"Pd-IC5,ES4-MW-5",1,1,3,1,1,4,4,5,5,1,1,3,3,3,3,3,3,"I have a good GPA, but I would strongly prefer to not be on an honors project due to the academic and extracurricular load I have this year. "
+Name20,EID020,3.77,No,i13,,1,1,1,1,1,2,4,5,2,1,1,1,4,2,4,2,2,2,5,1,1,1,2,1,1,,1,1,1,1,4,1,1,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID099,3,3,4,2,4,2,4,3,2,2,3,4,2,"Pd-(DS4)SW5,ML4-MW-4",2,2,2,2,3,3,2,1,1,1,1,1,1,"Good at algorithms and software, decent at data science. Really bad at literally everything else "
+Name21,EID021,3.75,No,i02,,3,4,1,1,1,2,3,5,4,4,3,2,4,4,3,3,3,3,4,4,2,5,4,3,3,2,2,2,2,4,4,3,3,Software,Yes,Yes,Mondays,Yes,EID028,Very Important,5,"SW5(IC4)AD4,5",1,2,2,3,2,2,2,2,2,4,3,1,3,2,2,2,5,1,2,5,1,1,5,1,"My team is currently Danny Do, Jorgan Magbag, Ethan Pham, Anish Ganti, Steven Shan and we would like to work on I19, FH11,I2,I1. We would all like to work on a software only project. "
+Name22,EID022,3.71,No,i07,,1,1,1,1,1,3,4,5,1,1,1,3,4,1,3,2,1,1,4,3,1,4,3,1,1,1,1,1,1,3,4,1,1,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID039,Very Important,2,3,1,4,2,5,tr4-5,3,1,1,1,1,5,2,2,1,1,1,4,1,1,2,1,1,4,1,
+Name23,EID023,3.7,No,i02,,4,2,3,2,2,2,4,5,3,4,4,4,5,3,4,4,3,3,5,3,3,3,3,3,3,3,4,3,3,3,3,4,4,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID033,Very Important,4,"Pair-SW5,AD5-MW-4",4,2,2,2,2,3,3,3,3,3,4,3,2,2,2,4,5,3,3,3,3,3,4,3,
+Name24,EID024,3.7,No,i12,,4,5,4,3,3,4,2,4,3,3,4,1,3,2,2,3,4,3,2,4,3,2,4,4,4,3,4,4,3,3,1,3,3,Hardware,Yes,Yes,"Mondays,Wednesdays",Yes,EID087,Somewhat Important,3,2,4,1,1,1,1,1,2,5,1,"Pa-IC5(Eng4)ES4,SW4-MW-4",5,1,3,4,2,1,4,3,2,1,2,2,4,3,"As I am the only ECE Exchange Student coming from UCL, I don't have any team partner restrictions. 
+"
+Name25,EID025,3.7,No,i14,,2,3,2,2,1,5,4,5,3,3,2,5,5,4,4,5,4,3,5,4,4,3,3,3,4,4,2,2,2,4,3,3,2,Both,Yes,Yes,"Mondays,Wednesdays",Yes,EID010,Very Important,1,2,1,2,2,3,3,3,1,4,3,4,1,tr2-5,1,2,1,1,4,1,4,4,3,3,1,1,
+Name26,EID026,3.7,No,i18,,4,4,5,3,1,2,2,2,3,3,5,3,4,2,3,2,2,2,2,2,2,1,2,4,4,1,1,3,1,3,2,2,2,Hardware,Yes,Yes,"Mondays,Wednesdays",Yes,EID085,Very Important,1,3,3,4,4,2,4,1,3,4,3,5,3,2,3,5,4,Pair IC4-MW-4,2,2,2,2,1,1,1,4,
+Name27,EID027,3.66,No,i15,,4,4,2,2,1,5,4,5,4,4,2,1,5,4,4,4,4,3,4,3,3,3,5,5,5,4,5,3,3,2,4,4,4,Software,Yes,Yes,Wednesdays,Yes,EID043,Somewhat Important,2,2,2,2,2,2,2,2,2,5,2,4,2,4,tr3-4,2,2,4,5,4,3,3,3,3,3,3,
+Name28,EID028,3.64,No,i02,,2,2,1,1,1,3,4,5,4,4,3,2,4,3,4,2,2,4,4,4,2,2,2,2,2,4,3,3,3,4,4,4,4,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID023,Very Important,5,"SW5,AD4-MW-5",5,5,3,3,3,3,3,3,3,3,5,3,3,3,3,3,5,3,3,5,3,3,5,3,
+Name29,EID029,3.63,No,i01,,1,1,1,1,1,2,4,5,2,3,2,1,3,2,4,3,2,2,5,3,2,3,3,3,3,5,3,2,2,3,5,3,3,Software,Yes,Yes,Mondays,Yes,EID034,Very Important,"DS4-SW5-FPGA5,NA5-M--5",5,2,2,2,2,5,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,4,1,
+Name30,EID030,3.6022,No,i06,,2,4,3,3,3,3,3,5,4,3,3,2,3,4,3,4,3,3,4,3,3,4,3,3,4,4,3,3,3,3,3,3,3,Both,Yes,Yes,"Mondays,Wednesdays",Yes,EID045,Very Important,2,4,3,3,3,"UX4,SW5,-MW-5",5,3,2,3,1,1,1,1,1,1,1,1,1,3,1,1,1,1,4,1,
+Name31,EID031,3.56,No,i06,,2,3,1,2,1,3,4,5,3,3,3,1,4,5,3,5,5,1,5,3,4,5,4,4,3,3,2,1,4,4,4,1,1,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID030,Very Important,2,4,3,3,3,UX5-MW-5,5,3,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,
+Name32,EID032,3.56,No,i14,,3,5,3,3,3,5,4,5,5,5,4,5,5,4,4,5,4,5,5,5,3,4,5,3,5,5,4,3,4,4,4,3,4,Both,Yes,Yes,"Mondays,Wednesdays",Yes,EID010,Very Important,4,2,4,3,2,2,2,3,2,3,3,2,4,tr2-5,3,1,2,4,4,5,2,1,4,4,5,3,"I have a lot of experience with chips, designing and verifying, as well as a lot of experience writing firmware and embedded systems. I've helped with a bring-up process while I was at Tesla providing sensor information over a broken SPI peripheral using software fixes on custom hardware. Simultaneously, have experience writing code that leverages an RTOS, and to be production-ready. I've dabbled a little bit in every different technological field, so I think I have a pretty good understanding of multiple areas. "
+Name33,EID033,3.5558,No,i02,,2,2,2,2,2,4,4,5,3,4,3,3,4,2,3,3,2,1,4,3,2,3,2,2,1,1,2,1,3,3,4,4,4,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID062,Very Important,5,"SW5,AD4-MW-5",5,1,1,3,1,1,1,1,1,2,5,2,1,1,1,1,5,1,1,5,1,1,5,1,"My team submitted a project form and we really would be so grateful if we were able to work together, and the preferred members were:
+
+Danny Do, dhd444
+Jordan Magbag, jnm2925
+Anish Ganti, asg3273
+Ethan Pham, ehp425
+Atilano Garcia, ag69888
+Steven Shan, Ss89945
+
+I have a heavy bias towards software projects because I only have industry experience with software. "
+Name34,EID034,3.55,No,i01,,1,1,1,1,1,4,4,5,4,4,1,1,2,1,3,1,1,3,3,2,1,4,1,1,1,1,1,1,1,3,3,3,3,Software,"Yes, but I would rather not","Yes, but I would rather not",Mondays,Yes,EID007,Very Important,"DS4,SW5,-M-5",5,2,2,2,2,5,2,2,2,2,4,2,2,2,2,2,2,2,2,1,1,1,1,5,1,
+Name35,EID035,3.55,No,i11,,1,1,2,1,1,2,2,5,4,3,1,3,3,3,2,1,1,2,1,2,1,4,2,2,2,2,1,1,2,2,2,4,4,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID055,3,3,3,2,2,2,3,3,2,1,1,tr5-3,1,3,2,1,1,1,1,no-5,1,1,1,1,1,5,1,
+Name36,EID036,3.54,No,i12,,3,4,3,4,3,4,4,5,4,4,4,3,3,2,4,4,3,2,4,3,3,3,4,3,4,3,4,3,3,2,4,4,3,Both,Yes,Yes,"Mondays,Wednesdays",No,,,4,3,4,2,3,4,2,3,2,4,4,"IC4,ES4,SW5-MW-5",4,3,4,3,3,2,fours&5-5,3,2,3,3,3,4,3,
+Name37,EID037,3.52,No,i04,,5,1,1,4,1,4,5,3,3,3,2,2,4,2,5,4,3,1,4,3,,2,4,5,4,2,5,5,3,3,4,2,4,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID088,Very Important,4,4,2,"ES4,DS5,ML5-MW-4",1,1,1,2,1,1,4,1,5,3,2,2,1,3,4,3,3,3,3,3,3,3,
+Name38,EID038,3.49,No,i05,,2,2,1,1,1,5,4,5,5,4,3,2,5,2,4,3,3,3,4,4,2,3,3,3,4,3,3,2,2,2,4,4,3,Both,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,5,1,2,3,"ES5,DS4,SW5-MW-2",2,1,2,1,2,4,2,5,5,3,2,2,1,5,3,4,4,4,2,4,1,"I have had a role at Intel doing embedded development for the last 3 months and will be staying at Intel doing this work until I graduate. I have some experience building ML models as well as blockchain development. With that I would very much like to stay in the space of edge embedded development, robotics ML, or blockchain applications. A combination of any of these being most preferred. Thank you!"
+Name39,EID039,3.47,No,i07,,1,1,1,1,1,2,3,5,1,1,1,3,4,2,1,1,1,1,4,1,1,4,1,1,1,1,1,1,1,1,4,2,1,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID022,Very Important,2,4,2,2,3,5,tr4-5,2,2,3,3,3,5,4,2,2,2,2,4,2,2,2,2,3,3,3,N/A
+Name40,EID040,3.47,No,i10,,3,5,2,2,2,5,2,3,4,4,4,2,4,3,2,3,2,2,3,3,2,2,2,2,4,5,2,2,2,3,3,2,3,Both,Yes,Yes,Mondays,Yes,EID012,Very Unimportant,3,3,3,3,3,3,3,3,4,5,3,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,"As Requested by Chet Pena, I would like to work with them and William. Chet Pena is a very well-intentioned person; however, they have some serious mental health issues that cause them to suffer a lot when people do not understand their condition and feelings. William B. and I know Chet well and would be very considerate of their condition and attitudes, we would also help integrate them into another group gently. "
+Name41,EID041,3.47,No,i16,,4,5,1,3,2,4,4,4,4,4,3,1,4,3,1,1,1,1,3,3,3,4,2,3,2,4,2,2,2,4,4,2,2,Hardware,Yes,Yes,Wednesdays,No,,,1,1,5,1,1,5,1,1,1,5,1,1,5,1,1,tr1-5,1,1,1,1,1,1,1,1,1,1,
+Name42,EID042,3.46,No,i03,,4,4,4,2,1,5,5,5,2,2,4,3,4,5,5,5,5,1,3,2,3,2,2,4,4,1,5,2,1,,4,4,1,Both,Yes,Yes,Wednesdays,No,,,1,2,4,3,4,1,1,2,1,5,1,3,3,3,1,1,1,1,3,1,1,1,1,1,4,1,"I do robotics research here in UT's Autonomous Mobile Robotics Lab and have extensive experience designing, building, and working with robots. I believe this would make me a great fit for the Breakerbot project."
+Name43,EID043,3.45,No,i15,,4,4,2,2,2,5,5,5,3,3,3,3,5,3,4,4,3,2,5,4,3,3,4,4,4,4,4,3,4,4,5,5,5,Software,Yes,Yes,Wednesdays,Yes,EID027,Very Unimportant,3,2,3,3,2,3,3,3,3,5,3,4,3,4,tr3-4,2,3,4,YES-5,4,3,3,3,3,3,3,
+Name44,EID044,3.44,No,i17,,3,battery 5,5,3,2,4,2,4,3,3,5,2,4,5,3,4,4,1,2,1,1,1,1,3,3,4,3,3,3,2,2,1,2,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,1,1,2,1,2,1,1,1,1,3,1,2,1,3,1,1,tr4-5,2,1,4,1,1,2,1,2,4,
+Name45,EID045,3.43,No,i06,,3,3,1,2,1,2,4,5,2,2,1,1,4,4,5,5,3,1,5,5,5,5,5,3,2,2,2,1,5,4,4,1,1,Software,Yes,Yes,"Mondays,Wednesdays",No,,,2,4,3,3,3,"UX5,SW5-MW-5",5,3,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,
+Name46,EID046,3.43,No,i13,,2,4,5,3,1,2,2,4,3,3,5,1,4,4,3,3,4,2,4,4,2,4,3,3,4,3,2,2,2,2,2,1,1,Hardware,Yes,Yes,"Mondays,Wednesdays",yes,EID017,Very Important,1,1,1,1,1,1,1,1,1,5,1,1,Pc-IC4(Energy5)ES4(DS4)SW4-MW-4,1,1,1,3,1,1,1,1,1,1,1,3,3,"Worked as a project manager role with Projects with Underserved Communities, a program where engineering students fundraise, develop, and design a sustainable, impactful project for a community abroad. 
+
+I also worked at an engineering consulting firm, Burns and Mcdonnell, where I designed distribution circuits for utility clients. I enjoy working with hardware equipment that interfaces with the grid. "
+Name47,EID047,3.4,No,i04,,4,2,1,2,4,4,5,5,4,4,2,1,4,5,5,5,5,5,4,4,2,5,4,4,2,2,5,4,2,4,3,1,4,Both,Yes,"Yes, but I would rather not","Mondays,Wednesdays",No,,,2,2,5,"ES4,DS5,SE5,ML5-MW-5",4,4,4,4,5,4,1,2,1,1,3,1,1,2,1,2,1,1,1,1,2,2,"Somewhat ambivalent to projects, however, John Deere are most interesting. Published medical robotics paper using computer vision and image processing. "
+Name48,EID048,3.4,No,i06,,3,4,1,2,1,5,4,5,3,3,3,1,5,4,1,1,1,1,4,4,4,4,4,4,4,4,2,2,4,4,4,1,1,Both,Yes,Yes,"Mondays,Wednesdays",No,EID017,,1,5,4,3,4,"ES5,SW5,UX4-MW-4",4,4,5,5,1,1,1,1,5,4,4,2,1,3,4,1,4,3,3,2,
+Name49,EID049,3.4,No,i16,,3,4,1,1,1,5,2,5,4,4,2,3,4,5,2,5,5,2,3,4,4,4,4,4,4,2,3,2,3,5,5,3,3,Both,Yes,Yes,Wednesdays,Yes,,Very Important,3,4,5,3,2,3,4,2,2,5,2,2,5,4,2,tr1-5,1,4,3,3,2,2,2,2,4,2,I have two patents in robotics and have a strong background in robotics. Additionally I won the EE 445L design competition last year
+Name50,EID050,3.39,No,i16,,3,3,1,1,1,4,3,5,3,4,2,3,5,5,3,4,4,2,5,3,3,3,3,4,4,3,4,3,3,3,3,3,3,Software,Yes,Yes,Wednesdays,Yes,EID065,Somewhat Important,3,4,5,4,4,3,4,4,3,5,4,3,5,5,2,tr1-5,2,3,2,3,1,1,1,1,1,1,
+Name51,EID051,3.38,No,i19,,1,1,1,1,1,2,5,5,3,4,1,3,5,1,5,3,1,1,5,2,2,2,4,1,3,1,4,2,2,5,5,4,3,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,5,1,5,4,4,3,4,2,2,5,2,5,5,4,3,3,1,5,"*DS5,SW5,ML5 maybe-MW-5",4,1,1,1,1,5,1,I have computer vision experience with tensor flow and opencv from my time working at a computational biology lab on campus. My primary desired project is anything that involves machine learning or its applications.
+Name52,EID052,3.37,No,i15,,5,4,2,3,3,2,1,1,4,4,4,2,4,3,2,3,3,3,2,2,3,2,2,3,3,3,4,4,4,3,3,4,4,Hardware,Yes,Yes,"Mondays,Wednesdays",Yes,EID078,Somewhat Important,2,3,4,4,4,3,3,3,4,5,2,5,2,4,tr3-5,3,4,4,5,4,4,3,3,3,3,3,If I can get on a project with signal processing or hardware component that would be ideal.
+Name53,EID053,3.35,No,i15,,3,5,4,2,2,3,4,3,4,4,5,3,3,3,3,4,3,3,3,3,3,2,2,4,5,5,4,4,4,4,3,4,4,Hardware,Yes,Yes,"Mondays,Wednesdays",Yes,EID092,3,2,3,5,2,2,2,2,2,5,5,2,5,2,5,tr3-5,3,3,4,fours and threes-5,4,3,3,3,3,3,3,"I am part of the Texas Rocket Engineering Lab, TREL, here at UT and I am the current Responsible Engineer for the Payload-Avionics division, where it is my job to manage my team of fellow student engineers and help design a PCB system, battery power delivery system, and sensor integration for data collection for our payload mission. "
+Name54,EID054,3.35,No,i19,,1,1,1,1,1,3,5,5,4,4,2,2,4,3,5,3,3,3,5,3,3,3,3,2,1,1,1,1,1,1,3,3,3,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID066,Very Important,5,5,3,4,3,5,5,5,1,1,4,2,4,4,2,1,1,3,"*DS5,SW5-MW-4",3,1,5,1,1,5,1,
+Name55,EID055,3.34,No,i11,,3,3,3,3,3,2,3,5,5,5,1,1,5,3,3,1,1,1,4,1,1,4,1,1,1,1,1,5,1,1,1,5,5,Software,Yes,Yes,Wednesdays,Yes,EID035,Very Important,4,4,1,4,1,4,4,4,1,1,tr5-4,4,1,1,1,1,1,4,Robably-5,1,1,1,1,1,1,1,"A group of people and I have a special interest in the I19 Boeing Industry project. We sent an email to Prof. Register with our preference list, but of course understand that we may not end up together. We all have interest in IoT, Blockchain, and 5G and specialized in software, which works best for this industry project. I know this must be a stressful process, so thank you for your time! "
+Name56,EID056,3.34,No,i14,,4,5,1,2,2,5,5,5,4,4,2,5,5,1,4,5,4,2,4,2,2,4,2,3,4,4,4,3,2,2,4,2,2,Software,Yes,Yes,"Mondays,Wednesdays",No,,,4,2,3,3,1,3,1,1,2,3,2,3,3,tr2-5,4,2,1,3,3,3,1,4,3,3,2,2,"While I am on the Data Science track, I believe my strong background in Embedded Systems and experience with C/Rust would make me a good fit for the Rust for robotics project with Texas Instruments. Thank you for your consideration."
+Name57,EID057,3.31,No,i10,,5,4,5,4,3,1,1,1,1,1,4,1,2,3,1,3,3,1,1,4,3,1,4,4,4,1,1,3,3,4,1,1,2,Hardware,Yes,Yes,"Mondays,Wednesdays",No,,,1,1,4,1,2,1,1,1,4,5,1,4,2,1,1,3,4,3,1,1,1,1,1,1,1,4,
+Name58,EID058,3.29,No,i18,,2,3,2,2,1,3,4,5,4,4,3,3,5,3,5,3,2,2,5,4,5,5,4,3,3,4,2,3,2,5,3,3,3,Software,Yes,Yes,"Mondays,Wednesdays",No,,,4,5,2,3,2,4,3,2,2,4,5,2,5,4,2,5,2,"DS4,SW5-MW-4",3,2,2,2,2,2,2,2,"I worked in the Technology Solutions Group for CoreLogic, acting as a product and project manager for prototype software development. I was in this role for six months, first as an intern and then as a professional. Because of this experience, I would be a particularly good fit in groups where there are wide, minimally overlapping areas of expertise across team members or where distinct roles rely on an especially deep understanding of each person's job/progress. I believe the abilities I developed in this role to identify and bridge gaps in communication/understanding would strengthen the efficiency of team operations. "
+Name59,EID059,3.27,No,i09,,3,3,4,4,2,3,3,2,2,2,4,2,3,2,3,2,2,1,1,1,3,3,2,4,4,3,3,3,3,3,3,2,2,Hardware,Yes,Yes,"Mondays,Wednesdays",Yes,EID019,Very Important,3,3,3,3,3,3,3,3,"Pd-Engergy4,E&M4,ES3-MW-3 ",3,3,3,3,2,2,2,3,3,2,2,1,1,2,2,3,3,
+Name60,EID060,3.25,No,i08,,3,3,1,1,3,4,5,5,3,3,3,2,5,4,4,5,3,3,5,3,2,5,2,3,3,3,4,3,3,4,4,3,3,Software,Yes,Yes,"Mondays,Wednesdays",No,,,2,4,4,2,3,3,5,"ES4,DS5,SW5(ML4)-MW-5",2,4,5,3,3,5,3,1,1,2,4,1,1,3,1,1,3,1,
+Name61,EID061,3.25,No,i19,,3,3,2,2,2,4,5,5,3,3,3,3,5,3,5,3,3,3,5,3,3,3,3,3,5,5,3,3,3,3,3,3,3,Both,Yes,Yes,Mondays,No,,,3,3,5,4,4,3,5,5,5,5,5,5,4,4,2,2,3,3,"DS5,SW5,FPGA5-5-5",4,5,3,5,3,5,2,Experience with FPGAs
+Name62,EID062,3.24,No,i02,,4,3,4,3,4,4,4,5,4,4,3,2,4,3,2,2,2,2,5,4,4,4,4,3,3,4,4,4,4,5,4,4,4,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID033,Very Important,4,"Pair SW5,AD5-MW-5",-5,-5,4,5,4,4,4,4,4,4,5,4,4,4,4,4,0,4,1,4,1,1,5,1,"I have most of experience in java and c, so I believe my skills will excel in a software based project, I personally think FH18 or FH11 are the best fit, as well as I2, I6, I13, and I19"
+Name63,EID063,3.24,No,i03,,3,3,3,3,2,2,3,5,3,3,3,2,4,3,3,2,2,3,4,3,3,3,3,3,2,2,3,3,3,3,3,3,3,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,3,3,"SW5,AD4-MW-3",3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+Name64,EID064,3.24,No,i12,,2,2,1,1,1,5,1,3,3,3,3,1,5,1,1,1,1,4,2,3,1,1,1,4,4,4,1,1,1,1,3,1,3,Both,No,No,"Mondays,Wednesdays",Yes,EID075,Somewhat Important,1,1,4,1,5,1,1,4,4,1,1,"ES5,Wi-SUN4-M,W--4-BROKE1",4,1,5,4,1,1,1,1,1,1,4,4,4,1,
+Name65,EID065,3.23,No,i16,,4,3,2,2,3,3,3,4,3,4,2,1,4,3,4,4,4,1,5,3,3,2,3,4,3,2,5,3,3,5,4,3,3,Both,Yes,Yes,Wednesdays,Yes,EID050,Very Important,3,4,5,4,2,2,2,3,4,5,3,1,5,1,2,tr1-5,3,4,4,1,4,3,2,2,3,2,"I have experience in highschool robotics, some CAD, computer vision, programing in java, python, c ect. Strong communication skills."
+Name66,EID066,3.21,No,i19,,1,1,1,1,1,3,2,5,3,3,3,3,5,4,5,4,4,1,5,4,3,5,4,1,3,4,5,3,5,5,5,5,5,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID054,Very Important,5,5,3,4,3,5,5,5,1,1,4,2,4,4,2,1,1,3,*5G5 blch5 - MW-4,3,1,5,1,1,5,1,
+Name67,EID067,3.2,No,i18,,3,1,2,2,2,4,5,5,4,4,2,2,4,3,4,4,2,3,4,4,2,3,3,3,2,2,4,2,3,3,4,4,4,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,4,2,4,4,3,3,4,2,3,3,3,3,4,3,3,2,3,"ES4,DS5,SW5-MW-4",4,4,4,4,4,4,5,3,"Hi, I definitely think I would fit better on a professor led project, as I do have experience working under multiple professors as research assistants. In addition, for one professor, I'm working with ML/AI, but am open to working on multiple technologies, but preferably on more software focused projects."
+Name68,EID068,3.19,No,i16,,3,5,3,3,3,4,3,4,4,4,4,2,5,4,3,4,3,3,3,3,3,3,3,3,3,5,3,3,3,3,3,3,3,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID065,Very Important,1,1,5,1,1,1,1,1,1,5,1,1,5,1,1,tr1-5,1,1,1,1,3,3,3,3,3,3,
+Name69,EID069,3.18,No,i07,,2,3,2,1,2,5,4,5,2,2,3,1,5,4,4,5,5,1,5,3,1,1,3,5,5,4,4,3,3,5,2,1,1,Both,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",Yes,EID016,Somewhat Unimportant,2,0,4,5,3,2,tr4-5,5,2,5,2,2,5,2,3,3,2,4,1,1,4,2,4,4,5,3,N/A
+Name70,EID070,3.16,No,i04,,2,1,1,1,1,2,5,4,2,2,1,2,4,5,5,5,4,3,2,3,2,2,2,1,1,1,4,3,1,3,2,3,3,Software,Yes,Yes,"Mondays,Wednesdays",No,,,5,2,1,"DS5,ML5-MW-4",1,1,2,2,1,1,1,1,1,1,1,1,1,2,4,1,1,1,1,1,3,1,"I am fairly comfortable with various machine learning models, as I have taken both Data Science Principles and Data Science Lab. I have developed a model in order to predict the popularity of a song given various elements from the Spotify API. I have also done a few basic tensor flow projects in order to develop a deep learning classifier on a dataset of street view house numbers. I have also worked with a team to develop a Siamese Neural Network to classify images for a Kaggle Competition. "
+Name71,EID071,3.16,No,i05,,4,2,1,2,1,4,4,4,4,4,4,1,4,3,3,2,2,3,4,3,2,3,2,3,4,3,3,2,3,4,3,3,2,Both,"Yes, but I would rather not","Yes, but I would rather not",Mondays,No,,,4,4,1,1,"SP4,DS4,ES4,SW4,DE4,NA3-M-1",1,4,1,1,1,1,1,3,1,1,1,1,3,1,4,1,1,3,3,1,1,"I have past/current experience running an IoT Lab as an intern. Currently headed down SwE/Design and DICE tracks. I have experience working with C++, Python, Java, Javascript, and shell/bash scripts. "
+Name72,EID072,3.14,No,i19,,3,3,2,1,1,5,5,5,5,5,1,1,4,2,5,4,4,1,5,5,3,4,5,5,3,4,2,1,3,5,4,2,1,Software,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,4,1,4,4,2,4,4,4,1,1,4,1,5,3,1,1,1,1,"*ES5,DS5,SW5,ML5, Prob, IOT, & prog-MW-5",2,1,3,5,5,5,1,
+Name73,EID073,3.11,No,i18,,3,5,4,3,3,4,3,4,4,4,3,3,4,4,2,2,2,3,1,1,1,1,1,1,3,4,1,2,3,1,1,1,3,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,3,4,3,4,4,4,4,4,4,4,3,1,3,1,2,3,2,"IC5,ES4,SW4 -MW-4",5,3,4,4,3,3,3,2,Interned at ti this summer doing EFA as a product engineer. FH6 seemed really interesting. I am slightly unsure about the time commitment for this class as i am taking probability and analog ic design
+Name74,EID074,3.09,No,i01,,1,1,1,1,1,4,5,5,4,2,2,2,4,2,4,2,2,2,4,2,2,2,2,2,2,2,4,2,2,4,4,4,2,Both,"Yes, but I would rather not",Yes,"Mondays,Wednesdays",Yes,,3,"DS5,SW5,ML4-MW-5",3,5,5,5,3,3,2,2,2,2,2,4,4,2,4,2,5,5,1,3,3,3,3,3,3,
+Name75,EID075,3.06,No,i08,,2,3,2,2,2,3,3,5,3,3,3,3,4,5,4,5,4,2,5,4,2,2,4,2,2,2,3,2,2,3,4,3,2,Software,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,Yes,EID064,Very Important,2,3,2,3,2,2,5,SW5-W-5-BROKE1,2,2,2,2,5,3,2,2,2,2,1,2,1,2,1,1,3,1,I am willing to cooperate with the software side of things in the project that you guys choose that I am a good fit for. 
+Name76,EID076,3.05,No,i11,,4,4,3,3,3,4,4,5,5,5,4,3,5,4,3,3,3,3,4,5,4,5,5,5,4,4,3,3,4,5,5,5,5,Both,"Yes, but I would rather not",Yes,Mondays,No,,,3,1,4,1,1,1,1,1,3,3,tr5-2,3,4,2,4,2,3,2,Yes 4s&5s-5,3,1,2,1,1,1,1,
+Name77,EID077,3.04,No,i17,,4,5,2,3,3,4,2,2,2,2,2,1,4,2,2,4,4,1,1,1,1,1,1,2,4,4,2,4,4,4,2,1,1,Hardware,Yes,Yes,"Mondays,Wednesdays",No,,,2,1,5,3,5,2,1,1,4,5,1,3,5,1,4,5,tr4-5,4,2,3,1,1,2,3,4,4,
+Name78,EID078,3.02,No,i15,,1,1,1,1,1,1,3,5,1,1,1,3,5,1,1,1,1,1,4,1,1,1,1,1,1,,1,1,1,3,3,4,1,Software,Yes,Yes,Wednesdays,Yes,EID043,Very Important,1,1,1,1,1,1,1,1,1,5,1,5,1,5,tr3-5,1,1,5,no-5,5,1,1,1,1,1,1,
+Name79,EID079,3,No,i13,,3,4,4,5,3,1,2,1,3,3,4,2,1,1,3,4,4,2,2,2,4,3,2,4,3,1,2,3,3,2,2,3,3,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,2,2,3,2,3,2,2,2,4,4,2,2,IC4(E&M5)-MW-4,2,3,4,4,3,2,2,2,2,2,2,3,3,
+Name80,EID080,2.99,No,i05,,3,2,1,2,1,5,5,5,5,5,1,5,5,4,3,5,4,2,4,5,1,5,5,5,3,2,4,1,2,2,4,3,2,Software,"Yes, but I would rather not","Yes, but I would rather not",Mondays,No,,,3,3,4,2,"ES5,DS5,SW5-M-2",2,4,4,1,1,3,3,5,5,1,5,1,3,4,3,4,4,4,3,4,1,
+Name81,EID081,2.99,No,i11,,2,1,1,1,2,2,5,5,5,4,1,3,5,4,4,4,3,2,5,3,2,5,3,2,3,2,5,3,3,3,5,5,5,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID082,Very Important,5,5,1,5,1,4,4,4,1,3,tr5-5,4,1,2,1,1,1,4,Absolutely-5,1,1,3,2,1,2,1,"I18, taking EE379k computer vision"
+Name82,EID082,2.96,No,i11,,5,1,1,1,1,1,5,5,5,4,2,4,5,4,4,4,2,5,5,2,1,4,2,1,1,4,4,2,1,1,5,5,5,Software,Yes,Yes,Wednesdays,Yes,EID081,Very Important,5,5,1,5,1,4,4,4,1,3,tr5-5,4,1,2,1,1,1,4,Absolutely-5,1,3,1,1,1,4,1,
+Name83,EID083,2.94,No,i05,,3,3,1,2,1,3,5,5,2,2,1,1,5,4,3,2,2,1,5,3,3,3,3,3,3,4,4,3,3,4,3,1,1,Software,Yes,Yes,Mondays,No,,,5,3,2,4,"DS5,SW5-M-2",2,4,4,2,3,3,3,2,1,4,2,2,3,3,2,1,2,1,1,4,2,
+Name84,EID084,2.91,No,i09,,4,5,3,5,4,3,3,4,4,4,4,3,3,3,4,5,5,3,3,3,3,3,3,4,4,3,2,2,3,4,4,3,3,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,3,3,4,3,3,4,4,3,"IC5,E&M5,ES3,SW4-MW-4",4,3,3,4,4,3,3,3,3,3,3,3,4,4,3,3,3,"I have done lots of testing on PCBs, so I'm 5 using most lab equipment."
+Name85,EID085,2.91,No,i18,,2,4,3,5,5,4,2,4,4,4,4,1,4,3,3,3,3,2,4,4,4,2,4,5,5,1,1,3,3,4,4,2,3,Both,Yes,Yes,Mondays,Yes,EID026,Very Important,2,2,3,2,2,2,3,3,3,3,3,3,3,3,5,3,5,"Pair-IC4,ES4.SW4-M-5",3,3,3,3,3,3,3,3,
+Name86,EID086,2.89,No,i10,,4,4,3,4,1,5,2,5,,,4,3,5,5,2,5,4,3,3,3,3,2,3,5,4,2,2,3,3,3,3,2,3,Both,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,2,4,"ES5,SW5-MW-4",4,4,3,4,4,4,"ES5,SW5-MW-4",3,1,4,4,2,3,3,3,1,1,1,2,2,2,4,1,
+Name87,EID087,2.88,No,i01,,4,5,4,3,2,4,5,5,4,5,4,3,2,2,5,4,2,2,3,2,3,2,2,2,4,5,2,5,2,4,2,2,3,Software,Yes,Yes,"Mondays,Wednesdays",No,,,"IC5,DS5,SW5,ML5-MW-4",1,4,4,2,2,2,1,2,2,2,1,5,2,2,2,2,2,2,2,1,1,2,1,1,1,"This current year (2022-2023) I will be working as an intern in a company called TD SYNNEX, which is a distributor for Cisco and they use Webex as a tool to do their conferences. I am very interested for the I13: Teleconferencing robot for hybrid office environments because in this company I will be working on related subjects (mostly software and cybersecurity for video conferencing). During this semester, I will develop my programming and software development skills and could have them sponsor us. 
+
+In addition, I am an exchange student from Spain and this project would be like my thesis. The only problem is that our university in Spain will not allow us to be in a team with anyone from the same university, which is Universidad Pontificia Comillas (ICAI). "
+Name88,EID088,2.75,No,i03,,5,4,3,4,2,5,4,3,5,4,3,2,4,4,4,5,2,2,4,5,5,3,5,5,4,3,5,3,4,3,4,2,5,Both,Yes,No,Wednesdays,No,,,4,4,"ES5, IP5,-W-- 5",5,5,3,5,5,2,4,1,2,5,1,3,2,5,4,3,4,4,1,2,2,5,2,"FH18/John Deere I3,I4,I8 - I'm a signal and systems student, working in studying on analyzing signals and control response. "
+Name89,EID089,2.74,No,i05,,2,3,1,3,1,5,3,5,2,4,1,1,5,,3,3,3,1,4,2,1,1,1,3,2,2,3,2,2,4,3,2,3,Software,"Yes, but I would rather not",Yes,Mondays,No,,,2,5,1,4,"ES5,SW5-M-11",1,1,2,1,4,5,1,3,1,2,3,1,2,3,1,1,5,1,1,3,1,"I know Java, Python, C, C++, and have interned as a Software Engineering Intern for the past two years"
+Name90,EID090,2.72,No,i15,,3,5,4,3,3,1,2,1,3,3,5,3,3,3,1,3,3,2,2,3,3,3,4,4,5,5,3,3,3,3,2,3,3,Hardware,Yes,Yes,Wednesdays,Yes,EID092,Very Important,1,1,1,1,1,1,1,1,1,5,1,5,1,5,tr3-5,1,1,5,NO-5,5,3,3,3,3,3,3,
+Name91,EID091,2.69,No,i12,,1,1,1,1,1,4,2,5,3,2,1,1,4,2,2,3,2,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,Both,Yes,Yes,Mondays,No,,,4,3,5,5,3,5,4,2,4,3,3,"ES4, SW5-M-5",3,5,3,2,3,3,2,3,3,3,3,3,4,3,
+Name92,EID092,2.68,No,i15,,3,4,2,4,3,4,3,3,3,4,4,2,5,3,3,3,4,3,3,3,3,,3,3,3,4,3,3,3,3,3,3,2,Both,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,Yes,EID090,Somewhat Important,3,3,3,3,3,3,3,3,3,4,3,3,3,3,tr3-5,3,3,3,4,4,3,3,3,3,3,3,
+Name93,EID093,2.66,No,i08,,2,2,3,1,1,1,4,5,3,3,1,3,2,2,2,2,1,1,3,1,1,2,1,1,2,1,1,1,1,3,3,3,3,Software,Yes,Yes,"Mondays,Wednesdays",Yes,EID017,3,4,1,1,3,1,5,5,"DS4,SW5-MW-3",1,1,2,2,4,5,1,1,1,1,NA-5,1,1,3,1,1,1,1,
+Name94,EID094,2.6055,No,i09,,3,2,3,2,2,5,3,5,3,3,1,1,4,1,3,1,1,1,3,3,1,1,1,2,3,2,2,2,2,3,2,2,2,Both,Yes,Yes,"Mondays,Wednesdays",No,,,4,4,4,4,4,3,4,4,"ES5,SW5-MW-3",4,3,2,4,4,3,4,4,3,3,3,4,4,3,3,4,3,
+Name95,EID095,2.6,No,i03,,3,4,2,4,4,4,3,3,1,3,3,1,4,5,4,5,4,1,2,2,2,2,2,2,4,1,2,2,2,4,2,1,3,Both,Yes,"Yes, but I would rather not","Mondays,Wednesdays",No,,,4,2,EB4(is hightest)-MW4-4,3,2,2,2,2,3,5,4,2,5,5,3,4,4,2,1,3,1,2,1,1,5,3,
+Name96,EID096,2.58,No,i17,,3,4,4,4,3,2,2,1,3,3,4,3,2,4,2,4,3,3,2,3,3,3,3,3,4,3,4,4,3,3,3,3,3,Hardware,"Yes, but I would rather not","Yes, but I would rather not","Mondays,Wednesdays",No,,,2,1,2,1,2,1,1,1,1,2,1,2,4,1,4,4,tr4-5,3,2,1,1,1,1,1,1,4,
+Name97,EID097,2.55,No,i09,,2,3,1,2,1,2,2,5,3,3,,,4,2,2,3,,1,5,3,3,1,3,4,2,1,1,2,2,3,2,1,1,Software,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,No,,,5,5,4,4,4,1,5,5,SW5-W-4,4,5,2,5,5,3,4,1,4,2,2,1,4,2,2,3,1,
+Name98,EID098,2.49,No,i04,,1,2,1,2,3,3,5,5,5,5,2,2,5,3,5,3,1,2,4,3,3,4,2,2,,2,5,2,4,2,2,4,3,Software,Yes,Yes,Wednesdays,No,,,5,3,5,"DS5,SW5,internet5,M5L-W-5",3,5,2,2,2,2,4,3,5,3,3,3,3,3,Maybe,3,3,5,4,3,5,3,"I have completed and acquired the IBM Data Science Professional Certificate and I am quite familiar with Machine Learning Techniques and how to use and when to use them. I also have worked with large datasets with several different libraries as part of summer internship and I am also well versed in making dashboards as part of my certificate. Additionally, I have honed my skills in building applications from my internship experience. Because of these, I would be a great fit for:
+_ TI Teleconferencing app for Hybrid Work Environments
+- John Deere_Shading Detection Industry Project
+- Boeing_Application of Blockchain Technology for Identity and Location Mgmt
+- John Deere_Vehicle crab detection"
+Name99,EID099,2.28,No,i13,,1,1,1,1,1,5,3,4,5,4,2,5,5,4,4,5,5,4,4,4,4,3,4,4,5,3,3,2,2,4,4,3,2,Both,"Yes, but I would rather not","Yes, but I would rather not",Wednesdays,Yes,EID020,3,3,2,5,2,4,3,3,4,3,5,2,4,"Pd-ES5,SW4,RP5,-W -5",5,4,4,3,4,2,1,1,1,1,1,2,1,"I'm particularly interested in all robotics projects
+C, Python, Java, learning Rust. Member of IEEE RAS
+Taking EE445L - capable of both hardware and software contributions"
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
