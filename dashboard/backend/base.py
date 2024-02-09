@@ -1,12 +1,11 @@
 from flask import Flask
+from grouping import group
 
 api = Flask(__name__)
 
-@api.route('/profile')
+@api.route('/groups', methods=['GET'])
 def my_profile():
-    response_body = {
-        "name": "Nagato",
-        "about" :"Gabriel Mount, Ethan Nguyen, Nathan Stodola"
-    }
+    df = group()
+    df_json = df.to_json(orient='records')
 
-    return response_body
+    return df_json

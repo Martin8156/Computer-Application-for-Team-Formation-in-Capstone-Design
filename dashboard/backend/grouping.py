@@ -5,20 +5,14 @@ import numpy as np
 def get_csv_sample(csv):
     if os.path.isfile("..\..\Samples\CSVs\\" + csv):
         return pd.read_csv("..\..\Samples\CSVs\\" + csv)
-
-studentdb = get_csv_sample("Fall_2022_Edit_1.0_Students.csv")
-companydb = get_csv_sample("Fall_2022_Edit_1.0_Companies.csv")
-
-print(studentdb)
-print(companydb)
-
+    
 def grouping_algo(students, projects):
 
     mpg = round(len(students)/len(projects))
 
     finaldb = pd.DataFrame()
-    finaldb.loc[:, 'Project'] = companydb.loc[:, 'Project']
-    finaldb.loc[:, 'Company'] = companydb.loc[:, 'Company']
+    finaldb.loc[:, 'Project'] = projects.loc[:, 'Project']
+    finaldb.loc[:, 'Company'] = projects.loc[:, 'Company']
     finaldb["Members"] = ""
 
     studentIDs = students.loc[:, 'EID']
@@ -38,7 +32,10 @@ def grouping_algo(students, projects):
 
         studentCounter = studentCounter + 1
 
+    return finaldb
 
-    print(finaldb)
+def group():
+    studentdb = get_csv_sample("Fall_2022_Edit_1.0_Students.csv")
+    companydb = get_csv_sample("Fall_2022_Edit_1.0_Companies.csv")
 
-grouping_algo(studentdb, companydb)
+    return grouping_algo(studentdb, companydb)
