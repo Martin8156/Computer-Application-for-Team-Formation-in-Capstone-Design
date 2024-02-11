@@ -34,11 +34,37 @@ def grouping_algo(students, projects):
         if finaldb.loc[grouping, 'Members'] == "":
             finaldb.loc[grouping, 'Members'] = id
         else:
-            finaldb.loc[grouping, 'Members'] = finaldb.loc[grouping, 'Members'] + ", " + id
+            finaldb.loc[grouping, 'Members'] = finaldb.loc[grouping, 'Members'] + " " + id
 
         studentCounter = studentCounter + 1
 
 
-    print(finaldb)
+    return(finaldb)
 
-grouping_algo(studentdb, companydb)
+print(grouping_algo(studentdb, companydb))
+
+
+def group_stats(groups, students, projects):
+
+    listOfCompanies = groups['Project'].tolist()
+    listOfDataFrameMeans = []
+
+    for projectNum in range(len(groups)):
+
+        allMembers = str(groups.loc[projectNum, "Members"]).split()
+
+        tempdf = pd.DataFrame()
+
+
+        for member in allMembers:
+            studentStats = (students.loc[students['EID'] == member]).drop(columns=['Name [Last, First]', 'EID', 'Honors or SP Project?'])
+            tempdf = tempdf._append(studentStats)
+
+        listOfDataFrameMeans.append(tempdf.mean(numeric_only=True))
+
+    return listOfCompanies, listOfDataFrameMeans
+
+group_stats(grouping_algo(studentdb, companydb), studentdb, companydb)
+
+# def group_fittness():
+#
