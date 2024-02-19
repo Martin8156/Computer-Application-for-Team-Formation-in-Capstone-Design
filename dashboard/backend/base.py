@@ -7,5 +7,6 @@ api = Flask(__name__)
 def my_profile():
     df = group()
     df_json = df.to_json(orient='records')
-
+    print(df)
+    print(df_json)
     return df_json

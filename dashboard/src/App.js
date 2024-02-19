@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const [groupData, setGroupData] = useState(null)
+  const [groupData, setGroupData] = useState([])
 
   function getData() {
     axios({
@@ -12,8 +12,9 @@ function App() {
       url:"/groups",
     })
     .then((response) => {
-      const res = response.data
-      console.log(res)
+      const res = response.data;
+      setGroupData(res)
+      console.log(groupData)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response)
@@ -24,20 +25,28 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="Base">
         <p>To get your group details: </p><button onClick={getData}>Click me</button>
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Company</th>
+              <th>Members</th>
+            </tr>
+          </thead>
+          <tbody>
+            {groupData.map((val, proj) => {
+              return (
+                <tr key={proj}>
+                  <td>{val.Project}</td>
+                  <td>{val.Company}</td>
+                  <td>{val.Members}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+      </table>
       </header>
     </div>
   );
