@@ -16,21 +16,61 @@ def grouping_algo(students, projects):
     finaldb["Members"] = ""
 
     studentIDs = students.loc[:, 'EID']
-    grouping = -1
-    studentCounter = 0
+    studentpreferences = students.loc[:, ['EID', 'Hardware, Software, or Both']]
+    studentpreferences.set_index('EID', inplace=True)
 
-    # for grouping in range(len(finaldb)):
-    for id in studentIDs:
+    ratiowares = projects.loc[:, ['Project', 'Hardware', 'Software']].to_numpy()
 
-        if studentCounter % mpg == 0:
-            grouping = grouping + 1
+    # list of slots in order of the projects in ratiowares
+    listofhardwareslots = []
+    listofsoftwareslots = []
+    totalslotsavailable = []
 
-        if finaldb.loc[grouping, 'Members'] == "":
-            finaldb.loc[grouping, 'Members'] = id
-        else:
-            finaldb.loc[grouping, 'Members'] = finaldb.loc[grouping, 'Members'] + ", " + id
 
-        studentCounter = studentCounter + 1
+    for project in range(len(ratiowares)):
+
+        hardwareprio = ratiowares[project][1]
+        softwareprio = ratiowares[project][2]
+        totalprio = hardwareprio + softwareprio
+
+        hardwareslots = np.round(((hardwareprio/totalprio)/2) * 10)
+        softwareslots = 5 - hardwareslots
+
+        listofhardwareslots.append(int(hardwareslots))
+        listofsoftwareslots.append(int(softwareslots))
+        totalslotsavailable.append(int(softwareslots))
+
+
+
+
+    groupdict = dict()
+    unsortedstudentsIDset = set(studentIDs.to_numpy().flatten())
+
+    while len(unsortedstudentsIDset) !=0:
+
+        targetstudentID = unsortedstudentsIDset.pop()
+        studentpreference = studentpreferences.loc[targetstudentID][0]
+        # 0 means hardware, 1 means software, 2 means no preference
+
+        studentassigned = false
+
+        while(student)
+
+
+    #
+    # grouping = -1
+    # studentCounter = 0
+    # for id in studentIDs:
+    #
+    #     if studentCounter % mpg == 0:
+    #         grouping = grouping + 1
+    #
+    #     if finaldb.loc[grouping, 'Members'] == "":
+    #         finaldb.loc[grouping, 'Members'] = id
+    #     else:
+    #         finaldb.loc[grouping, 'Members'] = finaldb.loc[grouping, 'Members'] + ", " + id
+    #
+    #     studentCounter = studentCounter + 1
 
     return finaldb
 
@@ -39,3 +79,25 @@ def group():
     companydb = get_csv_sample("Fall_2022_Edit_1.0_Companies.csv")
 
     return grouping_algo(studentdb, companydb)
+
+def group_stats(groups, students, projects):
+
+    listOfCompanies = groups['Project'].tolist()
+    listOfDataFrameMeans = []
+
+    for projectNum in range(len(groups)):
+
+        allMembers = str(groups.loc[projectNum, "Members"]).split()
+
+        tempdf = pd.DataFrame()
+
+
+        for member in allMembers:
+            studentStats = (students.loc[students['EID'] == member]).drop(columns=['Name [Last, First]', 'EID', 'Honors or SP Project?'])
+            tempdf = tempdf._append(studentStats)
+
+        listOfDataFrameMeans.append(tempdf.mean(numeric_only=True))
+
+    return listOfCompanies, listOfDataFrameMeans
+
+group()

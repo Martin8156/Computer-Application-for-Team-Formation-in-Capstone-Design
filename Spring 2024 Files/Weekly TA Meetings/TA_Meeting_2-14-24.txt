@@ -1,0 +1,11 @@
+TA Meeting 2-14-2024
+
+We updated him on accomplishments
+- Nate made the post analysis and is working on the basic algo by ethan
+- Gabe connected the back end and the front end and is working on a display
+- Ethan wrote up an algo and the doccumentation
+- Chris has been catching up on the reading adn will be our sanity check on the code
+	- Next week he needs to demonstrate what he has done 
+
+The webpage will be run from the local computer and pull up on the browser but not be online 
+Its good we have a back end cause we can then host our project online

@@ -1,0 +1,37 @@
+Premeeting notes
+- Nate got done with a basic background code
+	- it can make basic groupings and read the csvs
+	- Implementation notes
+		- Tried to convert all elements with integer values
+			- "Interests" range from 1 to 5
+			- Hardware, Software, or Both range from 0, 1, 2
+			- NDA and other Binaries are 0 for no and 1 for yes
+			- This will be useful because we can average these values for each specific grouping
+				- We can then compare this average to the desired values for a project to analyze the 'fitness' of a grouping
+	- Current concerns and next steps
+		- We do not have a way to try and sort for this fitness, just a way to measure it
+		- Groupings are represented as strings rather than lists 
+
+
+Meeting Notes
+- Meeting with Dennis, we will ask about the new member of the team that we discovered 
+- We want data attributes to be able change
+	- Students and projects need the same interests, these interests can change 
+- We have the the final dataframe, it just needs to be sent to the frontend 
+- Gabe and Nate will be meeting 2/8 at 9am
+- We have a new member which is kinda confusing
+	- Need to get them to read our previous documents to understand at least some basis of what we are doing
+	- Try not to worry about it
+	- Give them the github link 
+	- Information we need to get
+		- Their schedule, their skills, and boundaries, and what they need to read
+- Doccuments need to have been reread
+- Goals
+	- Next time we need to be able to demo the code
+	- Need to display current group set
+	- Need to rate the fitness of groups
+	- Need algorithm to create groupings 
+	- Integrate new student and tell the mentor 
+
+Post Meeting Notes
+- 
