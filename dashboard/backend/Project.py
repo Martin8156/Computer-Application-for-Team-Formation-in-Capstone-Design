@@ -1,34 +1,29 @@
 import grouping
 
-
 DEBUG = True
 
-
 Projects = {}
+
+
 class Project:
 
-
-    def __init__(self, project_id, company_name,
-                 nda, ip,
-                 hardware, software,
-                 tech_cores, extra_specs,
-                 students):
-        self._project_id = str(project_id)  # Each project has a unique project id. (String)
-        self._company_name = str(company_name)
+    def __init__(self, project_id, comp_name, nda, ip, hw, sw, tech, extra, students):
+        self._project_id = str(project_id)  # Each project has a unique project id.
+        self._company_name = str(comp_name)
         self._NDA = int(nda)
         self._IP = int(ip)
-        self._hardware = int(hardware) # 1 - min 5 - max
-        self._software = int(software) # 1 - min 5 - max
-        self._tech_cores = tech_cores   # A dictionary of tech cores with their int involvements.
-        self._extra_specs = extra_specs # Similar to tech cores but up to company preference.
-        self._students = students  # The set of students involved in this project.
+        self._hardware = int(hw)  # 1 - min 5 - max
+        self._software = int(sw)  # 1 - min 5 - max
+        self._tech_cores = dict(tech)  # Tech cores with their int involvements.
+        self._extra_specs = dict(extra)  # Company extras
+        self._students = set(students)  # Students involved in this project.
 
         Projects[self._project_id] = self
 
     def __str__(self):
         print("===============================")
-        print("Project ID: " +  self._project_id)
-        print("NDA: " + self._NDA + " IP: " + self._IP)
+        print("Project ID: " + self._project_id)
+        print("NDA: " + str(self._NDA) + " IP: " + str(self._IP))
         txt = "Hardware: {} Software: {}\n"
         print(txt.format(self._hardware, self._software))
         print("Tech Cores:")
@@ -68,6 +63,8 @@ class Project:
     def set_extra_specs(self, new_extra_specs):
         self._extra_specs = new_extra_specs
 
+    def set_students(self, new_students):
+        self._students = new_students
 """
 CVS Format:
 0 - Projects (String)
@@ -81,9 +78,10 @@ CVS Format:
 """
 NUM_TECH_CORES = 8
 
+
 def __read_project_row(df, row_number):
     # For future, maybe have the argument be the filepath + name instead of csv name.
-    #df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
+    # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
 
     tech_cores = {}
     extra_specs = {}
@@ -96,8 +94,8 @@ def __read_project_row(df, row_number):
 
         count = count + 1
 
-    #print(tech_cores)
-    #print(extra_specs)
+    # print(tech_cores)
+    # print(extra_specs)
 
     project = Project(df.at[row_number, "Project"],
                       df.at[row_number, "Company"],
@@ -107,27 +105,30 @@ def __read_project_row(df, row_number):
                       df.at[row_number, "Software"],
                       tech_cores, extra_specs, [])
 
+
 def __get_num_rows_in_csv(df):
     count = 0
     for row_label in df.index:
         count = count + 1
 
     return count
-#Call this method to initialize Projects dictionary and read entire CSV file.
-def read_projects_csv(df):
 
+
+# Call this method to initialize Projects dictionary and read entire CSV file.
+def read_projects_csv(df):
     num_rows = __get_num_rows_in_csv(df)
     for num in range(num_rows):
         __read_project_row(df, num)
 
-#O(N) time. Maybe introduce parallel programming to speed up?
+
+# O(N) time. Maybe introduce parallel programming to speed up?
 def get_average(column_label):
     col_str = str(column_label).lower()
 
     sum = 0
     count = 0
     for project in Projects:
-        #print(Projects[project].get_tech_cores().get(column_label))
+        # print(Projects[project].get_tech_cores().get(column_label))
         if column_label in Projects[project].get_tech_cores():
             sum = sum + Projects[project].get_tech_cores().get(column_label)
         elif column_label in Projects[project].get_extra_specs():
@@ -148,16 +149,19 @@ def get_average(column_label):
         print(txt.format(average))
     return average
 
+
 def get_all_averages(df):
     for column in df.columns():
         get_average(column)
-#O(N) time. Maybe introduce parallel programming to speed up?
+
+
+# O(N) time. Maybe introduce parallel programming to speed up?
 def get_frequency(column_label, value):
     col_str = str(column_label).lower()
     int_value = int(value)
     count = 0
     for project in Projects:
-        #print(Projects[project].get_tech_cores().get(column_label))
+        # print(Projects[project].get_tech_cores().get(column_label))
         if column_label in Projects[project].get_tech_cores():
             if Projects[project].get_tech_cores().get(column_label) == int_value:
                 count = count + 1
@@ -180,6 +184,7 @@ def get_frequency(column_label, value):
         txt = "The frequency of {} for " + column_label + " is {}."
         print(txt.format(value, count))
     return count
+
 
 def sort_projects(column_label, max_value):
     col_str = str(column_label).lower()
@@ -216,4 +221,8 @@ def sort_projects(column_label, max_value):
 
 df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
 read_projects_csv(df)
-sort_projects("Communication, Signal Processing, Networks and Systems", 5)
+#sort_projects("Communication, Signal Processing, Networks and Systems", 5)
+
+get_average("Communication, Signal Processing, Networks and Systems")
+
+get_frequency("Communication, Signal Processing, Networks and Systems", 4)
