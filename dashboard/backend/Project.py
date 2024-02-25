@@ -211,6 +211,8 @@ def sort_projects(column_label, max_value):
             txt = obj + " has value {} for " + str(column_label)
             print(txt.format(Projects[obj].get_tech_cores().get(column_label)))
 
+    return ordered_list
+
 
 df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
 read_projects_csv(df)
