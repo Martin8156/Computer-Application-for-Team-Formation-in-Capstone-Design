@@ -54,7 +54,6 @@ def grouping_algo(students, projects):
 
         studentassigned = false
 
-        while(student)
 
 
     #
@@ -100,4 +99,4 @@ def group_stats(groups, students, projects):
 
     return listOfCompanies, listOfDataFrameMeans
 
-group()
+#group()
