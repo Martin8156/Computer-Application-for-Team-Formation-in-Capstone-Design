@@ -80,7 +80,6 @@ NUM_TECH_CORES = 8
 
 
 def __read_project_row(df, row_number):
-    # For future, maybe have the argument be the filepath + name instead of csv name.
     # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
 
     tech_cores = {}

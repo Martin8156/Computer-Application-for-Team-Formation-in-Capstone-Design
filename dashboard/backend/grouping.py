@@ -2,9 +2,9 @@ import os
 import pandas as pd
 import numpy as np
 
-def get_csv_sample(csv):
-    if os.path.isfile("..\..\Samples\CSVs\\" + csv):
-        return pd.read_csv("..\..\Samples\CSVs\\" + csv)
+def get_csv_sample(filepath, sv):
+    if os.path.isfile(filepath + csv):
+        return pd.read_csv(filepath + csv)
     
 def grouping_algo(students, projects):
 
@@ -54,28 +54,11 @@ def grouping_algo(students, projects):
 
         studentassigned = false
 
-
-
-    #
-    # grouping = -1
-    # studentCounter = 0
-    # for id in studentIDs:
-    #
-    #     if studentCounter % mpg == 0:
-    #         grouping = grouping + 1
-    #
-    #     if finaldb.loc[grouping, 'Members'] == "":
-    #         finaldb.loc[grouping, 'Members'] = id
-    #     else:
-    #         finaldb.loc[grouping, 'Members'] = finaldb.loc[grouping, 'Members'] + ", " + id
-    #
-    #     studentCounter = studentCounter + 1
-
     return finaldb
 
 def group():
-    studentdb = get_csv_sample("Fall_2022_Edit_1.0_Students.csv")
-    companydb = get_csv_sample("Fall_2022_Edit_1.0_Companies.csv")
+    studentdb = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.0_Students.csv")
+    companydb = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.0_Companies.csv")
 
     return grouping_algo(studentdb, companydb)
 
