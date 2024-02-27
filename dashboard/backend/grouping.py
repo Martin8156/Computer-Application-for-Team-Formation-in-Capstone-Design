@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 import numpy as np
+import Project
+import Student
 
 def get_csv_sample(filepath, csv):
     if os.path.isfile(filepath + csv):
@@ -57,27 +59,9 @@ def grouping_algo(students, projects):
     return finaldb
 
 def group():
-    studentdb = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.0_Students.csv")
-    companydb = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.0_Companies.csv")
+    studentdf = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Students.csv")
+    companydf = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
 
-    return grouping_algo(studentdb, companydb)
+    Project.read_projects_csv(companydf)
 
-def group_stats(groups, students, projects):
-
-    listOfCompanies = groups['Project'].tolist()
-    listOfDataFrameMeans = []
-
-    for projectNum in range(len(groups)):
-
-        allMembers = str(groups.loc[projectNum, "Members"]).split()
-
-        tempdf = pd.DataFrame()
-
-
-        for member in allMembers:
-            studentStats = (students.loc[students['EID'] == member]).drop(columns=['Name [Last, First]', 'EID', 'Honors or SP Project?'])
-            tempdf = tempdf._append(studentStats)
-
-        listOfDataFrameMeans.append(tempdf.mean(numeric_only=True))
-
-    return listOfCompanies, listOfDataFrameMeans
+    # return grouping_algo(studentdb, companydb)

@@ -1,4 +1,4 @@
-import grouping
+
 class Student:
     def __init__(self, eid, name, gpa, focus,
                  nda, ip,
@@ -17,7 +17,7 @@ class Student:
         self.pref_importance = pref_importance
         self.project_id = project_id
 
-
-Studentdb = grouping.get_csv_sample("Fall_2022_Edit_1.0_Students.csv")
-
-print(Studentdb.info())
+#
+# Studentdb = grouping.get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.0_Students.csv")
+#
+# print(Studentdb.info())

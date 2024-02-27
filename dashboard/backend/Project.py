@@ -1,4 +1,3 @@
-import grouping
 
 DEBUG = True
 
@@ -106,11 +105,11 @@ def __read_project_row(df, row_number):
 
 
 def __get_num_rows_in_csv(df):
-    count = 0
-    for row_label in df.index:
-        count = count + 1
+    # count = 0
+    # for row_label in df.index:
+    #     count = count + 1
 
-    return count
+    return df.shape[0]
 
 
 # Call this method to initialize Projects dictionary and read entire CSV file.
@@ -217,11 +216,3 @@ def sort_projects(column_label, max_value):
 
     return ordered_list
 
-
-df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
-read_projects_csv(df)
-#sort_projects("Communication, Signal Processing, Networks and Systems", 5)
-
-get_average("Communication, Signal Processing, Networks and Systems")
-
-get_frequency("Communication, Signal Processing, Networks and Systems", 4)
