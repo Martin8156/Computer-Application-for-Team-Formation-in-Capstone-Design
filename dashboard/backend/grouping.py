@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 
-def get_csv_sample(filepath, sv):
+def get_csv_sample(filepath, csv):
     if os.path.isfile(filepath + csv):
         return pd.read_csv(filepath + csv)
     
@@ -81,5 +81,3 @@ def group_stats(groups, students, projects):
         listOfDataFrameMeans.append(tempdf.mean(numeric_only=True))
 
     return listOfCompanies, listOfDataFrameMeans
-
-#group()
