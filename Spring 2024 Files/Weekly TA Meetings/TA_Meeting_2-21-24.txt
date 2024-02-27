@@ -1,0 +1,19 @@
+We are on track to submit system design report and powerpoint presentation
+
+Feedback
+- We need a more concrete way to examine the completness of our project 
+	- We need a way to judge the quality (compare the quality of previous assignments to current assignments)
+	- We may need several metrics to review the post grouping data 
+		- check the variance of the group's skills to the project's requirements
+		- Check the GPA spread
+	- We are basically trying to do better than the professor 
+	- We should talk to the mentor about that
+
+Questions of the system design report
+- Do we need to document the process by which we create the algorithm or just the final product?
+	- Basically we need to describe our end product and how we wish to achieve it (specification can't be too strict)
+
+Is Christopher fitting well in the group?
+- Yes, he is currently working on some of Nate's suggestions for the backend
+
+We are going to do a greedy algorithm for our sort
