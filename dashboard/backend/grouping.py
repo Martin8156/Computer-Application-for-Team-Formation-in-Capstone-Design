@@ -13,7 +13,7 @@ def get_csv_sample(filepath, csv):
 # When sorting GPAs, put NA values at end. When sorting GPA based on integer values, do not
 # factor Na into the average gpa.
 def grouping_algo(students, projects):
-    """
+
     mpg = round(len(students)/len(projects))
 
     finaldb = pd.DataFrame()
@@ -61,8 +61,7 @@ def grouping_algo(students, projects):
         #studentassigned = false
 
     return finaldb
-    """
-
+    
 
 def group():
     studentdf = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Students.csv")
