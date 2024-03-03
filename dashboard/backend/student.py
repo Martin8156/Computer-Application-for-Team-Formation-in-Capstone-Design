@@ -254,7 +254,6 @@ def get_frequency(column_label, value):
 
 
 def sort_projects(column_label, max_value):
-    col_str = str(column_label).lower()
     ordered_list = []
     for num in range(0, max_value + 1):
         for student in Students:

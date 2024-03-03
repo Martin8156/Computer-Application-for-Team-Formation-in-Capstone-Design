@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 import numpy as np
-import project
-import student
+import project as proj
+import student as stud
 
 
 def get_csv_sample(filepath, csv):
@@ -101,8 +101,8 @@ def check_spec_compatibility(project, student, spec):
 
 def init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv):
     # Initialize both dictionaries. Read both files.
-    student.read_student_excel(student_filepath, student_excel)
-    project.read_projects_csv(project_filepath, project_csv)
+    stud.read_student_excel(student_filepath, student_excel)
+    proj.read_projects_csv(project_filepath, project_csv)
 
 def group_sort(student_filepath, project_filepath, student_excel, project_csv):
 
@@ -111,10 +111,10 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv):
     #    print(student.Students[person].__str__())
     # for group in project.Projects:
     #    print(project.Projects[group].__str__())
-    for group in project.Projects:
+    for group in proj.Projects:
         for num in range(4):
-            for person in student.Students:
-                if student.Students[person].get_is_assigned() == False:
+            for person in stud.Students:
+                if stud.Students[person].get_is_assigned() == False:
                     pass
 
 
