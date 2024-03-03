@@ -122,8 +122,10 @@ class Student:
 
     def get_project_prefs(self):
         return self._project_prefs
+
     def set_is_assigned(self, state):
         self._is_Assigned = state
+
     def set_project_id(self, project_id):
         self._project_id = project_id
 
@@ -178,37 +180,33 @@ def read_student_excel(filepath, excel):
 # read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx")
 # for student in Students:
 # print(Students[student].__str__())
-#
-# Studentdb = grouping.get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.0_Students.csv")
-#
-# print(Studentdb.info())
 
 
 # O(N) time. Maybe introduce parallel programming to speed up?
 def get_average(column_label):
-    sum = 0
+    sum_av = 0
     count = 0
     for student in Students:
         # print(Projects[project].get_tech_cores().get(column_label))
         if column_label in Students[student].get_specs():
-            sum = sum + Students[student].get_specs().get(column_label)
+            sum_av = sum_av + Students[student].get_specs().get(column_label)
         elif column_label in Students[student].get_project_prefs():
-            sum = sum + Students[student].get_project_prefs().get(column_label)
+            sum_av = sum_av + Students[student].get_project_prefs().get(column_label)
         elif column_label == "GPA":
-            sum = sum + Students[student].get_gpa()
+            sum_av = sum_av + Students[student].get_gpa()
         elif column_label == "Hardware, Software, or Both":
-            sum = sum + Students[student].get_focus()
+            sum_av = sum_av + Students[student].get_focus()
         elif column_label == "NDA":
-            sum = sum + Students[student].get_nda()
+            sum_av = sum_av + Students[student].get_nda()
         elif column_label == "IP":
-            sum = sum + Students[student].get_ip()
+            sum_av = sum_av + Students[student].get_ip()
         elif column_label == "Honors":
-            sum = sum + Students[student].get_honors()
+            sum_av = sum_av + Students[student].get_honors()
         elif column_label == "SP":
-            sum = sum + Students[student].get_sp()
+            sum_av = sum_av + Students[student].get_sp()
         count = count + 1
 
-    average = sum / count
+    average = sum_av / count
     if DEBUG:
         txt = "The average value of " + column_label + " is {}."
         print(txt.format(average))

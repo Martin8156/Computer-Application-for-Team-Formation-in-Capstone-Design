@@ -99,24 +99,24 @@ def check_spec_compatibility(project, student, spec):
     else:
         return False
 
+
 def init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv):
     # Initialize both dictionaries. Read both files.
     stud.read_student_excel(student_filepath, student_excel)
     proj.read_projects_csv(project_filepath, project_csv)
 
-def group_sort(student_filepath, project_filepath, student_excel, project_csv):
 
+def group_sort(student_filepath, project_filepath, student_excel, project_csv):
     init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv)
     # for person in student.Students:
     #    print(student.Students[person].__str__())
     # for group in project.Projects:
     #    print(project.Projects[group].__str__())
-    for group in proj.Projects:
+    for group_proj in proj.Projects:
         for num in range(4):
             for person in stud.Students:
-                if stud.Students[person].get_is_assigned() == False:
+                if not stud.Students[person].get_is_assigned():
                     pass
 
-
-#group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx","Fall_2022_Edit_1.02_Companies.csv")
-
+# group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
+# "Fall_2022_Edit_1.02_Companies.csv")

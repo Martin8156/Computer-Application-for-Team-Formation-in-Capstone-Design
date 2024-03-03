@@ -34,6 +34,7 @@ For the future.
 """
 MIN_STUDENTS_IN_PROJECT = 4
 
+
 class Project:
 
     def __init__(self, project_id, comp_name, nda, ip, hw, sw, specs, students):
@@ -125,7 +126,7 @@ def __read_project_row(df, row_number):
 
         count = count + 1
 
-    #print(specs)
+    # print(specs)
 
     Project(df.at[row_number, "Project"],
             df.at[row_number, "Company"],
@@ -155,23 +156,23 @@ def read_projects_csv(filepath, project_csv):
 
 # O(N) time. Maybe introduce parallel programming to speed up?
 def get_average(column_label):
-    sum = 0
+    sum_av = 0
     count = 0
     for project in Projects:
         # print(Projects[project].get_tech_cores().get(column_label))
         if column_label in Projects[project].get_specs():
-            sum = sum + Projects[project].get_specs().get(column_label)
+            sum_av = sum_av + Projects[project].get_specs().get(column_label)
         elif column_label == "Hardware":
-            sum = sum + Projects[project].get_hardware()
+            sum_av = sum_av + Projects[project].get_hardware()
         elif column_label == "Software":
-            sum = sum + Projects[project].get_software()
+            sum_av = sum_av + Projects[project].get_software()
         elif column_label == "NDA":
-            sum = sum + Projects[project].get_nda()
+            sum_av = sum_av + Projects[project].get_nda()
         elif column_label == "IP":
-            sum = sum + Projects[project].get_ip()
+            sum_av = sum_av + Projects[project].get_ip()
         count = count + 1
 
-    average = sum / count
+    average = sum_av / count
     if DEBUG:
         txt = "The average value of " + column_label + " is {}."
         print(txt.format(average))
@@ -237,23 +238,3 @@ def sort_projects(column_label, max_value):
             print(txt.format(Projects[obj].get_tech_cores().get(column_label)))
 
     return ordered_list
-
-"""
-df = grouping.get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.02_Companies.csv")
-
-thing = df.at[0, "Communication, Signal Processing, Networks and Systems"]
-print(thing)
-
-if (pandas.isnull(thing)):
-    print("3")
-if (pandas.isnull(df.at[0, "Electronics and Integrated Circuits"])):
-    print("4")
-
-if (pandas.notnull(df.at[0, "Electronics and Integrated Circuits"])):
-    print("5")
-
-__read_project_row(df, 0)
-"""
-#read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.02_Companies.csv")
-#for project in Projects:
-#    print(Projects[project].__str__())
