@@ -1,15 +1,17 @@
 import os
 import pandas as pd
 import numpy as np
-import Project
-import Student
+import project
+import student
 
 def get_csv_sample(filepath, csv):
     if os.path.isfile(filepath + csv):
         return pd.read_csv(filepath + csv)
-    
-def grouping_algo(students, projects):
 
+# When sorting GPAs, put NA values at end. When sorting GPA based on integer values, do not
+# factor Na into the average gpa.
+def grouping_algo(students, projects):
+    """
     mpg = round(len(students)/len(projects))
 
     finaldb = pd.DataFrame()
@@ -54,14 +56,25 @@ def grouping_algo(students, projects):
         studentpreference = studentpreferences.loc[targetstudentID][0]
         # 0 means hardware, 1 means software, 2 means no preference
 
-        studentassigned = false
+        #studentassigned = false
 
     return finaldb
+    """
+
 
 def group():
     studentdf = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Students.csv")
     companydf = get_csv_sample("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
 
-    Project.read_projects_csv(companydf)
+    #Project.read_projects_csv(companydf)
 
     # return grouping_algo(studentdb, companydb)
+
+def group_sort(student_filepath, project_filepath, student_excel, project_csv):
+
+    # Initialize both dictionaries. Read both files.
+    student.read_student_excel(student_filepath, student_excel)
+    project.read_projects_csv(project_filepath, project_csv)
+
+
+
