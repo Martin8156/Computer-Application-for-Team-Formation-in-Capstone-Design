@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06c223c4-8fe7-40e3-b931-ca8bdc47f0f7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.01_Students.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.01_Students.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Samples/EE 364D Project Assignment Survey (Fall 2022)-v116-to team-out.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Samples/EE 364D Project Assignment Survey (Fall 2022)-v116-to team-out.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/Project.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/Student.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/grouping.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/grouping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/project.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

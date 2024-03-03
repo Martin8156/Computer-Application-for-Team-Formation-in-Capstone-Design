@@ -32,7 +32,7 @@ For the future.
  in question and what it may include. Also allow them to choose multiple majors for project.
  In front end. Send it to csv.
 """
-
+MIN_STUDENTS_IN_PROJECT = 4
 
 class Project:
 
@@ -45,6 +45,8 @@ class Project:
         self._software = int(sw)  # 1 - min 5 - max
         self._specs = set(specs)  # What exactly the project will involve.
         self._students = set(students)  # Students involved in this project.
+
+        self._num_students = 0
 
         # Add Project to list of projects.
         Projects[self._project_id] = self
@@ -89,12 +91,15 @@ class Project:
 
     def add_student(self, student_eid):
         self._students.add(student_eid)
+        self._num_students += 1
 
     def del_student(self, student_eid):
         self._students.remove(student_eid)
+        self._num_students -= 1
 
     def del_all_students(self):
         self._students.clear()
+        self._num_students = 0
 
 
 """
