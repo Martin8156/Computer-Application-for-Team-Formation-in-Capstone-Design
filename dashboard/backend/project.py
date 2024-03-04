@@ -1,6 +1,6 @@
 import pandas
 
-DEBUG = True
+DEBUG = False
 
 Projects = {}
 
@@ -44,7 +44,7 @@ class Project:
         self._IP = int(ip)  # 1 - Yes 0 - No
         self._hardware = int(hw)  # 1 - min 5 - max
         self._software = int(sw)  # 1 - min 5 - max
-        self._specs = set(specs)  # What exactly the project will involve.
+        self._specs = dict(specs)  # What exactly the project will involve.
         self._students = set(students)  # Students involved in this project.
 
         self._num_students = 0
@@ -84,6 +84,12 @@ class Project:
     def get_specs(self):
         return self._specs
 
+    def get_spec(self, name):
+        return self._specs.get(name)
+
+    def get_students(self):
+        return self._students
+
     def set_specs(self, new_specs):
         self._specs = new_specs
 
@@ -117,16 +123,13 @@ CVS Format:
 
 def __read_project_row(df, row_number):
     # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
-    specs = set(())
+    specs = {}
     count = 0
     for column_label in df.columns:
         if count >= HARD_REQUIREMENTS:
-            if pandas.notnull(df.at[row_number, column_label]):
-                specs.add(column_label)
+            specs[str(column_label)] = int(df.at[int(row_number), str(column_label)])
 
-        count = count + 1
-
-    # print(specs)
+        count += 1
 
     Project(df.at[row_number, "Project"],
             df.at[row_number, "Company"],
@@ -180,9 +183,10 @@ def get_average(column_label):
 
 
 def get_all_averages(df):
+    all_avg_dict = {}
     for column in df.columns():
-        get_average(column)
-
+        all_avg_dict[str(column)] = float(get_average(column))
+    return all_avg_dict
 
 # O(N) time. Maybe introduce parallel programming to speed up?
 def get_frequency(column_label, value):
@@ -238,3 +242,9 @@ def sort_projects(column_label, max_value):
             print(txt.format(Projects[obj].get_tech_cores().get(column_label)))
 
     return ordered_list
+
+#
+# read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
+#
+# #for project in Projects:
+#     #print(Projects[project].__str__())

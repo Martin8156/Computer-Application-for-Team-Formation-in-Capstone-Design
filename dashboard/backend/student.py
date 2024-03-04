@@ -2,7 +2,7 @@ import pandas
 
 Students = {}
 
-DEBUG = True
+DEBUG = False
 
 HARD_REQUIREMENTS = 10
 
@@ -120,6 +120,9 @@ class Student:
     def get_specs(self):
         return self._specs
 
+    def get_spec(self, name):
+        return self.get_specs().get(name)
+
     def get_project_prefs(self):
         return self._project_prefs
 
@@ -214,9 +217,10 @@ def get_average(column_label):
 
 
 def get_all_averages(df):
+    all_avg_dict = {}
     for column in df.columns():
-        get_average(column)
-
+        all_avg_dict[column] = float(get_average(column))
+    return all_avg_dict
 
 # O(N) time. Maybe introduce parallel programming to speed up?
 def get_frequency(column_label, value):
@@ -280,3 +284,7 @@ def sort_projects(column_label, max_value):
                     ordered_list.append(Students[student].get_project_id())
 
     return ordered_list
+
+#read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx")
+
+#print(Students["EID001"].get_spec("Data Science and Information Processing"))
