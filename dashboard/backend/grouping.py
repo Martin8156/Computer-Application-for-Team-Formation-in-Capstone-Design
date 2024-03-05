@@ -10,14 +10,18 @@ import student as stud
 
 # Check if a student and a project are compatible.
 # Might check for honors or gpa in the future.
-def check_base_student_compatibility(project, student):
+def check_student_doc_compatibility(project, student):
+    if student.get_ip() == 0 and project.get_ip() == 1:
+        return False
+    elif student.get_nda() == 0 and project.get_nda() == 1:
+        return False
+    else:
+        return True
+
+def check_student_focus_compatibility(project, student):
     if student.get_focus() == 1 and project.get_software() == 0:
         return False
     elif student.get_focus() == 0 and project.get_hardware() == 0:
-        return False
-    elif student.get_ip() == 0 and project.get_ip() == 1:
-        return False
-    elif student.get_nda() == 0 and project.get_nda() == 1:
         return False
     else:
         return True
