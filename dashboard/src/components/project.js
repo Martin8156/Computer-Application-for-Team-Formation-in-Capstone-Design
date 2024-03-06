@@ -32,7 +32,7 @@ function Project() {
     return (
         <div className="App">
             <header className="Base">
-                <p>Project Details for {projectID}</p>
+                <h4>Project Details for {projectID}</h4>
                 <table>
                     <thead>
                         <tr>
