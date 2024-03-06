@@ -11,6 +11,11 @@ def my_profile():
     print(df_json)
     return df_json
 
-@api.route('/project<projectID>', methods=['GET'])
+@api.route('/project/<projectID>', methods=['GET'])
 def project(projectID):
-    return
+    df = group()
+    df.set_index('Project', inplace=True)
+    df = df.loc[projectID]
+    print(df)
+    df_json = df.to_json()
+    return df_json
