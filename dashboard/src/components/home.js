@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import './Home.css';
 
 function Home() {
   const navigate = useNavigate();
@@ -29,11 +30,11 @@ function Home() {
   return (
     <div className="App">
       <header className="Base">
-        <p>To get your group details: </p><button onClick={getData}>Click me</button>
+        <p>To get your group details: </p><button onClick={getData}>Show Groups</button>
         <table>
           <thead>
             <tr>
-              <th>Project</th>
+              <th>Project</th> 
               <th>Company</th>
               <th>Members</th>
             </tr>
@@ -42,7 +43,7 @@ function Home() {
             {groupData.map((val, proj) => {
               return (
                 <tr key={proj}>
-                  <td onClick={() => (getProject(val.Project))}>{val.Project}</td>
+                  <td className="company" onClick={() => (getProject(val.Project))}>{val.Project}</td>
                   <td>{val.Company}</td>
                   <td>{val.Members}</td>
                 </tr>
