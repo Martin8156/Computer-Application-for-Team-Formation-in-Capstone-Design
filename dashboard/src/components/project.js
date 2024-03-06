@@ -33,11 +33,20 @@ function Project() {
         <div className="App">
             <header className="Base">
                 <p>Project Details for {projectID}</p>
-                <td>{projectData["Company"]}</td>
-                <td>{projectData["Members"]}</td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Members</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td>{projectData["Company"]}</td>
+                        <td>{projectData["Members"]}</td>
+                    </tbody>
+                </table>
                 <button onClick={() => getHome()}>Return</button>
             </header>
-
         </div>
     );
 }
