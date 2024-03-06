@@ -1,5 +1,5 @@
 from flask import Flask
-from grouping import group
+from group import group
 
 api = Flask(__name__)
 
