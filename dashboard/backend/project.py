@@ -1,3 +1,5 @@
+import random
+
 import pandas
 
 DEBUG = False
@@ -68,7 +70,8 @@ class Project:
 
     def get_project_id(self):
         return self._project_id
-
+    def get_company_name(self):
+        return self._company_name
     def get_nda(self):
         return self._NDA
 
@@ -243,8 +246,18 @@ def sort_projects(column_label, max_value):
 
     return ordered_list
 
-#
-# read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
-#
-# #for project in Projects:
-#     #print(Projects[project].__str__())
+# Gives each project a random amount of students from 4 to 6. This is to test exporting
+# Excel file.
+def fill_projects_with_students():
+    random_eids = set()
+    for project in Projects:
+        for num in range(random.randint(4,6)):
+            eid = "EID" + str(num + 1)
+            Projects[project].add_student(eid)
+
+
+
+#read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
+#fill_projects_with_students()
+# for project in Projects:
+#     print(Projects[project].__str__())
