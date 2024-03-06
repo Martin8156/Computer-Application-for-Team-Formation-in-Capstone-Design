@@ -13,8 +13,7 @@ function Home() {
     })
     .then((response) => {
       const res = response.data;
-      setGroupData(res)
-      console.log(groupData)
+      setGroupData(res);
     }).catch((error) => {
       if (error.response) {
         console.log(error.response)
@@ -24,7 +23,7 @@ function Home() {
     })}
 
     function getProject(projectID) {
-        navigate(`/project/${projectID}`);
+      navigate(`/project/${projectID}`);
     }
 
   return (

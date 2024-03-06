@@ -9,7 +9,7 @@ function Project() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `project/${projectID}`  
+            url: `/project/${projectID}`  
           }).then((response) => {
             setProjectData(response.data);
           }).catch((error) => {
@@ -17,8 +17,9 @@ function Project() {
               console.log(error.response)
               console.log(error.response.status)
               console.log(error.response.headers)
-              }
-          })
+            }
+        })
+        console.log(projectData);
     }, []);
 
     return (
