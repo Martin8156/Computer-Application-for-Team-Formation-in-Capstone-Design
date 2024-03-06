@@ -1,0 +1,9 @@
+.company{
+    cursor: pointer;
+    color: lightblue;
+    text-decoration: underline;
+}
+
+.company:hover{
+    color:blue;
+}
