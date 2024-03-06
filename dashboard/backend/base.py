@@ -10,3 +10,7 @@ def my_profile():
     print(df)
     print(df_json)
     return df_json
+
+@api.route('/project<projectID>', methods=['GET'])
+def project(projectID):
+    return
