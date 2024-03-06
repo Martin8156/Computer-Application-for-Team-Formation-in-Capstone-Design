@@ -1,9 +1,16 @@
-.company{
+.project{
     cursor: pointer;
     color: lightblue;
     text-decoration: underline;
 }
 
-.company:hover{
+.projecttitle{
+    color: lightblue;
+}
+.company{
+    color: rgb(141, 253, 229);
+}
+
+.project:hover{
     color:blue;
 }

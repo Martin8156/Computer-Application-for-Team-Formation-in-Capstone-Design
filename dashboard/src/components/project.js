@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import './Home.css';
 
 function Project() {
     const [projectData, setProjectData] = useState([])
@@ -36,12 +37,12 @@ function Project() {
                 <table>
                     <thead>
                         <tr>
-                            <th>Company</th>
+                            <th className ="company">Company</th>
                             <th>Members</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <td>{projectData["Company"]}</td>
+                        <td className ="company">{projectData["Company"]}</td>
                         <td>{projectData["Members"]}</td>
                     </tbody>
                 </table>

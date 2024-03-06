@@ -34,8 +34,8 @@ function Home() {
         <table>
           <thead>
             <tr>
-              <th>Project</th> 
-              <th>Company</th>
+              <th className="projecttitle">Project</th> 
+              <th className ="company">Company</th>
               <th>Members</th>
             </tr>
           </thead>
@@ -43,8 +43,8 @@ function Home() {
             {groupData.map((val, proj) => {
               return (
                 <tr key={proj}>
-                  <td className="company" onClick={() => (getProject(val.Project))}>{val.Project}</td>
-                  <td>{val.Company}</td>
+                  <td className="project" onClick={() => (getProject(val.Project))}>{val.Project}</td>
+                  <td className ="company">{val.Company}</td>
                   <td>{val.Members}</td>
                 </tr>
               )
