@@ -56,6 +56,17 @@ def satisfaction_check(project):
 
     return avg_spec_dict
 
+# Input: project with members
+# Output: average of the averages - the projects desired value for each specification
+def satisfaction_score(project):
+    avg_spec_dict = satisfaction_check(project)
+    value = 0
+    for val in avg_spec_dict.values():
+        value += val
+
+    score = value/len(avg_spec_dict)
+
+    return score
 
 def init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv):
     # Initialize both dictionaries. Read both files.
@@ -77,34 +88,23 @@ def sort_dicts(unsorted_dict):
 
     return sorted_dict
 
+
+
 def group_sort(student_filepath, project_filepath, student_excel, project_csv):
     init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv)
-    # for person in student.Students:
-    #    print(student.Students[person].__str__())
-    # for group in project.Projects:
-    #    print(project.Projects[group].__str__())
-
-    # for group_proj in proj.Projects:
-    #     for num in range(4):
-    #         for person in stud.Students:
-    #             if not stud.Students[person].get_is_assigned():
-    #                 pass
-    #xlsx = pd.ExcelFile(project_filepath + student_excel)
-    #student_df = pd.read_excel(xlsx, "Student_Info")
-    #proj_prefs_df = pd.read_excel(xlsx, "Project_Preferences")
-    #avg_dict_unsorted = proj.get_all_averages(proj_prefs_df)
 
 
 
-# group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
-# "Fall_2022_Edit_1.02_Companies.csv")
 
-init_students_and_projects("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx",
-                           "Fall_2022_Edit_1.01_Companies.csv")
-
-xlsx = pd.ExcelFile("..\..\Samples\CSVs\\" + "Fall_2022_Edit_1.04_Students.xlsx")
-student_df = pd.read_excel(xlsx, "Student_Info")
-proj_prefs_df = pd.read_excel(xlsx, "Project_Preferences")
-avg_dict_unsorted = stud.get_all_averages(proj_prefs_df)
-print(sort_dicts(avg_dict_unsorted))
+# # group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
+# # "Fall_2022_Edit_1.02_Companies.csv")
+#
+# init_students_and_projects("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx",
+#                            "Fall_2022_Edit_1.01_Companies.csv")
+#
+# xlsx = pd.ExcelFile("..\..\Samples\CSVs\\" + "Fall_2022_Edit_1.04_Students.xlsx")
+# student_df = pd.read_excel(xlsx, "Student_Info")
+# proj_prefs_df = pd.read_excel(xlsx, "Project_Preferences")
+# avg_dict_unsorted = stud.get_all_averages(proj_prefs_df)
+# print(sort_dicts(avg_dict_unsorted))
 
