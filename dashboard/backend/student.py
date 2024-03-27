@@ -133,13 +133,14 @@ class Student:
         self._project_id = project_id
 
 
-def __read_student_row(df, df2, row_number):
+def __read_student_row(studentInfoDF, df2, row_number):
     # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
     specs = {}
     count = 0
-    for column_label in df.columns:
+    for column_label in studentInfoDF.columns:
+
         if count >= HARD_REQUIREMENTS:
-            specs[str(column_label)] = int(df.at[int(row_number), str(column_label)])
+            specs[str(column_label)] = int(studentInfoDF.at[int(row_number), str(column_label)])
 
         count = count + 1
 
@@ -148,26 +149,22 @@ def __read_student_row(df, df2, row_number):
     for project_id in df2.columns:
         project_prefs[str(project_id)] = int(df2.at[int(row_number), str(project_id)])
 
-    Student(df.at[row_number, "EID"],
-            df.at[row_number, "Name"],
-            df.at[row_number, "GPA"],
-            df.at[row_number, "Honors"],
-            df.at[row_number, "SP"],
-            df.at[row_number, "Hardware, Software, or Both"],
-            df.at[row_number, "NDA"],
-            df.at[row_number, "IP"],
-            df.at[row_number, "Partner_EID"],
-            df.at[row_number, "Partner_Importance"],
+    Student(studentInfoDF.at[row_number, "EID"],
+            studentInfoDF.at[row_number, "Name"],
+            studentInfoDF.at[row_number, "GPA"],
+            studentInfoDF.at[row_number, "Honors"],
+            studentInfoDF.at[row_number, "SP"],
+            studentInfoDF.at[row_number, "Hardware, Software, or Both"],
+            studentInfoDF.at[row_number, "NDA"],
+            studentInfoDF.at[row_number, "IP"],
+            studentInfoDF.at[row_number, "Partner_EID"],
+            studentInfoDF.at[row_number, "Partner_Importance"],
             specs,
             project_prefs)
 
 
 # xlsx = read_student_excel("..\..\Samples\CSVs\Fall_2022_Edit_1.04_Students.xlsx")
 def __get_num_rows_in_excel(df):
-    # count = 0
-    # for row_label in df.index:
-    #     count = count + 1
-
     return df.shape[0]
 
 

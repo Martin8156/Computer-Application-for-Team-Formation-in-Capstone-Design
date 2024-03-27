@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
+import random
 import project as proj
 import student as stud
 
@@ -39,18 +40,27 @@ def check_spec_compatibility(project, student, spec):
         return False
 
 
-def satisfaction_check(project):
+# Input: value to modified and the weights to modify them
+# Output: The weighted product
+def apply_weights(value, weights = [0, .5, 1, 1.5, 2]):
+    return value * weights[value + 1]
+
+
+# Input: Project and variable weights
+# Output: Spec Dictionary with the absolute difference of the group spec requirement and the group average
+def specification_avg(project, weights = [0, .5, 1, 1.5, 2]):
     student_set = project.get_students()
     avg_spec_dict = {}
     num_students = len(student_set)
     for spec in project.get_specs():
         sum = 0
         for student in student_set:
-            sum += stud.Students[student].get_spec(spec)
+            value = stud.Students[student].get_spec(spec)
+            sum += value * apply_weights(value, weights)
 
         avg = sum / num_students
 
-        difference = project.get_spec(spec) - avg
+        difference = np.absolute(project.get_spec(spec) - avg)
 
         avg_spec_dict[spec] = difference
 
@@ -58,8 +68,9 @@ def satisfaction_check(project):
 
 # Input: project with members
 # Output: average of the averages - the projects desired value for each specification
-def satisfaction_score(project):
-    avg_spec_dict = satisfaction_check(project)
+# Note: A group that satisfies the desired specifications of the project has a score of 0
+def satisfaction_score(project, weights = [0, .5, 1, 1.5, 2]):
+    avg_spec_dict = specification_avg(project, weights)
     value = 0
     for val in avg_spec_dict.values():
         value += val
@@ -88,10 +99,33 @@ def sort_dicts(unsorted_dict):
 
     return sorted_dict
 
+# Input: Dictionary of students and projects and weights for variables
+# Output: A list of projects ids from the worst ratio to the best
+def project_popularity(Students, Project, weights):
+    return list
 
-
-def group_sort(student_filepath, project_filepath, student_excel, project_csv):
+# Input: Filepaths for students and projects as well as their names and the weights for variables
+# Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
+# Notes: First does some pre algorithm sorting, then assigns students, and then swaps for better outcomes
+# Restriction: (Min members per group)x(projects) must be <= total number of students <= (max members)x(projects)
+def group_sort(student_filepath, project_filepath, student_excel, project_csv, weights = [0, .5, 1, 1.5, 2]):
     init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv)
+
+    # 1. Pre Algorithm Setup
+
+    # Decide initial order for the assessment algorithm
+    assessmentOrder = project_popularity(stud.Students, proj.Project, weights)
+
+    # 2. Assessment Algorithm - Assign all students to a group
+
+    eidList = list(stud.Students.keys())
+    random.shuffle(eidList)
+
+    # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
+
+
+
+
 
 
 
