@@ -6,18 +6,6 @@ DEBUG = False
 
 HARD_REQUIREMENTS = 10
 
-"""
-For the future:
-- Code a way to check for NaN values in any part of the excel file and assign them 
-    default values. Different sections may have different default values.
-- For front-end survey when asking students, either require students to answer with
-the correct data type or assign a default value to it when sending it to database or input
-excel file.
-- Standardize student responses. Give front-end survey to students after company filled their
-    respective survey.
-"""
-
-
 class Student:
     def __init__(self, eid, name, gpa, honors, sp, focus, nda, ip,
                  partner_eid, partner_importance,
@@ -133,7 +121,7 @@ class Student:
         self._project_id = project_id
 
 
-def __read_student_row(studentInfoDF, df2, row_number):
+def __read_student_row(studentInfoDF, preferencesDF, row_number):
     # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
     specs = {}
     count = 0
@@ -146,8 +134,8 @@ def __read_student_row(studentInfoDF, df2, row_number):
 
     project_prefs = {}
 
-    for project_id in df2.columns:
-        project_prefs[str(project_id)] = int(df2.at[int(row_number), str(project_id)])
+    for project_id in preferencesDF.columns:
+        project_prefs[str(project_id)] = int(preferencesDF.at[int(row_number), str(project_id)])
 
     Student(studentInfoDF.at[row_number, "EID"],
             studentInfoDF.at[row_number, "Name"],

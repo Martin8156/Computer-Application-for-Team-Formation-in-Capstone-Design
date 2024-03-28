@@ -101,8 +101,43 @@ def sort_dicts(unsorted_dict):
 
 # Input: Dictionary of students and projects and weights for variables
 # Output: A list of projects ids from the worst ratio to the best
-def project_popularity(Students, Project, weights):
+def project_popularity(students, project, weights):
     return list
+
+# Input: ID of project and student to be added as well as weights
+# Output: Score of the group if the student was added
+# Notes: Temporarily add student to group, get score, and remove student before returning score
+def check_assignment_score(projectID, studentID, weights):
+
+    proj.Projects.keys(projectID).add_student(studentID)
+    score = satisfaction_score(proj.Projects.get(projectID), weights)
+    proj.Projects.keys(projectID).del_student(studentID)
+
+    return score
+
+
+# Input: ID of project, set of students not yet assigned, weights for scores
+# Output: No output
+# Notes: The best student should be removed from the set and assigned to ID
+def assign_best_student(projectID, unassignedStudIDs, weights):
+
+    # ID of student to be added and score (better if closer to 0)
+    currentBestID = ""
+    currentBestScore = 100
+
+    for targetStudent in unassignedStudIDs:
+        scoreToCheck = check_assignment_score(projectID, targetStudent, weights)
+
+        # If better score, switch to better score (should always be a positive number below 5 or 0)
+        if(scoreToCheck < currentBestScore):
+            # Should always be true the first time
+            currentBestID = targetStudent
+            currentBestScore = scoreToCheck
+
+    # Remove the assigned ID, assign student to group
+    unassignedStudIDs.remove(currentBestID)
+    proj.Projects.keys(projectID).add_student(currentBestID)
+
 
 # Input: Filepaths for students and projects as well as their names and the weights for variables
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
@@ -116,14 +151,22 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
     # Decide initial order for the assessment algorithm
     assessmentOrder = project_popularity(stud.Students, proj.Project, weights)
 
-    # 2. Assessment Algorithm - Assign all students to a group
+    # 2. Assignment Algorithm - Assign all students to a group
 
-    eidList = list(stud.Students.keys())
-    random.shuffle(eidList)
+    unassignedStudIDs = set(stud.Students.keys())
+
+    # As long as there are students are not assigned, continue the loop
+    while(len(unassignedStudIDs) == 0):
+
+        # For the first pass, it is in order of the
+        for targetProj in assessmentOrder:
+
+            assign_best_student(targetProj, unassignedStudIDs, weights)
+
+
 
     # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
-
-
+    pass
 
 
 

@@ -7,33 +7,6 @@ DEBUG = False
 Projects = {}
 
 HARD_REQUIREMENTS = 6
-"""
-For the future.
-- Make questionnaire for companies asking the following:
-    - Give Company Name.
-    - Whether IP agreement is needed
-    - Whether NDA is needed
-    - How much hardware and software project has.
-    - If project involves majors such as SE, Data Science, Comp Arch, etc.
-        - If so, mark as 1 in input csv. If not, leave it null value.
-    - If they have extra specifications for project.
-        - Give examples of how it will be used in future for projects, and 
-        tell them that students will be asked if they know this.
-  
-- For questionnaire, make front-end survey. Send that data to the input CSV or database.
-    - Either that or link Google Survey.
-- For Software and Hardware Involvement, make it out of either 100% or 5 or 10.
-    - Then, ask companies what percentage involves software and what involves hardware.
-    - Allow only integers in input for front-end from 1 to 10. Also, if they answer
-    one aspect with a number, then the options for the other involvement decrease by that 
-    amount.
-- Make adjustments for honor or SP project.
-- When asking companies about extra specifications, allow them to describe what exactly
-    they will need. Basically, a description of the specification.
-- When asking companies about which majors their project includes, describe the major 
- in question and what it may include. Also allow them to choose multiple majors for project.
- In front end. Send it to csv.
-"""
 MIN_STUDENTS_IN_PROJECT = 4
 
 
