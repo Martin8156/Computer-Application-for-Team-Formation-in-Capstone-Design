@@ -194,6 +194,7 @@ def find_worst_member(targetProjOne, weights):
 
 # Input: Take a project with an assigned student and another project with an assigned student
 # Output: Return true if the swap provides a benefit (a number closer to 0) for the swap
+# Note: Do a check if the NDA and IP are needed or not
 def one_sided_swap_check(projOne, studentOne, projTwo, studentTwo):
     pass
 
@@ -202,10 +203,15 @@ def one_sided_swap_check(projOne, studentOne, projTwo, studentTwo):
 def one_sided_swap_score_change(projOne, studentOne, projTwo, studentTwo):
     pass
 
-# Input: Take a project with an assigned student and another project with an assigned student
+# Input: Take a projectID with an assigned student and another projectID with an assigned student
 # Output: Swaps students
 def swap_students(projOne, studentOne, projTwo, studentTwo):
-    pass
+    # remove the students
+    proj.Projects[projOne].del_student(studentOne)
+    proj.Projects[projTwo].del_student(studentTwo)
+    # add the students
+    proj.Projects[projOne].add_student(studentTwo)
+    proj.Projects[projTwo].add_student(studentOne)
 
 # Input: Filepaths for students and projects as well as their names and the weights for variables
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
