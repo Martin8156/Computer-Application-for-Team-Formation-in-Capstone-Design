@@ -185,7 +185,30 @@ def assign_best_student(projectID, unassignedStudIDs, weights):
 # Input: weights for ranks
 # Output: list of projectIDs from worst to best benefit pref analysis (larger is worse)
 def worst_to_best(weights):
-    pass
+    unsortedScoresList = []
+    dict = {}
+    listOfProjIDs = proj.Projects.keys()
+
+    # Get all their scores and shove it in a dict
+    for targetID in listOfProjIDs:
+        currentScore = benefit_pref_analysis(proj.Projects.get(targetID), weights)
+        dict[targetID] = currentScore
+        unsortedScoresList.append(currentScore)
+
+
+    # sort values from greatest to least
+    sortedScoresList = unsortedScoresList.sort(reverse=True)
+
+    # swap keys and values
+    swappedDict = {value: key for key, value in dict.items()}
+    sortedIDs = []
+
+    # grab score in order from sorted list, get relevant projID, add to ID list
+    for score in sortedScoresList:
+        projID = swappedDict.get(score)
+        sortedIDs.append(projID)
+
+    return sortedIDs
 
 # Input: projectID with members and weights
 # Output: The team member whose removal provides the least to the group
