@@ -189,8 +189,29 @@ def worst_to_best(weights):
 
 # Input: projectID with members and weights
 # Output: The team member whose removal provides the least to the group
-def find_worst_member(targetProjOne, weights):
-    pass
+def find_worst_member(projID, weights):
+
+    projOneOGScore = benefit_pref_analysis(proj.Projects.get(projID), weights)
+
+    studentSet = proj.Projects.get(projID).get_students()
+    worstStudentID = ""
+    # lower is better so start low
+    worstScoreChange = -10000
+
+    # remove student, check score difference, add student
+    for student in studentSet:
+        proj.Projects[projID].del_student(student)
+        removedScore = benefit_pref_analysis(proj.Projects.get(projID), weights)
+        diff = removedScore - projOneOGScore
+
+        # get the greatest positive number change (bad for group)
+        if(diff > worstScoreChange):
+            worstStudentID = student
+            worstScoreChange = diff
+
+        proj.Projects[projID].add_student(student)
+
+    return worstStudentID
 
 # Input: Take a projectIDI with an assigned student and another projectID with an assigned student
 # Output: Return true if the swap provides a benefit (a number closer to 0) for the swap
@@ -233,12 +254,12 @@ def one_sided_swap_score_change(projOneID, studentOne, projTwoID, studentTwo, we
 
     postSwapScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
     # lower is better
-    isSwapDiff = postSwapScore - projOneOGScore
+    swapDiff = postSwapScore - projOneOGScore
 
     # swap back
     swap_students(projOneID, studentTwo, projTwoID, studentOne)
 
-    return isSwapDiff
+    return swapDiff
 
 
 # Input: Take a projectID with an assigned student and another projectID with an assigned student
