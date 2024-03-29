@@ -4,7 +4,6 @@ import numpy as np
 import random
 import project as proj
 import student as stud
-import inputs
 
 
 # When sorting GPAs, put NA values at end. When sorting GPA based on integer values, do not
@@ -85,6 +84,7 @@ def satisfaction_score(project, weights=[0, .5, 1, 1.5, 2]):
     return score
 
 
+# Has to be run first
 def init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv):
     # Initialize both dictionaries. Read both files.
     stud.read_student_excel(student_filepath, student_excel)
@@ -112,8 +112,7 @@ def sort_dicts(unsorted_dict):
 # The function ranks projects from each student's desire to be in that project from worst to best.
 # Input: Dictionary of students and projects and weights for variables
 # Output: A list of projects ids from the worst ratio to the best
-
-def project_popularity():
+def project_popularity(weights):
     popularity_list_int = []
     popularity_list_str = []
     is_sorted_in_str = []
@@ -127,20 +126,18 @@ def project_popularity():
     # Get popularity. Add up all student's ratings.
     for student in stud.Students.values():  # Gets student objects
         index = 0
-        # print(student.get_project_prefs())
+
         for pref in student.get_project_prefs():  # Gets each student object's project preference list
-            # print(pref)
-            proj.Projects[pref].add_popularity(inputs.apply_weight(student.get_project_prefs().get(pref)))
-            popularity_list_int[index] += inputs.apply_weight(student.get_project_prefs().get(pref))
+            weightedPref = apply_weights(student.get_project_prefs().get(pref), weights)
+            proj.Projects[pref].add_popularity(weightedPref)
+            popularity_list_int[index] += weightedPref
             index += 1
     popularity_list_int.sort()
-    #print(popularity_list_int)
 
     # At this point, the popularity numbers have been sorted.
     # Compare scores in integer list with score assigned to each project in Projects dictionary. If they are equal,
     # assign that project's string to it's already sorted index.
     for group in proj.Projects:
-        #print(str(proj.Projects[group].get_popularity()) + str(group))
         for index in range(len(popularity_list_int)):
             if (proj.Projects[group].get_popularity() == popularity_list_int[index]
                     and is_sorted_in_str[index] is False):
@@ -148,16 +145,39 @@ def project_popularity():
                 is_sorted_in_str[index] = True
                 break
 
-    #print(popularity_list_str)
     return popularity_list_str
+
+
+# Input: A project with members
+# Output: The summed up cost
+# Notes: Cost is just a sort of inverse preference rank (6 - project pref = cost)
+def total_cost_calc(project):
+    student_set = project.get_students()
+    projectID = project.get_project_id()
+    sum = 0
+    for student in student_set:
+        cost = 6 - student.get_project_prefs().get(projectID)
+        sum = sum + cost
+
+    return sum
+
+
+# The func divides the score by the total cost
+# Input: A project with members and weights
+# Output: Divided score by total "Cost"
+# Notes: Cost is just a sort of inverse preference rank (6 - project pref = cost)
+def benefit_pref_analysis(project, weights):
+    score = satisfaction_score(project, weights)
+    totalCost = total_cost_calc(project)
+    return (score/totalCost)
 
 
 # Input: ID of project and student to be added as well as weights
 # Output: Score of the group if the student was added
 # Notes: Temporarily add student to group, get score, and remove student before returning score
-def check_assignment_score(projectID, studentID, weights):
+def check_assignment(projectID, studentID, weights):
     proj.Projects.keys(projectID).add_student(studentID)
-    score = satisfaction_score(proj.Projects.get(projectID), weights)
+    score = benefit_pref_analysis(proj.Projects.get(projectID), weights)
     proj.Projects.keys(projectID).del_student(studentID)
 
     return score
@@ -172,7 +192,7 @@ def assign_best_student(projectID, unassignedStudIDs, weights):
     currentBestScore = 100
 
     for targetStudent in unassignedStudIDs:
-        scoreToCheck = check_assignment_score(projectID, targetStudent, weights)
+        scoreToCheck = check_assignment(projectID, targetStudent, weights)
 
         # If better score, switch to better score (should always be a positive number below 5 or 0)
         if (scoreToCheck < currentBestScore):
@@ -195,7 +215,7 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
     # 1. Pre Algorithm Setup
 
     # Decide initial order for the assessment algorithm
-    assessmentOrder = project_popularity()
+    assessmentOrder = project_popularity(weights)
 
     # 2. Assignment Algorithm - Assign all students to a group
 
@@ -210,26 +230,3 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 
     # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
     pass
-
-
-# # group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
-# # "Fall_2022_Edit_1.02_Companies.csv")
-#
-init_students_and_projects("..\..\Samples\CSVs\\",
-                           "..\..\Samples\CSVs\\",
-                           "Fall_2022_Edit_1.05_Students.xlsx",
-                           "Fall_2022_Edit_1.01_Companies.csv")
-#
-# xlsx = pd.ExcelFile("..\..\Samples\CSVs\\" + "Fall_2022_Edit_1.04_Students.xlsx")
-# student_df = pd.read_excel(xlsx, "Student_Info")
-# proj_prefs_df = pd.read_excel(xlsx, "Project_Preferences")
-# avg_dict_unsorted = stud.get_all_averages(proj_prefs_df)
-# print(sort_dicts(avg_dict_unsorted))
-
-# list = []
-# for i in range(len(proj.Projects)):
-#     list.append(0)
-#
-# print(list)
-# print(range(len(proj.Projects)))
-project_popularity()
