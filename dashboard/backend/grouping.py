@@ -192,16 +192,54 @@ def worst_to_best(weights):
 def find_worst_member(targetProjOne, weights):
     pass
 
-# Input: Take a project with an assigned student and another project with an assigned student
+# Input: Take a projectIDI with an assigned student and another projectID with an assigned student
 # Output: Return true if the swap provides a benefit (a number closer to 0) for the swap
 # Note: Do a check if the NDA and IP are needed or not
-def one_sided_swap_check(projOne, studentOne, projTwo, studentTwo):
-    pass
+def one_sided_swap_check(projOneID, studentOne, projTwoID, studentTwo, weights):
 
-# Input: Take a project with an assigned student and another project with an assigned student
+    projOneOGScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
+
+    docCheckOne = proj.Projects.get(projOneID).check_all(stud.Students.get(studentTwo))
+    docCheckTwo = proj.Projects.get(projTwoID).check_all(stud.Students.get(studentOne))
+    isDocOK = docCheckOne and docCheckTwo
+
+    if(isDocOK):
+
+        # swap once to check
+        swap_students(projOneID, studentOne, projTwoID, studentTwo)
+
+        postSwapScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
+        # lower is better
+        isSwapBeneficial = postSwapScore < projOneOGScore
+
+        # swap back
+        swap_students(projOneID, studentTwo, projTwoID, studentOne)
+
+        return isSwapBeneficial
+
+    else:
+        return False
+
+
+# Input: Take a projectID with an assigned student and another projectID with an assigned student
 # Output: Find the change in score for projectOne after the swap
-def one_sided_swap_score_change(projOne, studentOne, projTwo, studentTwo):
-    pass
+def one_sided_swap_score_change(projOneID, studentOne, projTwoID, studentTwo, weights):
+
+    projOneOGScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
+
+
+    # swap once to check
+    swap_students(projOneID, studentOne, projTwoID, studentTwo)
+
+    postSwapScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
+    # lower is better
+    isSwapDiff = postSwapScore - projOneOGScore
+
+    # swap back
+    swap_students(projOneID, studentTwo, projTwoID, studentOne)
+
+    return isSwapDiff
+
 
 # Input: Take a projectID with an assigned student and another projectID with an assigned student
 # Output: Swaps students
@@ -259,16 +297,16 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 
                 for student in student_set:
                     # checks if the swap helps projOne
-                    isGood = one_sided_swap_check(targetProjOne, worstMemberID, targetProjTwo, student)
+                    isGood = one_sided_swap_check(targetProjOne, worstMemberID, targetProjTwo, student, weights)
 
                     # if the swap is good for projOne, check if the specifcs are better than last change
                     # Remember, the closer the score is to 0 the better
                     if(isGood):
 
-                        scoreChange = one_sided_swap_score_change(targetProjOne, worstMemberID, targetProjTwo, student)
+                        scoreChange = one_sided_swap_score_change(targetProjOne, worstMemberID, targetProjTwo, student, weights)
 
-                        if(bestScoreChange < scoreChange):
-                            # if the swap helps projOne and the score is better than the current saved score, note that
+                        if(bestScoreChange > scoreChange):
+                            # if the change in score is negative, its better
                             validSwap = True
                             projectIDToSwap = targetProjTwo
                             studentIDToSwap = student
