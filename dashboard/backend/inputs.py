@@ -13,4 +13,6 @@ def input_all_weights(new_weight_list):
         weights[i] = new_weight_list[i]
 
 
-print(weights)
+def apply_weight(index):
+    product = index * weights[index - 1]
+    return product
