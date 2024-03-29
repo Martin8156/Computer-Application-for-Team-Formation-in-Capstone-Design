@@ -187,6 +187,11 @@ def assign_best_student(projectID, unassignedStudIDs, weights):
 def worst_to_best(weights):
     pass
 
+# Input: projectID with members and weights
+# Output: The team member whose removal provides the least to the group
+def find_worst_member(targetProjOne, weights):
+    pass
+
 # Input: Filepaths for students and projects as well as their names and the weights for variables
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
 # Notes: First does some pre algorithm sorting, then assigns students, and then swaps for better outcomes
@@ -215,7 +220,21 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 
 
     # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
-    pass
+
+    # for each projectID, compare to a different project
+    for targetProjOne in assessmentOrder:
+        
+        worstMemberID = find_worst_member(targetProjOne, weights)
+        
+        validSwap = False
+        projectIDToSwap = ""
+        
+        for targetProjTwo in assessmentOrder:
+            if targetProjOne != targetProjTwo:
+                pass
+                
+
+        assessmentOrder = worst_to_best(weights)
 
 
 # # group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
