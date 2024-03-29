@@ -37,11 +37,11 @@ class Student:
         self._partner_importance = str(partner_importance)
 
         # Student comfortability ratings with specifications and preference for projects.
-        self._specs = dict(specs)
-        self._project_prefs = dict(project_prefs)
+        self._specs = dict(specs) #(key: value) = (specification string: specification skill int)
+        self._project_prefs = dict(project_prefs) #(key: value) = (project id string: willingness to join int)
 
         # Insert this student object into the dictionary with the eid as the key.
-        Students[eid] = self
+        Students[eid] = self    #(key: value) = (eid string: student object)
 
         # Maybe include student unique experience for instructor to read just in case?
 
@@ -68,6 +68,7 @@ class Student:
         print("Project Preferences:")
         print(self._project_prefs)
         print("===============================")
+        return ""
 
     def get_eid(self):
         return self._EID

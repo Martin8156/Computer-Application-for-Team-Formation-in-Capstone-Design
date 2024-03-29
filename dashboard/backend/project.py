@@ -24,6 +24,8 @@ class Project:
 
         self._num_students = 0
 
+        self.popularity = 0
+
         # Add Project to list of projects.
         Projects[self._project_id] = self
 
@@ -65,6 +67,14 @@ class Project:
 
     def get_students(self):
         return self._students
+    def get_popularity(self):
+        return self.popularity
+
+    def set_popularity(self, new_popularity):
+        self.popularity = new_popularity
+
+    def add_popularity(self, number):
+        self.popularity += number
 
     def set_specs(self, new_specs):
         self._specs = new_specs
@@ -83,6 +93,7 @@ class Project:
     def del_all_students(self):
         self._students.clear()
         self._num_students = 0
+
 
 
 """

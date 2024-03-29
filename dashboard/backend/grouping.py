@@ -4,6 +4,7 @@ import numpy as np
 import random
 import project as proj
 import student as stud
+import inputs
 
 
 # When sorting GPAs, put NA values at end. When sorting GPA based on integer values, do not
@@ -34,7 +35,7 @@ def check_student_focus_compatibility(project, student):
 # will be used more often.
 def check_spec_compatibility(project, student, spec):
     spec_set = project.get_specs()
-    if spec in spec_set and student.get_specs().get(spec) > 3:
+    if spec in spec_set and student.get_specs().get(spec) >= 3:
         return True
     else:
         return False
@@ -43,9 +44,10 @@ def check_spec_compatibility(project, student, spec):
 # Input: value to modified and the weights to modify them
 # Output: The weighted product
 def apply_weights(value, weights = [0, .5, 1, 1.5, 2]):
-    return value * weights[value + 1]
+    return value * weights[value - 1]
 
-
+# Function: Gets a project's students and calculates the average skill level of all students involved
+# for all specifications.
 # Input: Project and variable weights
 # Output: Spec Dictionary with the absolute difference of the group spec requirement and the group average
 def specification_avg(project, weights = [0, .5, 1, 1.5, 2]):
@@ -84,6 +86,8 @@ def init_students_and_projects(student_filepath, project_filepath, student_excel
     stud.read_student_excel(student_filepath, student_excel)
     proj.read_projects_csv(project_filepath, project_csv)
 
+# Input: Unsorted dictionary of numbers
+# Output: Sorted dictionary of numbers from least to greatest
 def sort_dicts(unsorted_dict):
     copy = dict(unsorted_dict.copy())
     sorted_dict = {}
@@ -98,11 +102,46 @@ def sort_dicts(unsorted_dict):
         sorted_dict[lowest_key] = copy.pop(str(lowest_key))
 
     return sorted_dict
-
+# The function ranks projects from each student's desire to be in that project from worst to best.
 # Input: Dictionary of students and projects and weights for variables
 # Output: A list of projects ids from the worst ratio to the best
-def project_popularity(students, project, weights):
-    return list
+
+def project_popularity():
+
+    popularity_list_int = []
+    popularity_list_str = []
+    is_sorted_in_str = []
+
+    # All arrays are length of the number of projects.
+    for i in range(len(proj.Projects)):
+        popularity_list_int.append(0)
+        popularity_list_str.append("")
+        is_sorted_in_str.append(False)
+
+    # Get popularity. Add up all student's ratings.
+    for student in stud.Students.values(): # Gets student objects
+        index = 0
+        #print(student.get_project_prefs())
+        for pref in student.get_project_prefs(): # Gets each student object's project preference list
+            #print(pref)
+            proj.Projects[pref].add_popularity(student.get_project_prefs().get(pref))
+            popularity_list_int[index] += student.get_project_prefs().get(pref)
+            index += 1
+    popularity_list_int.sort()
+    #print(popularity_list_int)
+
+    # At this point, the popularity numbers have been sorted.
+    for group in proj.Projects:
+        #print(str(proj.Projects[group].get_popularity()) + str(group))
+        for index in range(len(popularity_list_int)):
+            if proj.Projects.get(group).get_popularity() == popularity_list_int[index] and is_sorted_in_str[index] == False:
+                popularity_list_str[index] = group
+                is_sorted_in_str[index] = True
+                break
+
+
+    #print(popularity_list_str)
+    return popularity_list_str
 
 # Input: ID of project and student to be added as well as weights
 # Output: Score of the group if the student was added
@@ -149,7 +188,7 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
     # 1. Pre Algorithm Setup
 
     # Decide initial order for the assessment algorithm
-    assessmentOrder = project_popularity(stud.Students, proj.Project, weights)
+    assessmentOrder = project_popularity()
 
     # 2. Assignment Algorithm - Assign all students to a group
 
@@ -176,8 +215,10 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 # # group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
 # # "Fall_2022_Edit_1.02_Companies.csv")
 #
-# init_students_and_projects("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx",
-#                            "Fall_2022_Edit_1.01_Companies.csv")
+init_students_and_projects("..\..\Samples\CSVs\\",
+                           "..\..\Samples\CSVs\\",
+                           "Fall_2022_Edit_1.05_Students.xlsx",
+                            "Fall_2022_Edit_1.01_Companies.csv")
 #
 # xlsx = pd.ExcelFile("..\..\Samples\CSVs\\" + "Fall_2022_Edit_1.04_Students.xlsx")
 # student_df = pd.read_excel(xlsx, "Student_Info")
@@ -185,3 +226,10 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 # avg_dict_unsorted = stud.get_all_averages(proj_prefs_df)
 # print(sort_dicts(avg_dict_unsorted))
 
+# list = []
+# for i in range(len(proj.Projects)):
+#     list.append(0)
+#
+# print(list)
+# print(range(len(proj.Projects)))
+project_popularity()
