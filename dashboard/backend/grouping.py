@@ -192,6 +192,21 @@ def worst_to_best(weights):
 def find_worst_member(targetProjOne, weights):
     pass
 
+# Input: Take a project with an assigned student and another project with an assigned student
+# Output: Return true if the swap provides a benefit (a number closer to 0) for the swap
+def one_sided_swap_check(projOne, studentOne, projTwo, studentTwo):
+    pass
+
+# Input: Take a project with an assigned student and another project with an assigned student
+# Output: Find the change in score for projectOne after the swap
+def one_sided_swap_score_change(projOne, studentOne, projTwo, studentTwo):
+    pass
+
+# Input: Take a project with an assigned student and another project with an assigned student
+# Output: Swaps students
+def swap_students(projOne, studentOne, projTwo, studentTwo):
+    pass
+
 # Input: Filepaths for students and projects as well as their names and the weights for variables
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
 # Notes: First does some pre algorithm sorting, then assigns students, and then swaps for better outcomes
@@ -228,11 +243,34 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
         
         validSwap = False
         projectIDToSwap = ""
+        studentIDToSwap = ""
+        bestScoreChange = 100
         
         for targetProjTwo in assessmentOrder:
             if targetProjOne != targetProjTwo:
-                pass
-                
+
+                student_set = proj.Projects.get(targetProjTwo).get_students()
+
+                for student in student_set:
+                    # checks if the swap helps projOne
+                    isGood = one_sided_swap_check(targetProjOne, worstMemberID, targetProjTwo, student)
+
+                    # if the swap is good for projOne, check if the specifcs are better than last change
+                    # Remember, the closer the score is to 0 the better
+                    if(isGood):
+
+                        scoreChange = one_sided_swap_score_change(targetProjOne, worstMemberID, targetProjTwo, student)
+
+                        if(bestScoreChange < scoreChange):
+                            # if the swap helps projOne and the score is better than the current saved score, note that
+                            validSwap = True
+                            projectIDToSwap = targetProjTwo
+                            studentIDToSwap = student
+                            bestScoreChange = scoreChange
+
+
+        if(validSwap):
+            swap_students(targetProjOne, worstMemberID, projectIDToSwap, studentIDToSwap)
 
         assessmentOrder = worst_to_best(weights)
 
