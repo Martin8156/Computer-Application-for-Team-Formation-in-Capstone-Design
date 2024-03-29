@@ -23,11 +23,10 @@ class Project:
         self._specs = dict(specs)  # What exactly the project will involve.
         self._students = set(students)  # Students involved in this project.
 
-        self._num_students = 0
-
-        self.popularity = 0
-        self.project_cost = 0
-        self.avg_spec_dict = {}
+        self._popularity = 0
+        self._project_cost = 0
+        self._avg_spec_dict = {}
+        self._avg_student_gpa = 0
 
         # Add Project to list of projects.
         Projects[self._project_id] = self
@@ -74,13 +73,13 @@ class Project:
         return self._students
 
     def get_popularity(self):
-        return self.popularity
+        return self._popularity
 
     def set_popularity(self, new_popularity):
-        self.popularity = new_popularity
+        self._popularity = new_popularity
 
     def add_popularity(self, number):
-        self.popularity += number
+        self._popularity += number
 
     def set_specs(self, new_specs):
         self._specs = new_specs
@@ -90,15 +89,12 @@ class Project:
 
     def add_student(self, student_eid):
         self._students.add(student_eid)
-        self._num_students += 1
 
     def del_student(self, student_eid):
         self._students.remove(student_eid)
-        self._num_students -= 1
 
     def del_all_students(self):
         self._students.clear()
-        self._num_students = 0
 
     def check_nda(self, student):
         if self.get_nda() == 1 and student.get_nda() == 0:
@@ -134,7 +130,22 @@ class Project:
         return True
 
     def set_avg_spec_dict(self, new_dict):
-        self.avg_spec_dict = new_dict
+        self._avg_spec_dict = new_dict
+
+    def set_avg_student_gpa(self, new_gpa):
+        self._avg_student_gpa = new_gpa
+
+    def get_avg_student_gpa(self):
+        return self._avg_student_gpa
+
+    def get_avg_spec_dict(self):
+        return self._avg_spec_dict
+
+    def get_project_cost(self):
+        return self._project_cost
+
+    def set_project_cost(self, new_project_cost):
+        self._project_cost = new_project_cost
 
 
 """

@@ -111,6 +111,9 @@ def project_popularity():
                 break
 
     # print(popularity_list_str)
+    for index in range(len(popularity_list_int)):
+        proj_name = popularity_list_str[index]
+        proj.Projects[proj_name].set_popularity(popularity_list_int[index])
     return popularity_list_str
 
 
