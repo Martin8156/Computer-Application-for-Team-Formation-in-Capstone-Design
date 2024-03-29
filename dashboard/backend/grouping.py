@@ -6,41 +6,6 @@ import project as proj
 import student as stud
 
 
-# When sorting GPAs, put NA values at end. When sorting GPA based on integer values, do not
-# factor Na into the average gpa.
-
-# Check if a student and a project are compatible.
-# Might check for honors or gpa in the future.
-def check_student_doc_compatibility(project, student):
-    if student.get_ip() == 0 and project.get_ip() == 1:
-        return False
-    elif student.get_nda() == 0 and project.get_nda() == 1:
-        return False
-    else:
-        return True
-
-
-def check_student_focus_compatibility(project, student):
-    if student.get_focus() == 1 and project.get_software() == 0:
-        return False
-    elif student.get_focus() == 0 and project.get_hardware() == 0:
-        return False
-    else:
-        return True
-
-
-# Check if a specialization is required for the project and if the student is
-# comfortable with that specialization. If so, return True. Otherwise, False.
-# Like the above compatibility except only for specs. This is because this one
-# will be used more often.
-def check_spec_compatibility(project, student, spec):
-    spec_set = project.get_specs()
-    if spec in spec_set and student.get_specs().get(spec) >= 3:
-        return True
-    else:
-        return False
-
-
 # Input: value to modified and the weights to modify them
 # Output: The weighted product
 def apply_weights(value, weights=[0, .5, 1, 1.5, 2]):
@@ -59,11 +24,13 @@ def specification_avg(project, weights=[0, .5, 1, 1.5, 2]):
         sum = 0
         for student in student_set:
             value = stud.Students[student].get_spec(spec)
-            sum += value * apply_weights(value, weights)
+            sum += apply_weights(value, weights)
 
         avg = sum / num_students
 
-        difference = np.absolute(project.get_spec(spec) - avg)
+        weightedProjPref = apply_weights(project.get_spec(spec), weights)
+
+        difference = np.absolute(weightedProjPref - avg)
 
         avg_spec_dict[spec] = difference
 
@@ -84,11 +51,13 @@ def satisfaction_score(project, weights=[0, .5, 1, 1.5, 2]):
     return score
 
 
+
 # Has to be run first
 def init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv):
     # Initialize both dictionaries. Read both files.
     stud.read_student_excel(student_filepath, student_excel)
     proj.read_projects_csv(project_filepath, project_csv)
+
 
 
 # Input: Unsorted dictionary of numbers
@@ -134,16 +103,19 @@ def project_popularity(weights):
             index += 1
     popularity_list_int.sort()
 
+
     # At this point, the popularity numbers have been sorted.
     # Compare scores in integer list with score assigned to each project in Projects dictionary. If they are equal,
     # assign that project's string to it's already sorted index.
     for group in proj.Projects:
+
         for index in range(len(popularity_list_int)):
             if (proj.Projects[group].get_popularity() == popularity_list_int[index]
                     and is_sorted_in_str[index] is False):
                 popularity_list_str[index] = group
                 is_sorted_in_str[index] = True
                 break
+
 
     return popularity_list_str
 
@@ -164,21 +136,26 @@ def total_cost_calc(project):
 
 # The func divides the score by the total cost
 # Input: A project with members and weights
-# Output: Divided score by total "Cost"
+# Output: Product of the score and total cost (larger number worse)
 # Notes: Cost is just a sort of inverse preference rank (6 - project pref = cost)
 def benefit_pref_analysis(project, weights):
     score = satisfaction_score(project, weights)
     totalCost = total_cost_calc(project)
-    return (score/totalCost)
+    return (score*totalCost)
 
 
 # Input: ID of project and student to be added as well as weights
 # Output: Score of the group if the student was added
 # Notes: Temporarily add student to group, get score, and remove student before returning score
 def check_assignment(projectID, studentID, weights):
-    proj.Projects.keys(projectID).add_student(studentID)
-    score = benefit_pref_analysis(proj.Projects.get(projectID), weights)
-    proj.Projects.keys(projectID).del_student(studentID)
+    if proj.Projects[projectID].check_all(stud.Students[studentID]) is True:
+        if len(proj.Projects[projectID].get_students()) != proj.MAX_STUDENTS_IN_PROJECT:
+            proj.Projects[projectID].add_student(studentID)
+            score = benefit_pref_analysis(proj.Projects.get(projectID), weights)
+            proj.Projects[projectID].del_student(studentID)
+
+    else:
+        score = 100
 
     return score
 
@@ -202,17 +179,22 @@ def assign_best_student(projectID, unassignedStudIDs, weights):
 
     # Remove the assigned ID, assign student to group
     unassignedStudIDs.remove(currentBestID)
-    proj.Projects.keys(projectID).add_student(currentBestID)
+    proj.Projects[projectID].add_student(currentBestID)
 
+
+# Input: weights for ranks
+# Output: list of projectIDs from worst to best benefit pref analysis (larger is worse)
+def worst_to_best(weights):
+    pass
 
 # Input: Filepaths for students and projects as well as their names and the weights for variables
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
 # Notes: First does some pre algorithm sorting, then assigns students, and then swaps for better outcomes
 # Restriction: (Min members per group)x(projects) must be <= total number of students <= (max members)x(projects)
 def group_sort(student_filepath, project_filepath, student_excel, project_csv, weights=[0, .5, 1, 1.5, 2]):
-    init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv)
-
     # 1. Pre Algorithm Setup
+
+    init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv)
 
     # Decide initial order for the assessment algorithm
     assessmentOrder = project_popularity(weights)
@@ -222,11 +204,28 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
     unassignedStudIDs = set(stud.Students.keys())
 
     # As long as there are students are not assigned, continue the loop
-    while (len(unassignedStudIDs) == 0):
+    while len(unassignedStudIDs) != 0:
 
         # For the first pass, it is in order of the
         for targetProj in assessmentOrder:
-            assign_best_student(targetProj, unassignedStudIDs, weights)
+            if len(unassignedStudIDs) != 0:
+                assign_best_student(targetProj, unassignedStudIDs, weights)
+
+        assessmentOrder = worst_to_best(weights)
+
 
     # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
     pass
+
+
+# # group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
+# # "Fall_2022_Edit_1.02_Companies.csv")
+#
+#
+# xlsx = pd.ExcelFile("..\..\Samples\CSVs\\" + "Fall_2022_Edit_1.04_Students.xlsx")
+# student_df = pd.read_excel(xlsx, "Student_Info")
+# proj_prefs_df = pd.read_excel(xlsx, "Project_Preferences")
+# avg_dict_unsorted = stud.get_all_averages(proj_prefs_df)
+# print(sort_dicts(avg_dict_unsorted))
+
+

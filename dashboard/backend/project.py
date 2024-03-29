@@ -8,6 +8,7 @@ Projects = {}
 
 HARD_REQUIREMENTS = 6
 MIN_STUDENTS_IN_PROJECT = 4
+MAX_STUDENTS_IN_PROJECT = 6
 
 
 class Project:
@@ -25,6 +26,8 @@ class Project:
         self._num_students = 0
 
         self.popularity = 0
+        self.project_cost = 0
+        self.avg_spec_dict = {}
 
         # Add Project to list of projects.
         Projects[self._project_id] = self
@@ -45,8 +48,10 @@ class Project:
 
     def get_project_id(self):
         return self._project_id
+
     def get_company_name(self):
         return self._company_name
+
     def get_nda(self):
         return self._NDA
 
@@ -67,6 +72,7 @@ class Project:
 
     def get_students(self):
         return self._students
+
     def get_popularity(self):
         return self.popularity
 
@@ -94,6 +100,41 @@ class Project:
         self._students.clear()
         self._num_students = 0
 
+    def check_nda(self, student):
+        if self.get_nda() == 1 and student.get_nda() == 0:
+            return False
+        return True
+
+    def check_ip(self, student):
+        if self.get_ip() == 1 and student.get_ip() == 0:
+            return False
+        return True
+
+    def check_focus(self, student):
+        if self.get_software() == 0 and student.get_focus() == 1:
+            return False
+        elif self.get_hardware() == 0 and student.get_focus() == 0:
+            return False
+        return True
+
+    def check_all(self, student):
+        if self.check_nda(student) is False or self.check_ip(student) is False:
+            return False
+        return True
+
+    def check_spec(self, student, spec):
+        if student.get_specs().get(spec) < self.get_spec(spec):
+            return False
+        return True
+
+    def check_all_specs(self, student):
+        for spec in self.get_specs():
+            if self.check_spec(student, spec) is False:
+                return False
+        return True
+
+    def set_avg_spec_dict(self, new_dict):
+        self.avg_spec_dict = new_dict
 
 
 """
@@ -129,9 +170,6 @@ def __read_project_row(df, row_number):
 
 
 def __get_num_rows_in_csv(df):
-    # count = 0
-    # for row_label in df.index:
-    #     count = count + 1
 
     return df.shape[0]
 
@@ -174,6 +212,7 @@ def get_all_averages(df):
     for column in df.columns():
         all_avg_dict[str(column)] = float(get_average(column))
     return all_avg_dict
+
 
 # O(N) time. Maybe introduce parallel programming to speed up?
 def get_frequency(column_label, value):
@@ -230,18 +269,14 @@ def sort_projects(column_label, max_value):
 
     return ordered_list
 
+
 # Gives each project a random amount of students from 4 to 6. This is to test exporting
 # Excel file.
 def fill_projects_with_students():
-    random_eids = set()
     for project in Projects:
-        for num in range(random.randint(4,6)):
+        for num in range(random.randint(4, 6)):
             eid = "EID" + str(num + 1)
             Projects[project].add_student(eid)
 
 
-
-#read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
-#fill_projects_with_students()
-# for project in Projects:
-#     print(Projects[project].__str__())
+# read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
