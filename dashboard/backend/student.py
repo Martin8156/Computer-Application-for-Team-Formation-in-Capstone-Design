@@ -271,7 +271,6 @@ def sort_projects(column_label, max_value):
 
     return ordered_list
 
-#read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx")
-
-#print(Students["EID001"].get_spec("Data Science and Information Processing"))
-read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx")
+# read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx")
+# print(Students["EID001"].get_spec("Data Science and Information Processing"))
+# read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx")

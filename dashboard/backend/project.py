@@ -114,7 +114,7 @@ class Project:
         return True
 
     def check_all(self, student):
-        if self.check_focus(student) is False or self.check_nda(student) is False or self.check_ip(student) is False:
+        if self.check_nda(student) is False or self.check_ip(student) is False:
             return False
         return True
 
@@ -181,9 +181,6 @@ def __read_project_row(df, row_number):
 
 
 def __get_num_rows_in_csv(df):
-    # count = 0
-    # for row_label in df.index:
-    #     count = count + 1
 
     return df.shape[0]
 
@@ -293,4 +290,4 @@ def fill_projects_with_students():
             Projects[project].add_student(eid)
 
 
-read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
+# read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
