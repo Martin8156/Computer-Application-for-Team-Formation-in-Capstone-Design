@@ -8,12 +8,19 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/grouping.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/grouping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/write_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/write_csv.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,8 +39,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.grouping.executor": "Run",
+    "Python.inputs.executor": "Run",
     "Python.project.executor": "Run",
     "Python.student.executor": "Run",
+    "Python.write_csv.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
