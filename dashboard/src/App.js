@@ -1,54 +1,24 @@
-import { useState } from 'react'
-import axios from "axios";
-import logo from './logo.svg';
+import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import './App.css';
+import Home from './components/home';
+import Project from './components/project';
 
 function App() {
-  const [groupData, setGroupData] = useState([])
-
-  function getData() {
-    axios({
-      method: "GET",
-      url:"/groups",
-    })
-    .then((response) => {
-      const res = response.data;
-      setGroupData(res)
-      console.log(groupData)
-    }).catch((error) => {
-      if (error.response) {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
-        }
-    })}
-
   return (
     <div className="App">
-      <header className="Base">
-        <p>To get your group details: </p><button onClick={getData}>Click me</button>
-        <table>
-          <thead>
-            <tr>
-              <th>Project</th>
-              <th>Company</th>
-              <th>Members</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groupData.map((val, proj) => {
-              return (
-                <tr key={proj}>
-                  <td>{val.Project}</td>
-                  <td>{val.Company}</td>
-                  <td>{val.Members}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-      </table>
-      </header>
-    </div>
+    <header className="App-header">
+     <Router>
+        <div>
+        <switch>
+          <Routes>
+              <Route exact path="/" element={<Home></Home>} />
+              <Route path="/project/:projectID" element={<Project></Project>} />
+          </Routes>
+        </switch>
+        </div>
+      </Router>
+    </header>
+  </div>
   );
 }
 
