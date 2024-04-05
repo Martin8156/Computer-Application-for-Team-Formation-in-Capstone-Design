@@ -20,6 +20,11 @@ def specification_avg(project, weights=[0, .5, 1, 1.5, 2]):
     student_set = project.get_students()
     avg_spec_dict = {}
     num_students = len(student_set)
+
+    if(num_students == 0):
+        largestPossibleValue = max(weights) * 6
+        return largestPossibleValue
+
     for spec in project.get_specs():
         sum = 0
         for student in student_set:
@@ -128,7 +133,7 @@ def total_cost_calc(project):
     projectID = project.get_project_id()
     sum = 0
     for student in student_set:
-        cost = 6 - student.get_project_prefs().get(projectID)
+        cost = 6 - stud.Students.get(student).get_project_prefs().get(projectID)
         sum = sum + cost
 
     return sum
@@ -185,7 +190,7 @@ def assign_best_student(projectID, unassignedStudIDs, weights):
 # Input: weights for ranks
 # Output: list of projectIDs from worst to best benefit pref analysis (larger is worse)
 def worst_to_best(weights):
-    unsortedScoresList = []
+    scoresList = []
     dict = {}
     listOfProjIDs = proj.Projects.keys()
 
@@ -193,18 +198,18 @@ def worst_to_best(weights):
     for targetID in listOfProjIDs:
         currentScore = benefit_pref_analysis(proj.Projects.get(targetID), weights)
         dict[targetID] = currentScore
-        unsortedScoresList.append(currentScore)
+        scoresList.append(currentScore)
 
 
     # sort values from greatest to least
-    sortedScoresList = unsortedScoresList.sort(reverse=True)
+    scoresList.sort(reverse=True)
 
     # swap keys and values
     swappedDict = {value: key for key, value in dict.items()}
     sortedIDs = []
 
     # grab score in order from sorted list, get relevant projID, add to ID list
-    for score in sortedScoresList:
+    for score in scoresList:
         projID = swappedDict.get(score)
         sortedIDs.append(projID)
 
@@ -363,14 +368,7 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
         assessmentOrder = worst_to_best(weights)
 
 
-# # group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.04_Students.xlsx",
-# # "Fall_2022_Edit_1.02_Companies.csv")
-#
-#
-# xlsx = pd.ExcelFile("..\..\Samples\CSVs\\" + "Fall_2022_Edit_1.04_Students.xlsx")
-# student_df = pd.read_excel(xlsx, "Student_Info")
-# proj_prefs_df = pd.read_excel(xlsx, "Project_Preferences")
-# avg_dict_unsorted = stud.get_all_averages(proj_prefs_df)
-# print(sort_dicts(avg_dict_unsorted))
+group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.05_Students.xlsx", "Fall_2022_Edit_1.01_Companies.csv")
+
 
 
