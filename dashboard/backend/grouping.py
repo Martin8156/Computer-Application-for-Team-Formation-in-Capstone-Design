@@ -21,23 +21,25 @@ def specification_avg(project, weights=[0, .5, 1, 1.5, 2]):
     avg_spec_dict = {}
     num_students = len(student_set)
 
-    if(num_students == 0):
-        largestPossibleValue = max(weights) * 6
-        return largestPossibleValue
-
     for spec in project.get_specs():
-        sum = 0
-        for student in student_set:
-            value = stud.Students[student].get_spec(spec)
-            sum += apply_weights(value, weights)
 
-        avg = sum / num_students
+        if (num_students == 0):
+            largestPossibleValue = max(weights) * 6
+            avg_spec_dict[spec] = largestPossibleValue
+            # return a large value if there are no students as a larger value is worse
+        else:
+            sum = 0
+            for student in student_set:
+                value = stud.Students[student].get_spec(spec)
+                sum += apply_weights(value, weights)
 
-        weightedProjPref = apply_weights(project.get_spec(spec), weights)
+            avg = sum / num_students
 
-        difference = np.absolute(weightedProjPref - avg)
+            weightedProjPref = apply_weights(project.get_spec(spec), weights)
 
-        avg_spec_dict[spec] = difference
+            difference = np.absolute(weightedProjPref - avg)
+
+            avg_spec_dict[spec] = difference
 
     return avg_spec_dict
 
