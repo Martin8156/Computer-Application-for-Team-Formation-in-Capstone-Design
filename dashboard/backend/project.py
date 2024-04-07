@@ -6,16 +6,30 @@ DEBUG = False
 
 Projects = {}
 
-HARD_REQUIREMENTS = 6
+"""
+Excel File Format:
+0 - Project ID (String)
+1 - Company Name (String)
+2 - Project Name (String)
+3 - NDA (Int)
+4 - IP  (Int)
+5 - Hardware Involvement (Int)
+6 - Software Involvement (Int)
+7+ - Project Specifications (Int) or Null values
+"""
+
+HARD_REQUIREMENTS = 7
+
 MIN_STUDENTS_IN_PROJECT = 4
 MAX_STUDENTS_IN_PROJECT = 6
 
 
 class Project:
 
-    def __init__(self, project_id, comp_name, nda, ip, hw, sw, specs, students):
+    def __init__(self, project_id, comp_name, project_title, nda, ip, hw, sw, specs, students):
         self._project_id = str(project_id)  # Each project has a unique project id.
         self._company_name = str(comp_name)
+        self._project_title = str(project_title)
         self._NDA = int(nda)  # 1 - Yes 0 - No
         self._IP = int(ip)  # 1 - Yes 0 - No
         self._hardware = int(hw)  # 1 - min 5 - max
@@ -35,6 +49,7 @@ class Project:
     def __str__(self):
         print("===============================")
         print("Project ID: " + self._project_id)
+        print("Company: " + self._company_name + " Project Name: " + self._project_title)
         print("NDA: " + str(self._NDA) + " IP: " + str(self._IP))
         txt = "Hardware: {} Software: {}\n"
         print(txt.format(self._hardware, self._software))
@@ -50,6 +65,9 @@ class Project:
 
     def get_company_name(self):
         return self._company_name
+
+    def get_project_title(self):
+        return self._project_title
 
     def get_nda(self):
         return self._NDA
@@ -95,6 +113,9 @@ class Project:
 
     def del_all_students(self):
         self._students.clear()
+
+    def get_num_students(self):
+        return len(self._students)
 
     def check_nda(self, student):
         if self.get_nda() == 1 and student.get_nda() == 0:
@@ -148,52 +169,36 @@ class Project:
         self._project_cost = new_project_cost
 
 
-"""
-CVS Format:
-0 - Project ID (String)
-1 - Company Name (String)
-2 - NDA (Int)
-3 - IP  (Int)
-4 - Hardware Involvement (Int)
-5 - Software Involvement (Int)
-6+ - Project Specifications (Int) or Null values
-"""
-
-
-def __read_project_row(df, row_number):
-    # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
+def __read_project_row(projects_df, row_number):
     specs = {}
-    count = 0
-    for column_label in df.columns:
-        if count >= HARD_REQUIREMENTS:
-            specs[str(column_label)] = int(df.at[int(row_number), str(column_label)])
 
-        count += 1
+    temp = HARD_REQUIREMENTS
 
-    Project(df.at[row_number, "Project"],
-            df.at[row_number, "Company"],
-            df.at[row_number, "NDA"],
-            df.at[row_number, "IP"],
-            df.at[row_number, "Hardware"],
-            df.at[row_number, "Software"],
+    while temp < projects_df.shape[1]:
+        specs[str(projects_df.columns[temp])] = int(projects_df.at[int(row_number), str(projects_df.columns[temp])])
+
+        temp += 1
+
+    Project(projects_df.at[row_number, "Project_ID"],
+            projects_df.at[row_number, "Company"],
+            projects_df.at[row_number, "Project_Title"],
+            projects_df.at[row_number, "NDA"],
+            projects_df.at[row_number, "IP"],
+            projects_df.at[row_number, "Hardware"],
+            projects_df.at[row_number, "Software"],
             specs,
             [])
 
 
-def __get_num_rows_in_csv(df):
+# Call this method to initialize Projects dictionary and read entire Excel file.
+# Input: project file + project file's filepath
+def read_projects(filepath, excel_file):
+    projects_df = pandas.read_excel(filepath + excel_file)
 
-    return df.shape[0]
-
-
-# Call this method to initialize Projects dictionary and read entire CSV file.
-def read_projects_csv(filepath, project_csv):
-    df = pandas.read_csv(filepath + project_csv)
-    num_rows = __get_num_rows_in_csv(df)
-    for num in range(num_rows):
-        __read_project_row(df, num)
+    for num in range(projects_df.shape[0]):
+        __read_project_row(projects_df, num)
 
 
-# O(N) time. Maybe introduce parallel programming to speed up?
 def get_average(column_label):
     sum_av = 0
     count = 0
@@ -290,4 +295,10 @@ def fill_projects_with_students():
             Projects[project].add_student(eid)
 
 
-# read_projects_csv("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.01_Companies.csv")
+def print_all_projects():
+    # Assume projects Excel file has been read into the Projects dictionary.
+    for project in Projects.values():
+        print(project.__str__())
+
+
+# read_projects("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.02_Companies.xlsx")

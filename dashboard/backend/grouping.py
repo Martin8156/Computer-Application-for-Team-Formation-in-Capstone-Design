@@ -23,7 +23,7 @@ def specification_avg(project, weights=[0, .5, 1, 1.5, 2]):
 
     for spec in project.get_specs():
 
-        if (num_students == 0):
+        if num_students == 0:
             largestPossibleValue = max(weights) * 6
             avg_spec_dict[spec] = largestPossibleValue
             # return a large value if there are no students as a larger value is worse
@@ -58,13 +58,11 @@ def satisfaction_score(project, weights=[0, .5, 1, 1.5, 2]):
     return score
 
 
-
 # Has to be run first
 def init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv):
     # Initialize both dictionaries. Read both files.
     stud.read_student_excel(student_filepath, student_excel)
-    proj.read_projects_csv(project_filepath, project_csv)
-
+    proj.read_projects(project_filepath, project_csv)
 
 
 # Input: Unsorted dictionary of numbers
@@ -72,7 +70,7 @@ def init_students_and_projects(student_filepath, project_filepath, student_excel
 def sort_dicts(unsorted_dict):
     copy = dict(unsorted_dict.copy())
     sorted_dict = {}
-    while (len(copy) != 0):
+    while len(copy) != 0:
         lowest_value = 10.99
         lowest_key = ""
         for entree in copy:
@@ -95,6 +93,7 @@ def project_popularity(weights):
 
     # All arrays are length of the number of projects.
     for i in range(len(proj.Projects)):
+
         popularity_list_int.append(0)
         popularity_list_str.append("")
         is_sorted_in_str.append(False)
@@ -104,12 +103,14 @@ def project_popularity(weights):
         index = 0
 
         for pref in student.get_project_prefs():  # Gets each student object's project preference list
-            weightedPref = apply_weights(student.get_project_prefs().get(pref), weights)
-            proj.Projects[pref].add_popularity(weightedPref)
-            popularity_list_int[index] += weightedPref
-            index += 1
-    popularity_list_int.sort()
 
+            pref_weight = apply_weights(student.get_project_prefs().get(pref), weights)
+            proj.Projects[pref].add_popularity(pref_weight)
+            popularity_list_int[index] += pref_weight
+
+            index += 1
+
+    popularity_list_int.sort()
 
     # At this point, the popularity numbers have been sorted.
     # Compare scores in integer list with score assigned to each project in Projects dictionary. If they are equal,
@@ -117,12 +118,15 @@ def project_popularity(weights):
     for group in proj.Projects:
 
         for index in range(len(popularity_list_int)):
+
+            # If a number in the list equals the popularity number assigned to a project and
+            # that project has not been sorted yet, then assign that project's id to the index
+            # where the list number appeared and say that index has been sorted.
             if (proj.Projects[group].get_popularity() == popularity_list_int[index]
                     and is_sorted_in_str[index] is False):
                 popularity_list_str[index] = group
                 is_sorted_in_str[index] = True
                 break
-
 
     return popularity_list_str
 
@@ -148,13 +152,16 @@ def total_cost_calc(project):
 def benefit_pref_analysis(project, weights):
     score = satisfaction_score(project, weights)
     totalCost = total_cost_calc(project)
-    return (score*totalCost)
+    return (score * totalCost)
 
 
 # Input: ID of project and student to be added as well as weights
 # Output: Score of the group if the student was added
 # Notes: Temporarily add student to group, get score, and remove student before returning score
 def check_assignment(projectID, studentID, weights):
+
+    score = 0
+
     if proj.Projects[projectID].check_all(stud.Students[studentID]) is True:
         if len(proj.Projects[projectID].get_students()) != proj.MAX_STUDENTS_IN_PROJECT:
             proj.Projects[projectID].add_student(studentID)
@@ -202,7 +209,6 @@ def worst_to_best(weights):
         dict[targetID] = currentScore
         scoresList.append(currentScore)
 
-
     # sort values from greatest to least
     scoresList.sort(reverse=True)
 
@@ -217,10 +223,10 @@ def worst_to_best(weights):
 
     return sortedIDs
 
+
 # Input: projectID with members and weights
 # Output: The team member whose removal provides the least to the group
 def find_worst_member(projID, weights):
-
     projOneOGScore = benefit_pref_analysis(proj.Projects.get(projID), weights)
 
     studentSet = proj.Projects.get(projID).get_students()
@@ -235,7 +241,7 @@ def find_worst_member(projID, weights):
         diff = removedScore - projOneOGScore
 
         # get the greatest positive number change (bad for group)
-        if(diff > worstScoreChange):
+        if (diff > worstScoreChange):
             worstStudentID = student
             worstScoreChange = diff
 
@@ -243,18 +249,18 @@ def find_worst_member(projID, weights):
 
     return worstStudentID
 
+
 # Input: Take a projectIDI with an assigned student and another projectID with an assigned student
 # Output: Return true if the swap provides a benefit (a number closer to 0) for the swap
 # Note: Do a check if the NDA and IP are needed or not
 def one_sided_swap_check(projOneID, studentOne, projTwoID, studentTwo, weights):
-
     projOneOGScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
 
     docCheckOne = proj.Projects.get(projOneID).check_all(stud.Students.get(studentTwo))
     docCheckTwo = proj.Projects.get(projTwoID).check_all(stud.Students.get(studentOne))
     isDocOK = docCheckOne and docCheckTwo
 
-    if(isDocOK):
+    if (isDocOK):
 
         # swap once to check
         swap_students(projOneID, studentOne, projTwoID, studentTwo)
@@ -275,9 +281,7 @@ def one_sided_swap_check(projOneID, studentOne, projTwoID, studentTwo, weights):
 # Input: Take a projectID with an assigned student and another projectID with an assigned student
 # Output: Find the change in score for projectOne after the swap
 def one_sided_swap_score_change(projOneID, studentOne, projTwoID, studentTwo, weights):
-
     projOneOGScore = benefit_pref_analysis(proj.Projects.get(projOneID), weights)
-
 
     # swap once to check
     swap_students(projOneID, studentOne, projTwoID, studentTwo)
@@ -301,6 +305,7 @@ def swap_students(projOne, studentOne, projTwo, studentTwo):
     # add the students
     proj.Projects[projOne].add_student(studentTwo)
     proj.Projects[projTwo].add_student(studentOne)
+
 
 # Input: Filepaths for students and projects as well as their names and the weights for variables
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
@@ -328,19 +333,18 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 
         assessmentOrder = worst_to_best(weights)
 
-
     # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
 
     # for each projectID, compare to a different project
     for targetProjOne in assessmentOrder:
-        
+
         worstMemberID = find_worst_member(targetProjOne, weights)
-        
+
         validSwap = False
         projectIDToSwap = ""
         studentIDToSwap = ""
         bestScoreChange = 100
-        
+
         for targetProjTwo in assessmentOrder:
             if targetProjOne != targetProjTwo:
 
@@ -352,25 +356,23 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
 
                     # if the swap is good for projOne, check if the specifcs are better than last change
                     # Remember, the closer the score is to 0 the better
-                    if(isGood):
+                    if (isGood):
 
-                        scoreChange = one_sided_swap_score_change(targetProjOne, worstMemberID, targetProjTwo, student, weights)
+                        scoreChange = one_sided_swap_score_change(targetProjOne, worstMemberID, targetProjTwo, student,
+                                                                  weights)
 
-                        if(bestScoreChange > scoreChange):
+                        if (bestScoreChange > scoreChange):
                             # if the change in score is negative, its better
                             validSwap = True
                             projectIDToSwap = targetProjTwo
                             studentIDToSwap = student
                             bestScoreChange = scoreChange
 
-
-        if(validSwap):
+        if (validSwap):
             swap_students(targetProjOne, worstMemberID, projectIDToSwap, studentIDToSwap)
 
         assessmentOrder = worst_to_best(weights)
 
 
-group_sort("..\..\Samples\CSVs\\","..\..\Samples\CSVs\\","Fall_2022_Edit_1.05_Students.xlsx", "Fall_2022_Edit_1.01_Companies.csv")
-
-
-
+# group_sort("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
+#            "Fall_2022_Edit_1.01_Companies.csv")

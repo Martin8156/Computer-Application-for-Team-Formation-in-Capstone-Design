@@ -6,44 +6,41 @@ DEBUG = False
 
 HARD_REQUIREMENTS = 10
 
+
 class Student:
     def __init__(self, eid, name, gpa, honors, sp, focus, nda, ip,
                  partner_eid, partner_importance,
                  specs, project_prefs):
-        # Student Stats.
         self._EID = str(eid)
         self._name = str(name)
         self._GPA = float(gpa)
 
-        # Whether student wants to be in an honors or SP project. Mutually exclusive.
-        self._honors = int(honors)
-        self._SP = int(sp)
+        # If student wants to be in a Self-Proposed or Honors project.
+        self._honors = int(honors)  # 0 - No 1 - Yes
+        self._SP = int(sp)  # 0 - No 1 - Yes
 
         # Whether student wants to do software, hardware, or both types of work.
         self._focus = int(focus)  # Hardware(0), Software(1), or Both(2).
 
         # Whether student wants to sign an NDA or an IP.
         self._NDA = int(nda)  # 0 - No 1 - Yes
-        self._IP = int(ip)
+        self._IP = int(ip)  # 0 - No 1 - Yes
 
         # Each student is initially not assigned to a project.
         self._project_id = ""
-        self._is_Assigned = False
 
-        # Student partner they are willing to be with. Maybe for the future.
+        # Student partner to be with.
         # For the future, have partner importance return an integer instead.
         # from 0 to 5 with 0 being not important and 5 being very important.
         self._partner_eid = str(partner_eid)
         self._partner_importance = str(partner_importance)
 
         # Student comfortability ratings with specifications and preference for projects.
-        self._specs = dict(specs) #(key: value) = (specification string: specification skill int)
-        self._project_prefs = dict(project_prefs) #(key: value) = (project id string: willingness to join int)
+        self._specs = dict(specs)  # (string: int) = (specification: specification skill)
+        self._project_prefs = dict(project_prefs)  # (string: int) = (project id: willingness to join)
 
         # Insert this student object into the dictionary with the eid as the key.
-        Students[eid] = self    #(key: value) = (eid string: student object)
-
-        # Maybe include student unique experience for instructor to read just in case?
+        Students[eid] = self  # (string: object) = (eid: student)
 
     # End Student Constructor
 
@@ -57,7 +54,6 @@ class Student:
         print("Honors: " + str(self._honors) + " SP: " + str(self._SP))
 
         print("Project ID: " + self._project_id)
-        print("Is Assigned: " + str(self._is_Assigned))
 
         print("Partner EID: " + self._partner_eid + " Partner Importance: "
               + self._partner_importance)
@@ -97,9 +93,6 @@ class Student:
     def get_project_id(self):
         return self._project_id
 
-    def get_is_assigned(self):
-        return self._is_Assigned
-
     def get_partner_eid(self):
         return self._partner_eid
 
@@ -115,60 +108,55 @@ class Student:
     def get_project_prefs(self):
         return self._project_prefs
 
-    def set_is_assigned(self, state):
-        self._is_Assigned = state
-
     def set_project_id(self, project_id):
         self._project_id = project_id
 
 
-def __read_student_row(studentInfoDF, preferencesDF, row_number):
-    # df = grouping.get_csv_sample("Fall_2022_Edit_1.01_Companies.csv")
+def __read_student_row(students_df, project_prefs_df, row_number):
     specs = {}
-    count = 0
-    for column_label in studentInfoDF.columns:
 
-        if count >= HARD_REQUIREMENTS:
-            specs[str(column_label)] = int(studentInfoDF.at[int(row_number), str(column_label)])
+    temp = HARD_REQUIREMENTS
 
-        count = count + 1
+    while temp < students_df.shape[1]:
+        specs[str(students_df.columns[temp])] = int(students_df.at[int(row_number), str(students_df.columns[temp])])
+
+        temp += 1
+
+    # count = 0
+    # for column_label in studentInfoDF.columns:
+    #
+    #     if count >= HARD_REQUIREMENTS:
+    #         specs[str(column_label)] = int(studentInfoDF.at[int(row_number), str(column_label)])
+    #
+    #     count = count + 1
 
     project_prefs = {}
 
-    for project_id in preferencesDF.columns:
-        project_prefs[str(project_id)] = int(preferencesDF.at[int(row_number), str(project_id)])
+    for project_id in project_prefs_df.columns:
+        project_prefs[str(project_id)] = int(project_prefs_df.at[int(row_number), str(project_id)])
 
-    Student(studentInfoDF.at[row_number, "EID"],
-            studentInfoDF.at[row_number, "Name"],
-            studentInfoDF.at[row_number, "GPA"],
-            studentInfoDF.at[row_number, "Honors"],
-            studentInfoDF.at[row_number, "SP"],
-            studentInfoDF.at[row_number, "Hardware, Software, or Both"],
-            studentInfoDF.at[row_number, "NDA"],
-            studentInfoDF.at[row_number, "IP"],
-            studentInfoDF.at[row_number, "Partner_EID"],
-            studentInfoDF.at[row_number, "Partner_Importance"],
+    Student(students_df.at[row_number, "EID"],
+            students_df.at[row_number, "Name"],
+            students_df.at[row_number, "GPA"],
+            students_df.at[row_number, "Honors"],
+            students_df.at[row_number, "SP"],
+            students_df.at[row_number, "Hardware, Software, or Both"],
+            students_df.at[row_number, "NDA"],
+            students_df.at[row_number, "IP"],
+            students_df.at[row_number, "Partner_EID"],
+            students_df.at[row_number, "Partner_Importance"],
             specs,
             project_prefs)
 
 
-# xlsx = read_student_excel("..\..\Samples\CSVs\Fall_2022_Edit_1.04_Students.xlsx")
-def __get_num_rows_in_excel(df):
-    return df.shape[0]
-
-
 def read_student_excel(filepath, excel):
     xlsx = pandas.ExcelFile(filepath + excel)
-    df = pandas.read_excel(xlsx, "Student_Info")
-    df2 = pandas.read_excel(xlsx, "Project_Preferences")
-    num_rows = __get_num_rows_in_excel(df)
-    for num in range(num_rows):
-        __read_student_row(df, df2, num)
 
+    student_df = pandas.read_excel(xlsx, "Student_Info")
+    project_prefs_df = pandas.read_excel(xlsx, "Project_Preferences")
 
-# read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx")
-# for student in Students:
-# print(Students[student].__str__())
+    for num in range(student_df.shape[0]):
+        __read_student_row(student_df, project_prefs_df, num)
 
 
 # O(N) time. Maybe introduce parallel programming to speed up?
@@ -207,6 +195,7 @@ def get_all_averages(df):
     for column in df.columns():
         all_avg_dict[column] = float(get_average(column))
     return all_avg_dict
+
 
 # O(N) time. Maybe introduce parallel programming to speed up?
 def get_frequency(column_label, value):
@@ -271,6 +260,12 @@ def sort_projects(column_label, max_value):
 
     return ordered_list
 
-# read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.04_Students.xlsx")
-# print(Students["EID001"].get_spec("Data Science and Information Processing"))
+
+def print_all_students():
+    # Assume projects Excel file has been read into the Projects dictionary.
+    for student in Students.values():
+        print(student.__str__())
+
+
 # read_student_excel("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx")
+# print_all_students()
