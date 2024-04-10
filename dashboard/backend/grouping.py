@@ -200,26 +200,22 @@ def assign_best_student(projectID, unassignedStudIDs, weights):
 # Output: list of projectIDs from worst to best benefit pref analysis (larger is worse)
 def worst_to_best(weights):
     scoresList = []
-    dict = {}
-    listOfProjIDs = proj.Projects.keys()
+    listOfProjIDs = list(proj.Projects.keys())
 
-    # Get all their scores and shove it in a dict
-    for targetID in listOfProjIDs:
-        currentScore = benefit_pref_analysis(proj.Projects.get(targetID), weights)
-        dict[targetID] = currentScore
+    # Get all their scores and put them in a list in order
+    for keyIndex in range(len(listOfProjIDs)):
+        currentScore = benefit_pref_analysis(proj.Projects.get(listOfProjIDs[keyIndex]), weights)
         scoresList.append(currentScore)
 
-    # sort values from greatest to least
-    scoresList.sort(reverse=True)
+    # sort the index of the values from greatest to least
+    sortedIndex = sorted(range(len(scoresList)), key = lambda index: scoresList[index], reverse = True)
 
-    # swap keys and values
-    swappedDict = {value: key for key, value in dict.items()}
+    # create a new list with the IDs in the right order
     sortedIDs = []
 
-    # grab score in order from sorted list, get relevant projID, add to ID list
-    for score in scoresList:
-        projID = swappedDict.get(score)
-        sortedIDs.append(projID)
+    for keyIndex in range(len(sortedIndex)):
+        associatedID = listOfProjIDs[sortedIndex[keyIndex]]
+        sortedIDs.append(associatedID)
 
     return sortedIDs
 
@@ -331,6 +327,10 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
             if len(unassignedStudIDs) != 0:
                 assign_best_student(targetProj, unassignedStudIDs, weights)
 
+            # if (targetProj == "I2"):
+            #     print(proj.Projects.get(targetProj).get_students())
+
+
         assessmentOrder = worst_to_best(weights)
 
     # 3. Swapping Algorithm - Have groups make positive value trades for X iterations
@@ -374,5 +374,4 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
         assessmentOrder = worst_to_best(weights)
 
 
-# group_sort("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
-#            "Fall_2022_Edit_1.01_Companies.csv")
+# group_sort("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx", "Fall_2022_Edit_1.02_Companies.xlsx")
