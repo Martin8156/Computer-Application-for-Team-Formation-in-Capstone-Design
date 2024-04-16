@@ -72,11 +72,7 @@ def output_groups():
     # Convert the dictionary into a dataframe, and then into an Excel file.
     df = DataFrame(dataframe_dict)
 
-<<<<<<< HEAD
     df.to_excel(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
-=======
-    df.to_excel("\\Downloads\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
->>>>>>> dc494b7bd01a54fc910d566deb489a7bf997767f
 
 
 
