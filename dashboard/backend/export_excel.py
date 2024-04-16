@@ -5,9 +5,6 @@ import os
 import openpyxl
 from pandas import DataFrame
 
-grouping.group_sort("..\\..\\Samples\\CSVs\\", "..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
-                    "Fall_2022_Edit_1.02_Companies.xlsx")
-
 
 # Converts algorithm results into output Excel file.
 # Assume algorithm has already run and input Excel files have already been read.
@@ -127,5 +124,6 @@ def find_project_cost():
 
         project.Projects[group].set_project_cost(total_cost)
 
-
-output_groups()
+# grouping.group_sort("..\\..\\Samples\\CSVs\\", "..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
+#                     "Fall_2022_Edit_1.02_Companies.xlsx")
+# output_groups()
