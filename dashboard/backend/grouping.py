@@ -16,7 +16,7 @@ def apply_weights(value, weights=[0, .5, 1, 1.5, 2]):
 # for all specifications.
 # Input: Project and variable weights and overqualified modifier
 # Output: Spec Dictionary with the absolute difference of the group spec requirement and the group average
-def specification_avg(project, weights, overMod):
+def specification_avg(project, weights = [0, .5, 1, 1.5, 2], overMod = 0.75):
     student_set = project.get_students()
     avg_spec_dict = {}
     num_students = len(student_set)

@@ -3,9 +3,6 @@ import students_file
 
 Projects = {}
 
-MIN_STUDENTS_IN_PROJECT = 4
-MAX_STUDENTS_IN_PROJECT = 6
-
 
 # If you want to add a project, do the following:
 # Add a project_id, company_name, project_title, nda, ip, hw, sw, honors, and any other hard requirement
@@ -229,6 +226,8 @@ class Project:
         self._project_cost = new_project_cost
 
 
+# Read each project's row and obtains all information on that row. Gets project's specifications and the project info
+# and creates a project object and assigns into dictionary of projects with project_ID as the key.
 def __read_project_row(projects_df, project_specs_df, row_number):
     specs = {}
 
@@ -268,7 +267,6 @@ def print_all_projects():
     # Assume projects Excel file has been read into the Projects dictionary.
     for project in Projects.values():
         print(project.__str__())
-
 
 # read_projects("..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.02_Companies.xlsx")
 # print_all_projects()

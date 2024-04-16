@@ -8,6 +8,10 @@ from pandas import DataFrame
 grouping.group_sort("..\\..\\Samples\\CSVs\\", "..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
                     "Fall_2022_Edit_1.02_Companies.xlsx")
 
+
+# Converts algorithm results into output Excel file.
+# Assume algorithm has already run and input Excel files have already been read.
+# Output: Dataframe
 def output_groups():
     if not os.path.isdir(os.getcwd() + "\\Downloads\\Sorted Projects"):
         os.makedirs(os.getcwd() + "\\Downloads\\Sorted Projects")
@@ -36,14 +40,26 @@ def output_groups():
     # At index 1, all project 1's stats are appended onto lists.
     # etc. for all projects.
     # Lists are ordered. The order the elements are added will always be the same unless explicitly altered.
+    total_students = 0
+    total_projects = 0
     for projects in project.Projects:
         project_list.append(projects)
+        total_projects += 1
+
         company_name_list.append(project.Projects[projects].get_company_name())
+
         project_title_list.append(project.Projects[projects].get_project_title())
+
         student_lists.append(project.Projects[projects].get_students())
+
         student_nums.append(project.Projects[projects].get_num_students())
+        total_students += project.Projects[projects].get_num_students()
+
+        # Formats output to 2 decimal places.
         avg_gpa.append('{:.2f}'.format(project.Projects[projects].get_avg_student_gpa()))
+
         project_cost.append(project.Projects[projects].get_project_cost())
+
         popularity.append(project.Projects[projects].get_popularity())
 
     # Makes a dictionary out of the above lists. The key is the column and the list is what will
@@ -70,14 +86,16 @@ def output_groups():
         dataframe_dict[spec] = temp_list
 
     # Convert the dictionary into a dataframe, and then into an Excel file.
-    df = DataFrame(dataframe_dict)
     df_to_return = DataFrame(dataframe_dict)
 
+    df = DataFrame(dataframe_dict)
+
     df.to_excel(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
-    
+
     return df_to_return
 
 
+# Finds the average GPA of all students in one project and sets that average GPA.
 def find_avg_gpas():
     for group in project.Projects:
         summ = 0
@@ -89,17 +107,25 @@ def find_avg_gpas():
         project.Projects[group].set_avg_student_gpa(avg)
 
 
+# Finds the average skill level of all students in one project and sets that in the project object.
+# Refer to specification_avg function in grouping.py for more information.
 def find_avg_specs_dict():
     for group in project.Projects:
         project.Projects[group].set_avg_spec_dict(grouping.specification_avg(project.Projects[group]))
 
 
+# Finds how costly a project is and sets that in the project object.
 def find_project_cost():
     for group in project.Projects:
         student_set = project.Projects[group].get_students()
         total_cost = 0
+
+        # For each student in one group, sum total cost.
         for stud in student_set:
             cost = 6 - students_file.Students[stud].get_project_prefs().get(group)
             total_cost += cost
 
         project.Projects[group].set_project_cost(total_cost)
+
+
+output_groups()

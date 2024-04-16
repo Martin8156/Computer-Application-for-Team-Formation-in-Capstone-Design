@@ -10,6 +10,7 @@ class Student:
     def __init__(self, eid, name, gpa, honors, sp, focus, nda, ip,
                  partner_eid, partner_importance,
                  specs, project_prefs):
+
         self._EID = str(eid)
         self._name = str(name)
         self._GPA = float(gpa)
