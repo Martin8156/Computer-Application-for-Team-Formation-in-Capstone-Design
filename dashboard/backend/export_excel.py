@@ -10,13 +10,10 @@ from pandas import DataFrame
 # Assume algorithm has already run and input Excel files have already been read.
 # Output: Dataframe
 def output_groups():
-    if not os.path.isdir(os.getcwd() + "\\Downloads\\Sorted Projects"):
-        os.makedirs(os.getcwd() + "\\Downloads\\Sorted Projects")
-
     wb = openpyxl.Workbook()
     test_filename = 'Sorted_Groups.xlsx'
-    if not os.path.isfile(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx"):
-        wb.save(os.path.join(os.getcwd() + "\\Downloads\\Sorted Projects", test_filename))
+    if not os.path.isfile("\\Downloads\\Sorted_Groups.xlsx"):
+        wb.save(os.path.join("\\Downloads\\Sorted_Groups.xlsx", test_filename))
 
     # Lists needed to output. Refer to project file or output for definitions or example, respectively.
     project_list = []
@@ -87,7 +84,7 @@ def output_groups():
 
     df = DataFrame(dataframe_dict)
 
-    df.to_excel(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
+    df.to_excel("\\Downloads\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
 
     return df_to_return
 
@@ -124,6 +121,7 @@ def find_project_cost():
 
         project.Projects[group].set_project_cost(total_cost)
 
-# grouping.group_sort("..\\..\\Samples\\CSVs\\", "..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
-#                     "Fall_2022_Edit_1.02_Companies.xlsx")
-# output_groups()
+
+grouping.group_sort("..\\..\\Samples\\CSVs\\", "..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
+                    "Fall_2022_Edit_1.02_Companies.xlsx")
+output_groups()

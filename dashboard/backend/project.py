@@ -3,6 +3,9 @@ import students_file
 
 Projects = {}
 
+MIN_STUDENTS_IN_PROJECT = 4
+MAX_STUDENTS_IN_PROJECT = 6
+
 
 # If you want to add a project, do the following:
 # Add a project_id, company_name, project_title, nda, ip, hw, sw, honors, and any other hard requirement
