@@ -6,13 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="06c223c4-8fe7-40e3-b931-ca8bdc47f0f7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.01_Companies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.01_Companies.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.02_Companies.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.02_Companies.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.05_Students.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Samples/CSVs/Fall_2022_Edit_1.05_Students.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/Sorted_Groups.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/Sorted_Groups.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/export_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/export_excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/group.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/grouping.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/grouping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/write_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/write_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/student.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,20 +41,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.grouping.executor&quot;: &quot;Run&quot;,
-    &quot;Python.inputs.executor&quot;: &quot;Run&quot;,
-    &quot;Python.project.executor&quot;: &quot;Run&quot;,
-    &quot;Python.student.executor&quot;: &quot;Run&quot;,
-    &quot;Python.write_csv.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Christopher/UT-Student-Assignment&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.base.executor": "Run",
+    "Python.csv_upload.executor": "Run",
+    "Python.export_excel.executor": "Run",
+    "Python.group.executor": "Run",
+    "Python.grouping.executor": "Run",
+    "Python.inputs.executor": "Run",
+    "Python.project.executor": "Run",
+    "Python.student.executor": "Run",
+    "Python.students_file.executor": "Run",
+    "Python.write_csv.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Christopher/UT-Student-Assignment"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
