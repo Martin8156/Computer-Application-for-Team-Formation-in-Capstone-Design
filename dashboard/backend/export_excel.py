@@ -71,9 +71,11 @@ def output_groups():
 
     # Convert the dictionary into a dataframe, and then into an Excel file.
     df = DataFrame(dataframe_dict)
+    df_to_return = DataFrame(dataframe_dict)
 
     df.to_excel(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
-
+    
+    return df_to_return
 
 
 def find_avg_gpas():
