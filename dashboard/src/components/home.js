@@ -7,6 +7,20 @@ function Home() {
   const navigate = useNavigate();
   const [groupData, setGroupData] = useState([])
 
+  function getSheet() {
+    axios({
+      method: "GET",
+      url: "/get_excel"
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      }
+    })
+  }
+
   function getData() {
     axios({
       method: "GET",
@@ -20,7 +34,7 @@ function Home() {
         console.log(error.response)
         console.log(error.response.status)
         console.log(error.response.headers)
-        }
+      }
     })}
 
     function getProject(projectID) {
@@ -31,6 +45,7 @@ function Home() {
     <div className="App">
       <header className="Base">
         <p>To get your group details: </p><button onClick={getData}>Show Groups</button>
+        <button onClick={getSheet}>Download Excel Spreadsheet of Groups</button>
         <table>
           <thead>
             <tr>
@@ -50,7 +65,7 @@ function Home() {
               )
             })}
           </tbody>
-      </table>
+        </table>
       </header>
     </div>
   );

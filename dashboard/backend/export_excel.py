@@ -8,15 +8,14 @@ from pandas import DataFrame
 grouping.group_sort("..\\..\\Samples\\CSVs\\", "..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
                     "Fall_2022_Edit_1.02_Companies.xlsx")
 
-
 def output_groups():
-    if not os.path.isdir("\\Downloads\\Sorted Projects"):
-        os.makedirs("\\Downloads\\Sorted Projects")
+    if not os.path.isdir(os.getcwd() + "\\Downloads\\Sorted Projects"):
+        os.makedirs(os.getcwd() + "\\Downloads\\Sorted Projects")
 
     wb = openpyxl.Workbook()
     test_filename = 'Sorted_Groups.xlsx'
-    if not os.path.isfile("\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx"):
-        wb.save(os.path.join("\\Downloads\\Sorted Projects", test_filename))
+    if not os.path.isfile(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx"):
+        wb.save(os.path.join(os.getcwd() + "\\Downloads\\Sorted Projects", test_filename))
 
     project_list = []
     company_name_list = []
@@ -64,9 +63,8 @@ def output_groups():
 
     df = DataFrame(dataframe_dict)
 
-    df.to_excel("\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
+    df.to_excel(os.getcwd() + "\\Downloads\\Sorted Projects\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
 
-    wb.save(test_filename)
 
 
 def find_avg_gpas():
@@ -94,6 +92,3 @@ def find_project_cost():
             total_cost += cost
 
         project.Projects[group].set_project_cost(total_cost)
-
-
-output_groups()

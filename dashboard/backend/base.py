@@ -1,5 +1,6 @@
 from flask import Flask
 from group import group
+from export_excel import output_groups
 
 api = Flask(__name__)
 
@@ -19,3 +20,8 @@ def project(projectID):
     print(df)
     df_json = df.to_json()
     return df_json
+
+@api.route('/get_excel', methods=['GET'])
+def get_excel():
+    output_groups()
+    return {'result': 'success'}
