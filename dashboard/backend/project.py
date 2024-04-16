@@ -1,45 +1,55 @@
-import random
-
 import pandas
-
-DEBUG = False
+import students_file
 
 Projects = {}
-
-"""
-Excel File Format:
-0 - Project ID (String)
-1 - Company Name (String)
-2 - Project Name (String)
-3 - NDA (Int)
-4 - IP  (Int)
-5 - Hardware Involvement (Int)
-6 - Software Involvement (Int)
-7+ - Project Specifications (Int) or Null values
-"""
-
-HARD_REQUIREMENTS = 7
 
 MIN_STUDENTS_IN_PROJECT = 4
 MAX_STUDENTS_IN_PROJECT = 6
 
 
+# If you want to add a project, do the following:
+# Add a project_id, company_name, project_title, nda, ip, hw, sw, honors, and any other hard requirement
+# in the sheet titled, "Project".
+# Then, add the specifications that project needs in the sheet titled, "Specs".
+
+# Each Excel sheet must have the same number of rows. Or else the program will break.
 class Project:
 
-    def __init__(self, project_id, comp_name, project_title, nda, ip, hw, sw, specs, students):
+    def __init__(self, project_id, comp_name, project_title, nda, ip, hw, sw, honors, specs, students):
+
         self._project_id = str(project_id)  # Each project has a unique project id.
+
+        # Company and Project names.
         self._company_name = str(comp_name)
         self._project_title = str(project_title)
+
+        # NDA and IP.
         self._NDA = int(nda)  # 1 - Yes 0 - No
         self._IP = int(ip)  # 1 - Yes 0 - No
+
+        # Does project involve hardware or software?
         self._hardware = int(hw)  # 1 - min 5 - max
         self._software = int(sw)  # 1 - min 5 - max
+
+        # Is the project an honor project?
+        self._honors = int(honors)  # 1 - Yes 0 - No
+
+        # All specifications a specific project will involve.
         self._specs = dict(specs)  # What exactly the project will involve.
+
+        # The project's assigned students.
         self._students = set(students)  # Students involved in this project.
 
+        # What students think of the project. Higher means more students want to be in that project.
         self._popularity = 0
+
+        # Do the students enjoy being in this project? Higher means students don't want to be in this project.
         self._project_cost = 0
+
+        # Dictionary for averages of student skills for all specifications.
         self._avg_spec_dict = {}
+
+        # Average GPA of all students involved in this project.
         self._avg_student_gpa = 0
 
         # Add Project to list of projects.
@@ -48,16 +58,22 @@ class Project:
     # For debugging. Prints out all relevant values.
     def __str__(self):
         print("===============================")
+
         print("Project ID: " + self._project_id)
+
         print("Company: " + self._company_name + " Project Name: " + self._project_title)
-        print("NDA: " + str(self._NDA) + " IP: " + str(self._IP))
+        print("NDA: " + str(self._NDA) + " IP: " + str(self._IP) + " Honors: " + str(self._honors))
+
         txt = "Hardware: {} Software: {}\n"
         print(txt.format(self._hardware, self._software))
+
         print("Specifications:")
         print(self._specs)
         print("\n")
+
         print("Students:")
         print(self._students)
+
         print("===============================")
 
     def get_project_id(self):
@@ -74,6 +90,9 @@ class Project:
 
     def get_ip(self):
         return self._IP
+
+    def get_honors(self):
+        return self._honors
 
     def get_hardware(self):
         return self._hardware
@@ -117,16 +136,52 @@ class Project:
     def get_num_students(self):
         return len(self._students)
 
+    # If the project has an NDA but the student dislikes NDA, return False. Else True.
     def check_nda(self, student):
         if self.get_nda() == 1 and student.get_nda() == 0:
             return False
         return True
 
+    # If the project has an IP but the student dislikes IP, return False. Else True.
     def check_ip(self, student):
         if self.get_ip() == 1 and student.get_ip() == 0:
             return False
         return True
 
+    # If the project is not an Honors Project, return True.
+    # If the project's number of honor students is less than half the total number of students, return False. Else True.
+    def check_honor(self, student):
+        if self._honors == 0:
+            return True
+
+        honor_students = 0  # An honor student is a student with >= 3.5 GPA
+        num_students = len(self._students) + 1
+
+        if student.get_gpa() > 3.5:
+            honor_students += 1
+
+        for eid in self._students:
+
+            student_gpa = students_file.Students[eid].get_gpa()
+
+            if student_gpa >= 3.5:
+                honor_students += 1
+
+        # Odd number of students in project.
+        if num_students % 2 == 1:
+            half = int(num_students / 2) + 1
+
+        # Even number of students in project.
+        else:
+            half = num_students / 2
+
+        if honor_students < half:
+            return False
+        return True
+
+    # If the project is hardware only but a student is software only, return False.
+    # If the project is software only but a student is hardware only, return False.
+    # Else True.
     def check_focus(self, student):
         if self.get_software() == 0 and student.get_focus() == 1:
             return False
@@ -134,16 +189,21 @@ class Project:
             return False
         return True
 
+    # Checks NDA, IP, Honors.
     def check_all(self, student):
-        if self.check_nda(student) is False or self.check_ip(student) is False:
+        if self.check_nda(student) is False or self.check_ip(student) is False or self.check_honor(student) is False:
             return False
         return True
 
+    # Checks specification. If a student's skill at a spec is below the project's needed spec skill, return False.
+    # Else True.
     def check_spec(self, student, spec):
         if student.get_specs().get(spec) < self.get_spec(spec):
             return False
         return True
 
+    # Checks all specs a project has with a student. If this returns True, then that student is perfectly
+    # compatible with this project.
     def check_all_specs(self, student):
         for spec in self.get_specs():
             if self.check_spec(student, spec) is False:
@@ -169,16 +229,15 @@ class Project:
         self._project_cost = new_project_cost
 
 
-def __read_project_row(projects_df, row_number):
+def __read_project_row(projects_df, project_specs_df, row_number):
     specs = {}
 
-    temp = HARD_REQUIREMENTS
+    for spec in project_specs_df.columns:
+        spec = str(spec)
+        specs[spec] = \
+            (int(project_specs_df.at[int(row_number), spec]))
 
-    while temp < projects_df.shape[1]:
-        specs[str(projects_df.columns[temp])] = int(projects_df.at[int(row_number), str(projects_df.columns[temp])])
-
-        temp += 1
-
+    # If you added anything that is not a spec, include it in the constructor and in here.
     Project(projects_df.at[row_number, "Project_ID"],
             projects_df.at[row_number, "Company"],
             projects_df.at[row_number, "Project_Title"],
@@ -186,119 +245,30 @@ def __read_project_row(projects_df, row_number):
             projects_df.at[row_number, "IP"],
             projects_df.at[row_number, "Hardware"],
             projects_df.at[row_number, "Software"],
+            projects_df.at[row_number, "Honor"],
             specs,
             [])
 
 
 # Call this method to initialize Projects dictionary and read entire Excel file.
 # Input: project file + project file's filepath
-def read_projects(filepath, excel_file):
-    projects_df = pandas.read_excel(filepath + excel_file)
+def read_projects(filepath, excel):
+    xlsx = pandas.ExcelFile(filepath + excel)
 
-    for num in range(projects_df.shape[0]):
-        __read_project_row(projects_df, num)
+    project_main_df = pandas.read_excel(xlsx, "Project")
+    project_specs_df = pandas.read_excel(xlsx, "Specs")
 
-
-def get_average(column_label):
-    sum_av = 0
-    count = 0
-    for project in Projects:
-        # print(Projects[project].get_tech_cores().get(column_label))
-        if column_label in Projects[project].get_specs():
-            sum_av = sum_av + Projects[project].get_specs().get(column_label)
-        elif column_label == "Hardware":
-            sum_av = sum_av + Projects[project].get_hardware()
-        elif column_label == "Software":
-            sum_av = sum_av + Projects[project].get_software()
-        elif column_label == "NDA":
-            sum_av = sum_av + Projects[project].get_nda()
-        elif column_label == "IP":
-            sum_av = sum_av + Projects[project].get_ip()
-        count = count + 1
-
-    average = sum_av / count
-    if DEBUG:
-        txt = "The average value of " + column_label + " is {}."
-        print(txt.format(average))
-    return average
+    # projects_df.shape[0] is the number of rows in the Excel sheet.
+    for num in range(project_main_df.shape[0]):
+        __read_project_row(project_main_df, project_specs_df, num)
 
 
-def get_all_averages(df):
-    all_avg_dict = {}
-    for column in df.columns():
-        all_avg_dict[str(column)] = float(get_average(column))
-    return all_avg_dict
-
-
-# O(N) time. Maybe introduce parallel programming to speed up?
-def get_frequency(column_label, value):
-    int_value = int(value)
-    count = 0
-    for project in Projects:
-        # print(Projects[project].get_tech_cores().get(column_label))
-        if column_label in Projects[project].get_specs():
-            if Projects[project].get_specs().get(column_label) == int_value:
-                count = count + 1
-        elif column_label == "Hardware":
-            if Projects[project].get_hardware() == int_value:
-                count = count + 1
-        elif column_label == "Software":
-            if Projects[project].get_software() == int_value:
-                count = count + 1
-        elif column_label == "NDA":
-            if Projects[project].get_nda() == int_value:
-                count = count + 1
-        elif column_label == "IP":
-            if Projects[project].get_ip == int_value:
-                count = count + 1
-    if DEBUG:
-        txt = "The frequency of {} for " + column_label + " is {}."
-        print(txt.format(value, count))
-    return count
-
-
-def sort_projects(column_label, max_value):
-    ordered_list = []
-    for num in range(0, max_value + 1):
-        for project in Projects:
-            # print(Projects[project].get_tech_cores().get(column_label))
-            if column_label in Projects[project].get_specs():
-                if Projects[project].get_specs().get(column_label) == num:
-                    ordered_list.append(Projects[project].get_project_id())
-            elif column_label == "Hardware":
-                if Projects[project].get_hardware() == num:
-                    ordered_list.append(Projects[project].get_project_id())
-            elif column_label == "Software":
-                if Projects[project].get_software() == num:
-                    ordered_list.append(Projects[project].get_project_id())
-            elif column_label == "NDA":
-                if Projects[project].get_nda() == num:
-                    ordered_list.append(Projects[project].get_project_id())
-            elif column_label == "IP":
-                if Projects[project].get_ip == num:
-                    ordered_list.append(Projects[project].get_project_id())
-
-    if DEBUG:
-        for obj in ordered_list:
-            txt = obj + " has value {} for " + str(column_label)
-            print(txt.format(Projects[obj].get_tech_cores().get(column_label)))
-
-    return ordered_list
-
-
-# Gives each project a random amount of students from 4 to 6. This is to test exporting
-# Excel file.
-def fill_projects_with_students():
-    for project in Projects:
-        for num in range(random.randint(4, 6)):
-            eid = "EID" + str(num + 1)
-            Projects[project].add_student(eid)
-
-
+# Debug function. Prints all project values.
 def print_all_projects():
     # Assume projects Excel file has been read into the Projects dictionary.
     for project in Projects.values():
         print(project.__str__())
 
 
-# read_projects("..\..\Samples\CSVs\\", "Fall_2022_Edit_1.02_Companies.xlsx")
+# read_projects("..\\..\\Samples\\CSVs\\", "Fall_2022_Edit_1.02_Companies.xlsx")
+# print_all_projects()

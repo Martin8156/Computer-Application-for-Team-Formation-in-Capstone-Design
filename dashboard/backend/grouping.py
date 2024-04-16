@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import random
 import project as proj
-import student as stud
+import students_file as stud
 
 
 # Input: value to modified and the weights to modify them
@@ -374,4 +374,5 @@ def group_sort(student_filepath, project_filepath, student_excel, project_csv, w
         assessmentOrder = worst_to_best(weights)
 
 
-# group_sort("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx", "Fall_2022_Edit_1.02_Companies.xlsx")
+# group_sort("..\..\Samples\CSVs\\", "..\..\Samples\CSVs\\", "Fall_2022_Edit_1.05_Students.xlsx",
+# "Fall_2022_Edit_1.02_Companies.xlsx")
