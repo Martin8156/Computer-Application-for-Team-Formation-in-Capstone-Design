@@ -7,7 +7,7 @@
     <list default="true" id="06c223c4-8fe7-40e3-b931-ca8bdc47f0f7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/export_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/export_excel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/project.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/group.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

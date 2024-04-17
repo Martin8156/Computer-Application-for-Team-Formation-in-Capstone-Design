@@ -15,6 +15,8 @@ def output_groups():
     if not os.path.isfile("\\Downloads\\Sorted_Groups.xlsx"):
         wb.save(os.path.join("\\Downloads\\Sorted_Groups.xlsx", test_filename))
 
+    if not os.path.isfile(os.getcwd() + "\\Sorted_Groups.xlsx"):
+        wb.save(os.path.join(os.getcwd(), test_filename))
     # Lists needed to output. Refer to project file or output for definitions or example, respectively.
     project_list = []
     company_name_list = []
@@ -85,7 +87,7 @@ def output_groups():
     df = DataFrame(dataframe_dict)
 
     df.to_excel("\\Downloads\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
-
+    df.to_excel(os.getcwd() + "\\Sorted_Groups.xlsx", sheet_name='Projects', index=False)
     return df_to_return
 
 

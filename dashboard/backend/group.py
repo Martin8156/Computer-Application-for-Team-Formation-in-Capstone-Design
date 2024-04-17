@@ -41,3 +41,6 @@ def group():
     companydb = get_csv_sample("Fall_2022_Edit_1.0_Companies.csv")
 
     return grouping_algo(studentdb, companydb)
+
+
+print(os.getcwd())
