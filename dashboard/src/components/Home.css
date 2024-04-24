@@ -1,18 +1,42 @@
 .project{
-    cursor: pointer;
     color: lightblue;
-    text-decoration: underline;
 }
 
 
+.id {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+table{
+    font-size: large;
+}
+
+button {
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
 
 .projecttitle{
-    color: lightblue;
+    color: lightblue
 }
 .company{
     color: rgb(141, 253, 229);
 }
 
-.project:hover{
+.cost {
+    color: #f8edeb
+}
+
+.members {
+    color: #fcd5ce
+}
+
+.gpa {
+    color: #f9dcc4
+}
+
+.id:hover{
     color:blue;
 }

@@ -28,6 +28,7 @@ function Home() {
     })
     .then((response) => {
       const res = response.data;
+      console.log(res);
       setGroupData(res);
     }).catch((error) => {
       if (error.response) {
@@ -42,31 +43,36 @@ function Home() {
     }
 
   return (
-    <div className="App">
-      <header className="Base">
-        <p>To get your group details: </p><button onClick={getData}>Show Groups</button>
+    <div className="Base">
+      <header> To get your group details:</header>
+      <body>
+        <button onClick={getData}>Show Groups</button>
         <button onClick={getSheet}>Download Excel Spreadsheet of Groups</button>
         <table>
           <thead>
             <tr>
-              <th className="projecttitle">Project</th> 
+              <th>ID</th> 
+              <th className="projecttitle">Project</th>
               <th className ="company">Company</th>
-              <th>Members</th>
+              <th className="members">Members</th>
+              <th className="gpa">Avg GPA</th>
             </tr>
           </thead>
           <tbody>
             {groupData.map((val, proj) => {
               return (
                 <tr key={proj}>
-                  <td className="project" onClick={() => (getProject(val.Project))}>{val.Project}</td>
+                  <td className="id" onClick={() => (getProject(val.ID))}> {val.ID}</td>
+                  <td className="project" >{val.Project}</td>
                   <td className ="company">{val.Company}</td>
-                  <td>{val.Members}</td>
+                  <td className="members">{val.EIDs.join(", ")}</td>
+                  <td className="gpa">{val["Avg GPA"]}</td>
                 </tr>
               )
             })}
           </tbody>
         </table>
-      </header>
+      </body>
     </div>
   );
 }

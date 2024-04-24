@@ -4,19 +4,21 @@ import grouping
 import os
 import openpyxl
 from pandas import DataFrame
+from pathlib import Path
 
 
 # Converts algorithm results into output Excel file.
 # Assume algorithm has already run and input Excel files have already been read.
 # Output: Dataframe
-def output_groups():
+def output_groups(export=False):
     wb = openpyxl.Workbook()
     test_filename = 'Sorted_Groups.xlsx'
-    if not os.path.isfile("\\Downloads\\Sorted_Groups.xlsx"):
-        wb.save(os.path.join("\\Downloads\\Sorted_Groups.xlsx", test_filename))
 
-    if not os.path.isfile(os.getcwd() + "\\Sorted_Groups.xlsx"):
+    if export and not os.path.isfile(os.getcwd() + "\\Sorted_Groups.xlsx"):
         wb.save(os.path.join(os.getcwd(), test_filename))
+
+    if export and not os.path.isfile(str(Path.home()) + "\\Downloads\\Sorted_Groups.xlsx"):
+        wb.save(str(Path.home()) + "\\Downloads\\Sorted_Groups.xlsx")
     # Lists needed to output. Refer to project file or output for definitions or example, respectively.
     project_list = []
     company_name_list = []
@@ -86,8 +88,9 @@ def output_groups():
 
     df = DataFrame(dataframe_dict)
 
-    df.to_excel("\\Downloads\\Sorted_Groups.xlsx", sheet_name='sheet1', index=False)
-    df.to_excel(os.getcwd() + "\\Sorted_Groups.xlsx", sheet_name='Projects', index=False)
+    if export:
+        df.to_excel(os.getcwd() + "\\Sorted_Groups.xlsx", sheet_name='Projects', index=False)
+        df.to_excel(str(Path.home()) + "\\Downloads\\Sorted_Groups.xlsx", sheet_name='Projects', index=False)
     return df_to_return
 
 
