@@ -312,7 +312,7 @@ def swap_students(projOne, studentOne, projTwo, studentTwo):
 # Output: A satisfactory grouping of students to projects based on their needs, skills, and preferences
 # Notes: First does some pre algorithm sorting, then assigns students, and then swaps for better outcomes
 # Restriction: (Min members per group)x(projects) must be <= total number of students <= (max members)x(projects)
-def group_sort(student_filepath="..\..\Samples\CSVs\\", project_filepath="..\..\Samples\CSVs\\", student_excel="target_students.xlsx", project_csv="target_projects.xlsx", weights=[0, .5, 1, 1.5, 2], swappingNum = 30, swapCrit = 2, overMod = .75):
+def group_sort(student_filepath="../../Samples/CSVs/", project_filepath="../../Samples/CSVs/", student_excel="target_students.xlsx", project_csv="target_projects.xlsx", weights=[0, .5, 1, 1.5, 2], swappingNum = 30, swapCrit = 2, overMod = .75):
     # 1. Pre Algorithm Setup
 
     init_students_and_projects(student_filepath, project_filepath, student_excel, project_csv)
