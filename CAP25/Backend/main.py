@@ -6,7 +6,13 @@ import json
 UPLOAD_FILE_DIR = "Files/"
 MOST_RECENT_FILE = "source"
 
-class Main_Handler(tornado.web.RequestHandler):
+class Base_Handler(tornado.web.RequestHandler):
+    def prepare(self):
+        if self.request.remote_ip not in ['127.0.0.1', '::1']:
+            print(f"{self.request.remote_ip} blocked")
+            self.send_error(403)
+
+class Main_Handler(Base_Handler):
     def get(self):
         self.write('''
         <html>
@@ -19,7 +25,7 @@ class Main_Handler(tornado.web.RequestHandler):
         </html>
         ''')
 
-class Upload_File_Handler(tornado.web.RequestHandler):
+class Upload_File_Handler(Base_Handler):
     def post(self):
         fileinfo = self.request.files['filearg'][0]
         print("fileinfo is", fileinfo)
@@ -31,7 +37,7 @@ class Upload_File_Handler(tornado.web.RequestHandler):
         self.finish(cname + " uploaded")
 
 
-class Current_Alloc_Handler(tornado.web.RequestHandler):
+class Current_Alloc_Handler(Base_Handler):
     def post(self):
         random_matching = {
             "students": [
