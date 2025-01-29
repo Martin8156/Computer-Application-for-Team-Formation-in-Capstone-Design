@@ -6,7 +6,17 @@ import json
 UPLOAD_FILE_DIR = "Files/"
 MOST_RECENT_FILE = "source"
 
-class Main_Handler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
+    def options(self):
+        self.set_status(204)
+        self.finish()
+
+class Main_Handler(BaseHandler):
     def get(self):
         self.write('''
         <html>
@@ -19,7 +29,7 @@ class Main_Handler(tornado.web.RequestHandler):
         </html>
         ''')
 
-class Upload_File_Handler(tornado.web.RequestHandler):
+class Upload_File_Handler(BaseHandler):
     def post(self):
         fileinfo = self.request.files['filearg'][0]
         print("fileinfo is", fileinfo)
@@ -31,7 +41,7 @@ class Upload_File_Handler(tornado.web.RequestHandler):
         self.finish(cname + " uploaded")
 
 
-class Current_Alloc_Handler(tornado.web.RequestHandler):
+class Current_Alloc_Handler(BaseHandler):
     def post(self):
         random_matching = {
             "students": [
