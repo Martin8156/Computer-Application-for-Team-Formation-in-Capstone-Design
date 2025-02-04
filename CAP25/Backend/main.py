@@ -12,6 +12,15 @@ class Base_Handler(tornado.web.RequestHandler):
             print(f"{self.request.remote_ip} blocked")
             self.send_error(403)
 
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
+    def options(self):
+        self.set_status(204)
+        self.finish()
+
 class Main_Handler(Base_Handler):
     def get(self):
         self.write('''
