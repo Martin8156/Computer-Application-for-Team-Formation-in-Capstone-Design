@@ -19,6 +19,10 @@ class Main_Handler(Base_Handler):
         <body>
         <form action="/file/upload" enctype="multipart/form-data" method="post">
             <input type="file" name="filearg" accept=".csv">
+            <select name="file_type" id="file_type">
+                <option value="Student">Student Preference</option>
+                <option value="Company">Company Preference</option>
+            </select>
             <input type="submit" value="Upload">
         </form>
         </body>
@@ -27,6 +31,10 @@ class Main_Handler(Base_Handler):
 
 class Upload_File_Handler(Base_Handler):
     def post(self):
+        # Do the parsing to verify the file
+        # Sendback the error message or needed file
+        # Start new process of solving combination
+
         fileinfo = self.request.files['filearg'][0]
         print("fileinfo is", fileinfo)
         fname = fileinfo['filename']
