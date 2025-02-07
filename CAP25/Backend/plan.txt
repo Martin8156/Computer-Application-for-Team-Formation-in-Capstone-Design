@@ -1,0 +1,45 @@
+RarestFirst Algorithm
+
+Libaries:
+    - numpy
+    - pandas
+    - mongoengine
+
+
+Preprocessing:
+    1. Iterate through input CSV file and create Student objects via mongoengine 
+        (mongoengine is Object Relational Mapping, so the way we define it in our database will reflect how it the Student object should exist in local python memory)
+    2. This will allow us to perform efficient queries and indexing (i.e. if we need to look for students that possess a skill like Machine Learning)
+    "
+        From Gemini:
+        Performing complex queries involving multiple criteria, sorting, aggregations, etc., is very inefficient in pure Python. 
+        You'd have to write a lot of code to implement these operations, and they would likely be slow
+    "
+    NOTE: If there are native python functions to implement this so that we can avoid the database overhead let me know! Wasn't sure if working in local memory would be best for this
+
+    Code comparison:
+        # via mongoengine
+        students_with_ml = collection.find({"skills": "Machine Learning"})
+        NOTE: I think we can optimize this with multiindexing too, will look into it
+
+        # via native python
+        students_with_ml = []
+        for student in students:
+            if "Machine Learning" in student.get("skills", []):
+                students_with_ml.append(student)
+    
+        From Gemini:
+        Yes, even if skills is a list (an array of skills within each student document), MongoDB with an index can still provide very efficient lookups, although it's not strictly O(1) in the most theoretical sense.  
+        It's more accurate to say it's highly optimized and performs extremely well, often behaving as if it were constant time for practical purposes
+
+
+Algorithm:
+    communicationCost.py
+    1. Create event list and store in student struct 
+        a. call calculateCost when making decisions if a student should be added to group 
+            OR 
+        b. calculate communication cost between every student as a preprocessing requirement, as students will have unique ids so when comparisons can be made we can just index
+            i.e.
+
+        TODO: still need to determine how placements/ replacements should be made
+    2, Implement rarest first ... (to be defined in more detail later)
