@@ -71,7 +71,7 @@ function App() {
                   <li key={index}>
                     {student.name} (EID: {student.eid})
                     <br />
-                    Skills: {student.skill_set.map(skillId => matchingData.skills[skillId]).join(', ')}
+                    Skills: {Object.entries(student.skill_set).map(skillId => matchingData.skills[skillId]).join(', ')}
                   </li>
                 ))}
               </ul>
@@ -82,7 +82,23 @@ function App() {
                   <li key={index}>
                     {project.name}
                     <br />
-                    Required Skills: {project.skill_req.map(skillId => matchingData.skills[skillId]).join(', ')}
+                    Required Skills: {Object.entries(project.skill_req).map(skillId => matchingData.skills[skillId]).join(', ')}
+                  </li>
+                ))}
+              </ul>
+
+              <h4>Matching</h4>
+              <ul>
+                {Object.entries(matchingData.matching).map(([projectIndex, studentIndices]) => (
+                  <li key={projectIndex}>
+                    <strong>{matchingData.projects[projectIndex].name}</strong>
+                    <ul>
+                      {studentIndices.map(studentIndex => (
+                        <li key={studentIndex}>
+                          {matchingData.students[studentIndex].name} (EID: {matchingData.students[studentIndex].eid})
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
