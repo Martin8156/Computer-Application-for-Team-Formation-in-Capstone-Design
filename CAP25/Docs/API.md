@@ -26,9 +26,10 @@ Returns mock matching data
 **Response:**  
 ```json
 {
-  "students": [{"name": "abcd", "eid": 1234, "skill_set": [2,3]}...],
-  "projects": [{"name": "Project A", "skill_req": [0,1]}...],
-  "skills": {"0": "AI", "1": "Analogue Circuit"...}
+  "students": [{"name": "abcd", "eid": 1234, "skill_set": {"0": 1, "1": 5 ...}}...],
+  "projects": [{"name": "Project A", "skill_req": {"0": 5, "1": 3 ...}}...],
+  "skills": {"0": "AI", "1": "Analogue Circuit"...},
+  "matching":{"0": [0, 3], "1": [1, 2] ...}
 }
 ```
 
