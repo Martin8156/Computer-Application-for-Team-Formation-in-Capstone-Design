@@ -6,7 +6,7 @@ import subprocess
 
 UPLOAD_FILE_DIR = "Files/"
 MOST_RECENT_FILE = "source"
-RES_FILE = "Files/out.json"
+RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
 
@@ -90,7 +90,13 @@ class Current_Alloc_Handler(Base_Handler):
                 1: [1, 3],
             },
         }
-        self.write(json.dumps(random_matching))
+
+        # read from actual result of the solution
+
+        with open(RES_FILE, 'r') as file:
+            self.write(file.read())
+
+        # self.write(json.dumps(random_matching))
 
 
 class Alloc_Solve_Handler(Base_Handler):

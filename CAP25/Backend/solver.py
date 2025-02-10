@@ -9,12 +9,16 @@ OUTPUT_PATH = "Files/out.json"
 COMP_PATH = "Files/Company.csv"
 STUD_PATH = "Files/Student.csv"
 
+np.set_printoptions(threshold=np.inf)
+
 
 if os.path.exists(OUTPUT_PATH):
     os.remove(OUTPUT_PATH)
 
 df_companies = pd.read_csv(COMP_PATH)
 df_students = pd.read_csv(STUD_PATH)
+
+# pre-processing
 
 df_companies.drop(['Company','Project_Title'], axis=1,inplace=True)
 df_students.drop(['EID','GPA', 'Partner_Importance', 'Partner_EID'], axis=1,inplace=True)
@@ -24,16 +28,18 @@ df_students = df_students.iloc[:, :col_index]
 df_companies.drop(['Hardware', 'Software'], axis = 1,inplace=True)
 df_students.drop(['Hardware, Software, or Both','Honors','SP'], axis=1,inplace=True)
 
+
 np_companies = df_companies.iloc[:,1:].fillna(0).astype(int).to_numpy()
 np_students = df_students.iloc[:,1:].fillna(0).astype(int).to_numpy()
 
 affinity_matrix = np.dot(np_companies, np_students.T)
-np.set_printoptions(threshold=np.inf)
-print(affinity_matrix)
 
 n_students = np_students.shape[0]
 n_teams = np_companies.shape[0]
 n_skills = np_students.shape[1]
+
+
+# solving
 
 model = cp_model.CpModel()
 
@@ -70,16 +76,51 @@ model.Maximize(min_goodness)
 
 # Solve the model.
 solver = cp_model.CpSolver()
-solver.parameters.log_search_progress = True
+solver.parameters.log_search_progress = False
 solver.log_callback = print
-solver.parameters.max_time_in_seconds = 60 * 1
+solver.parameters.max_time_in_seconds = 60 * 0.1
 solver.parameters.num_search_workers = max(os.cpu_count() - 1, 1)
 status = solver.Solve(model)
 
+res = None
+
+if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+    print("Minimum Goodness:", solver.Value(min_goodness))
+    res = {t: [i for i in range(n_students) if solver.Value(assignment[(i, t)]) == 1] for t in range(n_teams)}
+else:
+    print("No solution found.")
+
+# post processing
+
+skills_mapping = {i: skill for i, skill in enumerate(df_students.columns[2:])}
+
+students = []
+for index, row in df_students.iterrows():
+    student = {
+        "name": row['Name'],
+        "eid": index,  # Assuming index as eid for simplicity
+        "skill_set": {i: row[skill] for i, skill in skills_mapping.items()}
+    }
+    students.append(student)
+
+# Format projects
+projects = []
+for index, row in df_companies.iterrows():
+    project = {
+        "name": row['Project_ID'],
+        "skill_req": {i: row[skill] for i, skill in skills_mapping.items()}
+    }
+    projects.append(project)
+
+# Prepare the final dictionary
+formatted_data = {
+    "students": students,
+    "projects": projects,
+    "skills": {i: skill for i, skill in skills_mapping.items()},
+    "matching": res
+}
+
+# Output the formatted data
+
 with open(OUTPUT_PATH, 'w') as file:
-    if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("Minimum Goodness:", solver.Value(min_goodness))
-        res = {t: [i for i in range(n_students) if solver.Value(assignment[(i, t)]) == 1] for t in range(n_teams)}
-        file.write(json.dumps(res))
-    else:
-        print("No solution found.")
+    file.write(json.dumps(formatted_data))
