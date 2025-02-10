@@ -63,18 +63,21 @@ class Upload_File_Handler(Base_Handler):
 
 
 class Current_Alloc_Handler(Base_Handler):
+
     def post(self):
         random_matching = {
             "students": [
-                {"name": "abcd", "eid": 1234, "skill_set": [2, 3]},
-                {"name": "efgh", "eid": 6666, "skill_set": [0, 3]},
+                {"name": "alice", "eid": 1234, "skill_set": {0: 1, 1: 5, 2: 3, 3: 2}},
+                {"name": "bob", "eid": 6666, "skill_set": {0: 4, 1: 2, 2: 2, 3: 4}},
+                {"name": "charlie", "eid": 4321, "skill_set": {0: 3, 1: 2, 2: 2, 3: 2}},
+                {"name": "david", "eid": 5555, "skill_set": {0: 2, 1: 3, 2: 1, 3: 5}},
             ],
             "projects": [
                 {
                     "name": "random project A",
-                    "skill_req": [0, 1],
+                    "skill_req": {0: 4, 1: 3, 2: 1, 3: 2},
                 },
-                {"name": "random project B", "skill_req": [3]},
+                {"name": "random project B", "skill_req": {0: 2, 1: 3, 2: 5, 3: 1}},
             ],
             "skills": {
                 0: "AI",
@@ -82,9 +85,12 @@ class Current_Alloc_Handler(Base_Handler):
                 2: "Embedded",
                 3: "Operating System",
             },
+            "matching": {
+                0: [0, 2],
+                1: [1, 3],
+            },
         }
         self.write(json.dumps(random_matching))
-
 
 
 class Alloc_Solve_Handler(Base_Handler):
