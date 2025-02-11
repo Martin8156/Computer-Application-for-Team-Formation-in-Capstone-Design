@@ -138,5 +138,13 @@ application = tornado.web.Application(
 
 
 if __name__ == "__main__":
+
+    # init the outfile for result 
+    # just in case is not and user can never start the solver
+
+    if not os.path.exists(RES_FILE):
+        with open(RES_FILE, 'w') as file:
+            ...
+
     application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
