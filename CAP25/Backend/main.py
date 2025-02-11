@@ -10,14 +10,6 @@ RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
 
-# Ensure the Files directory exists and has correct permissions
-if not os.path.exists(UPLOAD_FILE_DIR):
-    os.makedirs(UPLOAD_FILE_DIR)
-    
-# Ensure out.json is writable
-if os.path.exists(RES_FILE):
-    os.chmod(RES_FILE, 0o666)  # Make file readable and writable
-
 class Base_Handler(tornado.web.RequestHandler):
     def prepare(self):
         if self.request.remote_ip not in ["127.0.0.1", "::1"]:
@@ -76,6 +68,7 @@ class Current_Alloc_Handler(Base_Handler):
             with open(RES_FILE, 'r') as file:
                 print(f"Reading from {RES_FILE}")
                 data = json.load(file)
+
                 # Validate data before sending
                 if not isinstance(data, dict):
                     raise ValueError("Invalid data format")
@@ -85,10 +78,14 @@ class Current_Alloc_Handler(Base_Handler):
                     raise ValueError("Missing required keys in data")
                 
                 print(f"Loaded data: {json.dumps(data)[:200]}...")
+
                 self.set_header("Content-Type", "application/json")
                 self.write(json.dumps(data))
+
         except (json.JSONDecodeError, FileNotFoundError, ValueError) as e:
+
             print(f"Error reading {RES_FILE}: {str(e)}")
+
             # Return empty but valid JSON structure
             self.write(json.dumps({
                 "students": [],
@@ -119,7 +116,7 @@ class Alloc_Solve_Handler(Base_Handler):
             os.remove(RES_FILE)
         
         # Start the solver process
-        subprocess.Popen(['python', 'solver.py'])
+        subprocess.Popen(['python', 'Backend/solver.py'])
         
         self.write(json.dumps({
             "result": "success", 
@@ -142,6 +139,15 @@ application = tornado.web.Application(
 
 
 if __name__ == "__main__":
+
+    # Ensure the Files directory exists and has correct permissions
+    if not os.path.exists(UPLOAD_FILE_DIR):
+        os.makedirs(UPLOAD_FILE_DIR)
+        
+    # Ensure out.json is writable
+    if os.path.exists(RES_FILE):
+        os.chmod(RES_FILE, 0o666)  # Make file readable and writable
+
     # Initialize the output file with empty data structure
     if not os.path.exists(RES_FILE):
         with open(RES_FILE, 'w') as file:
