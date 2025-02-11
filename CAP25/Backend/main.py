@@ -97,6 +97,15 @@ class Current_Alloc_Handler(Base_Handler):
 
 class Alloc_Solve_Handler(Base_Handler):
     def post(self):
+        
+        if not os.path.exists(RES_FILE):
+            # By design the solver will remove out.json and output a new one
+            # So if there isn't one in the dir means we are having a running soler
+            self.write(json.dumps(
+                {"result": "err", "msg": "existing an ongoing solver"}
+            ))
+            return
+
         if not os.path.exists(STU_FILE):
             self.write(json.dumps({
                 "result": "err", 
@@ -110,10 +119,6 @@ class Alloc_Solve_Handler(Base_Handler):
                 "msg": "Company file does not exist, please upload that first"
             }))
             return
-
-        # Remove the output file if it exists to indicate solver is running
-        if os.path.exists(RES_FILE):
-            os.remove(RES_FILE)
         
         # Start the solver process
         subprocess.Popen(['python', 'Backend/solver.py'])
