@@ -20,7 +20,7 @@
 .matching-data {
   max-width: 800px;
   margin: 0 auto;
-  text-align: left;
+  padding: 20px;
 }
 
 form {
@@ -51,4 +51,147 @@ li {
   padding: 10px;
   background-color: #f9f9f9;
   border-radius: 4px;
+}
+
+.upload-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.status-message {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.matching-data ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-match {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+.project-match strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.student-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.student-item {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 3px;
+  margin: 5px 0;
+  padding: 8px 12px;
+  list-style-type: none;
+}
+
+.status-message {
+  color: #2c3e50;
+  background-color: #ecf0f1;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+.loading-indicator p {
+  margin: 0;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+/* Update the status message styling */
+.status-message {
+  color: #2c3e50;
+  background-color: #ecf0f1;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Add a success state for the status message */
+.status-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Add an error state for the status message */
+.status-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.file-status {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+.file-status p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.solve-button {
+  margin: 20px 0;
+  padding: 12px 24px;
+  font-size: 1.1em;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.solve-button:hover {
+  background-color: #218838;
+}
+
+.solve-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 } 

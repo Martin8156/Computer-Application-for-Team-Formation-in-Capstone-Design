@@ -98,8 +98,8 @@ students = []
 for index, row in df_students.iterrows():
     student = {
         "name": row['Name'],
-        "eid": index,  # Assuming index as eid for simplicity
-        "skill_set": {i: row[skill] for i, skill in skills_mapping.items()}
+        "eid": int(index),  # Ensure eid is an integer
+        "skill_set": {str(i): float(row[skill]) for i, skill in skills_mapping.items()}  # Convert NaN to numbers
     }
     students.append(student)
 
@@ -108,19 +108,37 @@ projects = []
 for index, row in df_companies.iterrows():
     project = {
         "name": row['Project_ID'],
-        "skill_req": {i: row[skill] for i, skill in skills_mapping.items()}
+        "skill_req": {str(i): float(row[skill]) if not pd.isna(row[skill]) else 0.0 
+                     for i, skill in skills_mapping.items()}
     }
     projects.append(project)
 
-# Prepare the final dictionary
+# Add data validation before writing
+def clean_nan_values(obj):
+    if isinstance(obj, dict):
+        return {k: clean_nan_values(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [clean_nan_values(x) for x in obj]
+    elif pd.isna(obj):  # Check for NaN values
+        return 0.0  # or another default value
+    return obj
+
+# Clean the data before writing
 formatted_data = {
     "students": students,
     "projects": projects,
-    "skills": {i: skill for i, skill in skills_mapping.items()},
+    "skills": {str(i): skill for i, skill in skills_mapping.items()},
     "matching": res
 }
 
-# Output the formatted data
+formatted_data = clean_nan_values(formatted_data)
 
-with open(OUTPUT_PATH, 'w') as file:
-    file.write(json.dumps(formatted_data))
+# Output the formatted data with error handling
+try:
+    print(f"Writing results to {OUTPUT_PATH}")
+    with open(OUTPUT_PATH, 'w') as file:
+        json.dump(formatted_data, file, ensure_ascii=False, indent=2, 
+                 default=lambda x: float(x) if pd.isna(x) else x)
+    print("Successfully wrote results")
+except Exception as e:
+    print(f"Error writing results: {str(e)}")

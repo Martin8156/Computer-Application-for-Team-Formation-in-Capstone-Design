@@ -10,6 +10,13 @@ RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
 
+# Ensure the Files directory exists and has correct permissions
+if not os.path.exists(UPLOAD_FILE_DIR):
+    os.makedirs(UPLOAD_FILE_DIR)
+    
+# Ensure out.json is writable
+if os.path.exists(RES_FILE):
+    os.chmod(RES_FILE, 0o666)  # Make file readable and writable
 
 class Base_Handler(tornado.web.RequestHandler):
     def prepare(self):
@@ -19,8 +26,9 @@ class Base_Handler(tornado.web.RequestHandler):
 
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header("Access-Control-Allow-Headers", "*")
         self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+        self.set_header("Content-Type", "application/json")
 
     def options(self):
         self.set_status(204)
@@ -63,64 +71,60 @@ class Upload_File_Handler(Base_Handler):
 
 
 class Current_Alloc_Handler(Base_Handler):
-
     def post(self):
-        random_matching = {
-            "students": [
-                {"name": "alice", "eid": 1234, "skill_set": {0: 1, 1: 5, 2: 3, 3: 2}},
-                {"name": "bob", "eid": 6666, "skill_set": {0: 4, 1: 2, 2: 2, 3: 4}},
-                {"name": "charlie", "eid": 4321, "skill_set": {0: 3, 1: 2, 2: 2, 3: 2}},
-                {"name": "david", "eid": 5555, "skill_set": {0: 2, 1: 3, 2: 1, 3: 5}},
-            ],
-            "projects": [
-                {
-                    "name": "random project A",
-                    "skill_req": {0: 4, 1: 3, 2: 1, 3: 2},
-                },
-                {"name": "random project B", "skill_req": {0: 2, 1: 3, 2: 5, 3: 1}},
-            ],
-            "skills": {
-                0: "AI",
-                1: "Analogue Circuit",
-                2: "Embedded",
-                3: "Operating System",
-            },
-            "matching": {
-                0: [0, 2],
-                1: [1, 3],
-            },
-        }
-
-        # read from actual result of the solution
-
-        with open(RES_FILE, 'r') as file:
-            self.write(file.read())
-
-        # self.write(json.dumps(random_matching))
+        try:
+            with open(RES_FILE, 'r') as file:
+                print(f"Reading from {RES_FILE}")
+                data = json.load(file)
+                # Validate data before sending
+                if not isinstance(data, dict):
+                    raise ValueError("Invalid data format")
+                
+                required_keys = ["students", "projects", "skills", "matching"]
+                if not all(key in data for key in required_keys):
+                    raise ValueError("Missing required keys in data")
+                
+                print(f"Loaded data: {json.dumps(data)[:200]}...")
+                self.set_header("Content-Type", "application/json")
+                self.write(json.dumps(data))
+        except (json.JSONDecodeError, FileNotFoundError, ValueError) as e:
+            print(f"Error reading {RES_FILE}: {str(e)}")
+            # Return empty but valid JSON structure
+            self.write(json.dumps({
+                "students": [],
+                "projects": [],
+                "skills": {},
+                "matching": {}
+            }))
 
 
 class Alloc_Solve_Handler(Base_Handler):
     def post(self):
-        if not os.path.exists(RES_FILE):
-            self.write(json.dumps(
-                {"result": "err", "msg": "existing an ongoing solver"}
-            ))
-            return
-        
         if not os.path.exists(STU_FILE):
-            self.write(json.dumps(
-                {"result": "err", "msg": "student file does not exist, please upload that first"}
-            ))
+            self.write(json.dumps({
+                "result": "err", 
+                "msg": "Student file does not exist, please upload that first"
+            }))
             return
         
         if not os.path.exists(COM_FILE):
-            self.write(json.dumps(
-                {"result": "err", "msg": "company file does not exist, please upload that first"}
-            ))
+            self.write(json.dumps({
+                "result": "err", 
+                "msg": "Company file does not exist, please upload that first"
+            }))
             return
+
+        # Remove the output file if it exists to indicate solver is running
+        if os.path.exists(RES_FILE):
+            os.remove(RES_FILE)
         
-        subprocess.Popen(['python', 'Backend/solver.py'])
-        self.write(json.dumps({"result": "success", "msg": "solver started"}))
+        # Start the solver process
+        subprocess.Popen(['python', 'solver.py'])
+        
+        self.write(json.dumps({
+            "result": "success", 
+            "msg": "Solver started"
+        }))
 
 
 application = tornado.web.Application(
@@ -138,13 +142,15 @@ application = tornado.web.Application(
 
 
 if __name__ == "__main__":
-
-    # init the outfile for result 
-    # just in case is not and user can never start the solver
-
+    # Initialize the output file with empty data structure
     if not os.path.exists(RES_FILE):
         with open(RES_FILE, 'w') as file:
-            ...
+            json.dump({
+                "students": [],
+                "projects": [],
+                "skills": {},
+                "matching": {}
+            }, file)
 
     application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
