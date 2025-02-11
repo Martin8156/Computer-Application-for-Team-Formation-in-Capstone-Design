@@ -114,14 +114,14 @@ for index, row in df_companies.iterrows():
     projects.append(project)
 
 # Add data validation before writing
-def clean_nan_values(obj):
-    if isinstance(obj, dict):
-        return {k: clean_nan_values(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [clean_nan_values(x) for x in obj]
-    elif pd.isna(obj):  # Check for NaN values
-        return 0.0  # or another default value
-    return obj
+# def clean_nan_values(obj):
+#     if isinstance(obj, dict):
+#         return {k: clean_nan_values(v) for k, v in obj.items()}
+#     elif isinstance(obj, list):
+#         return [clean_nan_values(x) for x in obj]
+#     elif pd.isna(obj):  # Check for NaN values
+#         return 0.0  # or another default value
+#     return obj
 
 # Clean the data before writing
 formatted_data = {
@@ -131,7 +131,9 @@ formatted_data = {
     "matching": res
 }
 
-formatted_data = clean_nan_values(formatted_data)
+"Crash the solver if there is any NAN in it instead of clean it"
+
+# formatted_data = clean_nan_values(formatted_data)
 
 # Output the formatted data with error handling
 try:
