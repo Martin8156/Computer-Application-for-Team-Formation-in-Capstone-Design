@@ -1,0 +1,11 @@
+absl-py==2.1.0
+immutabledict==4.2.1
+numpy==2.0.2
+ortools==9.11.4210
+pandas==2.2.3
+protobuf==5.26.1
+python-dateutil==2.9.0.post0
+pytz==2025.1
+six==1.17.0
+tornado==6.4.2
+tzdata==2025.1
