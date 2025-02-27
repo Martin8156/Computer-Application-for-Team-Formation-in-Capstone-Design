@@ -9,6 +9,7 @@ MOST_RECENT_FILE = "source"
 RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
+output_csv = UPLOAD_FILE_DIR + "out.csv"
 
 class Base_Handler(tornado.web.RequestHandler):
     def prepare(self):
@@ -128,6 +129,18 @@ class Alloc_Solve_Handler(Base_Handler):
             "msg": "Solver started"
         }))
 
+class CSV_Output_Handler(Base_Handler):
+    def get(self):
+        try:
+            print(f"Start outputing CSV file from {output_csv}")
+            self.set_header("Content-Type", "text/csv")
+            self.set_header("Content-Disposition", "attachment; filename=\"output.csv\"")
+            with open(output_csv, 'r') as f:
+                self.write(f.read())
+            self.finish()
+        except Exception as e:
+            self.set_status(500)
+            self.write(json.dumps({"result": "error", "msg": f"Error reading CSV file: {str(e)}"}))
 
 application = tornado.web.Application(
     [
@@ -139,6 +152,7 @@ application = tornado.web.Application(
         # (r"/action/set_match"),
         # (r"/action/delete_match"),
         (r"/action/solve", Alloc_Solve_Handler),
+        (r"/action/output-csv", CSV_Output_Handler),
     ]
 )
 

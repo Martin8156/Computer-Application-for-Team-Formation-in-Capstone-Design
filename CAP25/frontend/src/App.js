@@ -131,6 +131,29 @@ function App() {
     }
   };
 
+  const handleDownloadCSV = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/action/output-csv');
+      console.log('Download response:', response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "data.csv";
+      document.body.appendChild(a);
+      a.click();
+      
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error downloading CSV:', error);
+    }
+};
+
   return (
     <div className="App">
       <header className="App-header">
@@ -174,6 +197,18 @@ function App() {
               <p>Processing...</p>
             </div>
           )}
+
+          {uploadStatus && (
+            <div className="download-section">
+              <button 
+              onClick={handleDownloadCSV} 
+              className="download-button"
+              disabled={!matchingData || !matchingData.matching}
+              >
+                Download CSV Output
+              </button>
+            </div>
+          )}
         </section>
 
         <section className="matching-data">
@@ -208,4 +243,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

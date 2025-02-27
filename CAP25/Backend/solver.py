@@ -4,10 +4,12 @@ from ortools.sat.python import cp_model
 import numpy as np
 import os
 import json
+import csv
 
 OUTPUT_PATH = "Files/out.json"
 COMP_PATH = "Files/Company.csv"
 STUD_PATH = "Files/Student.csv"
+OUTPUT_CSV = "Files/out.csv"
 
 np.set_printoptions(threshold=np.inf)
 
@@ -142,5 +144,16 @@ try:
         json.dump(formatted_data, file, ensure_ascii=False, indent=2, 
                  default=lambda x: float(x) if pd.isna(x) else x)
     print("Successfully wrote results")
+
+    if res is not None:
+        with open(OUTPUT_CSV, 'w', newline='') as csvfile:
+            #print(f"current res is {res.items()}")
+            writer = csv.writer(csvfile)
+            writer.writerow(["Team", "Student IDs"])
+            for t in range(n_teams):
+                team_name = projects[t]['name']  # Use the name from the projects list
+                student_ids = [students[i]['name'] for i in res.get(t, [])]
+                writer.writerow([team_name, *student_ids])
+        print(f"Successfully wrote matching results to {OUTPUT_CSV}")
 except Exception as e:
     print(f"Error writing results: {str(e)}")
