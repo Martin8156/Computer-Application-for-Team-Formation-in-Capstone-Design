@@ -76,13 +76,56 @@ model.AddMinEquality(min_goodness, [team_goodness[t] for t in range(n_teams)])
 # Objective: maximize the minimum team goodness.
 model.Maximize(min_goodness)
 
+# 定义一个自定义的求解回调类
+class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
+    
+    def __init__(self, assignment, team_goodness, min_goodness, n_students, n_teams):
+        cp_model.CpSolverSolutionCallback.__init__(self)
+        self._assignment = assignment
+        self._team_goodness = team_goodness
+        self._min_goodness = min_goodness
+        self._n_students = n_students
+        self._n_teams = n_teams
+        self._solution_count = 0
+        self._best_objective = None
+    
+    def on_solution_callback(self):
+        current_objective = self.ObjectiveValue()
+        
+        # 只有当找到更好的解时才打印
+        if self._best_objective is None or current_objective > self._best_objective:
+            self._best_objective = current_objective
+            self._solution_count += 1
+            
+            # 打印当前分配方案
+            team_assignments = {}
+            for t in range(self._n_teams):
+                team_assignments[t] = [i for i in range(self._n_students) 
+                                    if self.Value(self._assignment[(i, t)]) == 1]
+            
+            team_info = []
+            for t, students in team_assignments.items():
+                team_info.append(f"  Team {t}: Students {students}")
+            
+            # turn the team assignments into a json object and print
+            print(json.dumps(team_assignments))
+
 # Solve the model.
 solver = cp_model.CpSolver()
 solver.parameters.log_search_progress = False
 solver.log_callback = print
-solver.parameters.max_time_in_seconds = 60 * 0.1
+solver.parameters.max_time_in_seconds = 60 * 5
 solver.parameters.num_search_workers = max(os.cpu_count() - 1, 1)
-status = solver.Solve(model)
+
+solution_callback = TeamFormationCallback(
+    assignment=assignment,
+    team_goodness=team_goodness,
+    min_goodness=min_goodness,
+    n_students=n_students,
+    n_teams=n_teams
+)
+
+status = solver.SolveWithSolutionCallback(model, callback=solution_callback)
 
 res = None
 
@@ -114,16 +157,6 @@ for index, row in df_companies.iterrows():
                      for i, skill in skills_mapping.items()}
     }
     projects.append(project)
-
-# Add data validation before writing
-# def clean_nan_values(obj):
-#     if isinstance(obj, dict):
-#         return {k: clean_nan_values(v) for k, v in obj.items()}
-#     elif isinstance(obj, list):
-#         return [clean_nan_values(x) for x in obj]
-#     elif pd.isna(obj):  # Check for NaN values
-#         return 0.0  # or another default value
-#     return obj
 
 # Clean the data before writing
 formatted_data = {

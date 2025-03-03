@@ -1,8 +1,11 @@
 import os
+import signal
 import tornado.ioloop
 import tornado.web
 import json
 import subprocess
+
+import asyncio
 
 UPLOAD_FILE_DIR = "Files/"
 MOST_RECENT_FILE = "source"
@@ -10,6 +13,8 @@ RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
 output_csv = UPLOAD_FILE_DIR + "out.csv"
+
+solver_pid = None
 
 class Base_Handler(tornado.web.RequestHandler):
     def prepare(self):
@@ -97,11 +102,10 @@ class Current_Alloc_Handler(Base_Handler):
 
 
 class Alloc_Solve_Handler(Base_Handler):
-    def post(self):
-        
-        if not os.path.exists(RES_FILE):
-            # By design the solver will remove out.json and output a new one
-            # So if there isn't one in the dir means we are having a running soler
+    async def post(self):
+        global solver_pid
+
+        if solver_pid is not None:
             self.write(json.dumps(
                 {"result": "err", "msg": "existing an ongoing solver"}
             ))
@@ -113,21 +117,52 @@ class Alloc_Solve_Handler(Base_Handler):
                 "msg": "Student file does not exist, please upload that first"
             }))
             return
-        
+
         if not os.path.exists(COM_FILE):
             self.write(json.dumps({
                 "result": "err", 
                 "msg": "Company file does not exist, please upload that first"
             }))
             return
+
         
+        self.set_header("Content-Type", "text/plain")
+        self.set_header("Cache-Control", "no-cache")
+        self.set_header("Connection", "keep-alive")
+
         # Start the solver process
-        subprocess.Popen(['python', 'Backend/solver.py'])
+        # according to example: https://docs.python.org/3.13/library/asyncio-subprocess.html
         
-        self.write(json.dumps({
-            "result": "success", 
-            "msg": "Solver started"
-        }))
+        script_path = "Backend/solver.py"
+        
+        # really important to add -u to allow real-time output
+        proc = await asyncio.create_subprocess_shell(
+            f"python -u {script_path}", 
+            stdout=asyncio.subprocess.PIPE
+        )
+        
+        solver_pid = proc.pid
+
+        while True:
+            line = await proc.stdout.readline()
+            if not line:  # EOFs
+                break
+
+            self.write(line.decode('utf-8'))
+            self.flush()
+        
+        solver_pid = None
+
+
+class Solver_Kill_Handler(Base_Handler):
+    def get(self):
+        global solver_pid
+        if solver_pid:
+            os.kill(solver_pid, signal.SIGINT)
+            self.write(json.dumps({"result": "success", "msg": "Solver killed"}))
+        else:
+            self.write(json.dumps({"result": "success", "msg": "No solver running"}))
+
 
 class CSV_Output_Handler(Base_Handler):
     def get(self):
@@ -158,6 +193,7 @@ application = tornado.web.Application(
 
 
 if __name__ == "__main__":
+    print("Server started")
 
     # Ensure the Files directory exists and has correct permissions
     if not os.path.exists(UPLOAD_FILE_DIR):
