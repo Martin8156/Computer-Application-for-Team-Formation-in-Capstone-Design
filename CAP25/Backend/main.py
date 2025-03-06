@@ -119,7 +119,7 @@ class Alloc_Solve_Handler(Base_Handler):
             ))
             return
         
-        subprocess.Popen(['python', 'Backend/solver.py'])
+        subprocess.Popen(['python', 'backend/solver.py'])
         self.write(json.dumps({"result": "success", "msg": "solver started"}))
 
 

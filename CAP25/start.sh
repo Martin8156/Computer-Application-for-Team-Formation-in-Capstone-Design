@@ -1,8 +1,8 @@
 # Start the Python backend
-python Backend/main.py
+python backend/main.py
 
 # Navigate to the Frontend directory
-cd Frontend/
+cd frontend/
 
 # Start the frontend using npm
 npm start
