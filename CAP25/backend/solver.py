@@ -23,8 +23,8 @@ df_companies = pd.read_csv(COMP_PATH)
 df_students = pd.read_csv(STUD_PATH)
 
 # get numpy array dimensions
-np_companies = df_companies.iloc[:,3:].astype(int).to_numpy()
-np_students = df_students.iloc[:,2:].astype(int).to_numpy()
+np_companies = df_companies.iloc[:, 3:].astype(int).to_numpy()
+np_students = df_students.iloc[:, 2:].astype(int).to_numpy()
 
 
 affinity_matrix = np.dot(np_companies, np_students.T)
@@ -40,17 +40,21 @@ skill_num_to_name = {i: skill for i, skill in enumerate(df_students.columns[2:])
 students = []
 for index, row in df_students.iterrows():
     student = {
-        "name": row['Name'],
-        "eid": row['EID'],
-        "skill_set": {str(i): float(row[skill]) for i, skill in skill_num_to_name.items()}
+        "name": row["Name"],
+        "eid": row["EID"],
+        "skill_set": {
+            str(i): float(row[skill]) for i, skill in skill_num_to_name.items()
+        },
     }
     students.append(student)
 
 projects = []
 for index, row in df_companies.iterrows():
     project = {
-        "name": row['Project_ID'],
-        "skill_req": {str(i): float(row[skill]) for i, skill in skill_num_to_name.items()}
+        "name": row["Project_ID"],
+        "skill_req": {
+            str(i): float(row[skill]) for i, skill in skill_num_to_name.items()
+        },
     }
     projects.append(project)
 
@@ -89,48 +93,51 @@ model.AddMinEquality(min_goodness, [team_goodness[t] for t in range(n_teams)])
 # Objective: maximize the minimum team goodness.
 model.Maximize(min_goodness)
 
+
 # from assignment directly to json
 def assignment_to_json(val, assignment):
     team_assignments = {}
     for t in range(n_teams):
-        team_assignments[t] = [i for i in range(n_students) if val(assignment[i, t]) == 1]
+        team_assignments[t] = [
+            i for i in range(n_students) if val(assignment[i, t]) == 1
+        ]
     return team_assignments
 
 
 class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
-    
+
     def __init__(self, assignment):
         cp_model.CpSolverSolutionCallback.__init__(self)
         self.assignment = assignment
         self.best_obj = None
-    
+
     def on_solution_callback(self):
         cur_obj = self.ObjectiveValue()
-        
+
         if self.best_obj is None or cur_obj > self.best_obj:
             self.best_obj = cur_obj
-            
+
             parsed_assignment = assignment_to_json(self.Value, self.assignment)
             output = {
                 "students": students,
                 "projects": projects,
                 "skills": skill_num_to_name,
-                "matching": parsed_assignment
+                "matching": parsed_assignment,
             }
 
             # output to stdout
             print(json.dumps(output))
 
             # output to files
-            with open(OUTPUT_PATH, 'w') as file:
+            with open(OUTPUT_PATH, "w") as file:
                 json.dump(output, file, ensure_ascii=False, indent=2)
 
-            with open(OUTPUT_CSV, 'w', newline='') as csvfile:
+            with open(OUTPUT_CSV, "w", newline="") as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow(["Team", "Student Names"])
                 for t, s in parsed_assignment.items():
-                    team_name = projects[t]['name']  # Use the name from the projects list
-                    student_names = [students[i]['name'] for i in s]
+                    team_name = projects[t]["name"]
+                    student_names = [students[i]["name"] for i in s]
                     writer.writerow([team_name, *student_names])
 
 
