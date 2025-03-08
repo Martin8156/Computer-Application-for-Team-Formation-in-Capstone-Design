@@ -31,31 +31,33 @@ n_students, n_skills = np_students.shape
 n_teams = np_companies.shape[0]
 
 
-# solving
+# setting up model constraints and objective
 
 model = cp_model.CpModel()
 
 # Decision variables: assignment[(i, t)] is True if student i is assigned to team t.
-assignment = {}
+
+# Create a numpy array to store assignment variables
+assignment = np.empty((n_students, n_teams), dtype=object)
 for i in range(n_students):
     for t in range(n_teams):
-        assignment[(i, t)] = model.NewBoolVar(f"assign_{i}_{t}")
+        assignment[i, t] = model.NewBoolVar(f"assign_s{i}_t{t}")
 
-# Each student is assigned to exactly one team.
+# setting up constraints of one student can only be assigned to one team
 for i in range(n_students):
-    model.Add(sum(assignment[(i, t)] for t in range(n_teams)) == 1)
+    model.Add(sum(assignment[i, t] for t in range(n_teams)) == 1)
 
-# Enforce team size constraints: each team must have between 5 and 7 students.
+# setting up constraints of team size
 for t in range(n_teams):
-    model.Add(sum(assignment[(i, t)] for i in range(n_students)) >= 3)
-    model.Add(sum(assignment[(i, t)] for i in range(n_students)) <= 5)
+    model.Add(sum(assignment[i, t] for i in range(n_students)) >= 3)
+    model.Add(sum(assignment[i, t] for i in range(n_students)) <= 5)
 
-# Calculate the goodness fit for each team.
+# setting up constraints of team goodness
+
 team_goodness = {}
 for t in range(n_teams):
     team_goodness[t] = model.NewIntVar(0, 1000000, f"team_goodness_{t}")
-    terms = [assignment[(i, t)] * int(affinity_matrix[t][i]) for i in range(n_students)]
-    model.Add(team_goodness[t] == sum(terms))
+    model.Add(team_goodness[t] == np.dot(affinity_matrix[t, :], assignment[:, t]))
 
 min_goodness = model.NewIntVar(0, 1000000, "min_goodness")
 
