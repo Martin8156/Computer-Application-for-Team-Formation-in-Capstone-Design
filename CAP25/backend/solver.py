@@ -20,25 +20,15 @@ if os.path.exists(OUTPUT_PATH):
 df_companies = pd.read_csv(COMP_PATH)
 df_students = pd.read_csv(STUD_PATH)
 
-# pre-processing
+# get numpy array dimensions
+np_companies = df_companies.iloc[:,3:].astype(int).to_numpy()
+np_students = df_students.iloc[:,2:].astype(int).to_numpy()
 
-df_companies.drop(['Company','Project_Title'], axis=1,inplace=True)
-df_students.drop(['EID','GPA', 'Partner_Importance', 'Partner_EID'], axis=1,inplace=True)
-col_index = df_students.columns.get_loc('I1')
-df_students = df_students.iloc[:, :col_index]
-
-df_companies.drop(['Hardware', 'Software'], axis = 1,inplace=True)
-df_students.drop(['Hardware, Software, or Both','Honors','SP'], axis=1,inplace=True)
-
-
-np_companies = df_companies.iloc[:,1:].fillna(0).astype(int).to_numpy()
-np_students = df_students.iloc[:,1:].fillna(0).astype(int).to_numpy()
 
 affinity_matrix = np.dot(np_companies, np_students.T)
 
-n_students = np_students.shape[0]
+n_students, n_skills = np_students.shape
 n_teams = np_companies.shape[0]
-n_skills = np_students.shape[1]
 
 
 # solving
@@ -61,9 +51,7 @@ for t in range(n_teams):
     model.Add(sum(assignment[(i, t)] for i in range(n_students)) <= 5)
 
 # Calculate the goodness fit for each team.
-# Calculate the goodness fit for each team.
 team_goodness = {}
-affinity_matrix = np.dot(np_companies, np_students.T)
 for t in range(n_teams):
     team_goodness[t] = model.NewIntVar(0, 1000000, f"team_goodness_{t}")
     terms = [assignment[(i, t)] * int(affinity_matrix[t][i]) for i in range(n_students)]
