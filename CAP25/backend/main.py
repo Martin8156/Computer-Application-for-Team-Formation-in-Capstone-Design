@@ -133,7 +133,7 @@ class Alloc_Solve_Handler(Base_Handler):
         # Start the solver process
         # according to example: https://docs.python.org/3.13/library/asyncio-subprocess.html
         
-        script_path = "Backend/solver.py"
+        script_path = "backend/solver.py"
         
         # really important to add -u to allow real-time output
         proc = await asyncio.create_subprocess_shell(

@@ -3,11 +3,11 @@ import sys
 import os
 
 def run_backend():
-    backend_script = os.path.join("Backend", "main.py")
+    backend_script = os.path.join("backend", "main.py")
     subprocess.Popen([sys.executable, backend_script], shell=True)
 
 def run_frontend():
-    frontend_dir = os.path.join("Frontend")
+    frontend_dir = os.path.join("frontend")
     subprocess.Popen(["npm", "start"], cwd=frontend_dir, shell=True)
 
 if __name__ == "__main__":
