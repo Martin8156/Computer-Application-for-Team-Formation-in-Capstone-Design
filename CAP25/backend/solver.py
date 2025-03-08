@@ -45,12 +45,12 @@ for i in range(n_students):
 
 # setting up constraints of one student can only be assigned to one team
 for i in range(n_students):
-    model.Add(sum(assignment[i, t] for t in range(n_teams)) == 1)
+    model.Add(sum(assignment[i, :]) == 1)
 
 # setting up constraints of team size
 for t in range(n_teams):
-    model.Add(sum(assignment[i, t] for i in range(n_students)) >= 3)
-    model.Add(sum(assignment[i, t] for i in range(n_students)) <= 5)
+    model.Add(sum(assignment[:, t]) >= 3)
+    model.Add(sum(assignment[:, t]) <= 5)
 
 # setting up constraints of team goodness
 
