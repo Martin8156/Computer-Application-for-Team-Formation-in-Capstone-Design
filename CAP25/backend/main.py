@@ -7,7 +7,7 @@ import subprocess
 
 import asyncio
 
-UPLOAD_FILE_DIR = "Files/"
+UPLOAD_FILE_DIR = "files/"
 MOST_RECENT_FILE = "source"
 RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
@@ -59,7 +59,7 @@ class Upload_File_Handler(Base_Handler):
         # Sendback the error message or needed file
         # Start new process of solving combination
         fileinfo = self.request.files["filearg"][0]
-        print("fileinfo is", fileinfo)
+        # print("fileinfo is", fileinfo)
         fname = fileinfo["filename"]
         extn = os.path.splitext(fname)[1]
         cname = self.get_body_argument("file_type") + extn
