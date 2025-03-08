@@ -14,7 +14,7 @@ STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
 output_csv = UPLOAD_FILE_DIR + "out.csv"
 
-solver_pid = None
+solver_proc = None
 
 class Base_Handler(tornado.web.RequestHandler):
     def prepare(self):
@@ -69,43 +69,73 @@ class Upload_File_Handler(Base_Handler):
 
 
 class Current_Alloc_Handler(Base_Handler):
-    def post(self):
-        try:
+    async def post(self):
+
+        global solver_proc
+        
+        self.set_header("Content-Type", "text/plain")
+        self.set_header("Cache-Control", "no-cache")
+        self.set_header("Connection", "keep-alive")
+
+        # Start the solver process
+        # according to example: https://docs.python.org/3.13/library/asyncio-subprocess.html
+
+        if os.path.exists(RES_FILE):
             with open(RES_FILE, 'r') as file:
                 print(f"Reading from {RES_FILE}")
                 data = json.load(file)
 
-                # Validate data before sending
-                if not isinstance(data, dict):
-                    raise ValueError("Invalid data format")
+                self.write(json.dumps(data) + '\n')
+                self.flush()
+        
+        if solver_proc is None:
+            return
+
+        while True:
+            line = await solver_proc.stdout.readline()
+            if not line:  # EOFs
+                break
+
+            self.write(line.decode('utf-8'))
+            self.flush()
+
+
+        # try:
+        #     with open(RES_FILE, 'r') as file:
+        #         print(f"Reading from {RES_FILE}")
+        #         data = json.load(file)
+
+        #         # Validate data before sending
+        #         if not isinstance(data, dict):
+        #             raise ValueError("Invalid data format")
                 
-                required_keys = ["students", "projects", "skills", "matching"]
-                if not all(key in data for key in required_keys):
-                    raise ValueError("Missing required keys in data")
+        #         required_keys = ["students", "projects", "skills", "matching"]
+        #         if not all(key in data for key in required_keys):
+        #             raise ValueError("Missing required keys in data")
                 
-                print(f"Loaded data: {json.dumps(data)[:200]}...")
+        #         print(f"Loaded data: {json.dumps(data)[:200]}...")
 
-                self.set_header("Content-Type", "application/json")
-                self.write(json.dumps(data))
+        #         self.set_header("Content-Type", "application/json")
+        #         self.write(json.dumps(data))
 
-        except (json.JSONDecodeError, FileNotFoundError, ValueError) as e:
+        # except (json.JSONDecodeError, FileNotFoundError, ValueError) as e:
 
-            print(f"Error reading {RES_FILE}: {str(e)}")
+        #     print(f"Error reading {RES_FILE}: {str(e)}")
 
-            # Return empty but valid JSON structure
-            self.write(json.dumps({
-                "students": [],
-                "projects": [],
-                "skills": {},
-                "matching": {}
-            }))
+        #     # Return empty but valid JSON structure
+        #     self.write(json.dumps({
+        #         "students": [],
+        #         "projects": [],
+        #         "skills": {},
+        #         "matching": {}
+        #     }))
 
 
 class Alloc_Solve_Handler(Base_Handler):
     async def post(self):
-        global solver_pid
+        global solver_proc
 
-        if solver_pid is not None:
+        if solver_proc is not None:
             self.write(json.dumps(
                 {"result": "err", "msg": "existing an ongoing solver"}
             ))
@@ -124,41 +154,30 @@ class Alloc_Solve_Handler(Base_Handler):
                 "msg": "Company file does not exist, please upload that first"
             }))
             return
-
         
-        self.set_header("Content-Type", "text/plain")
-        self.set_header("Cache-Control", "no-cache")
-        self.set_header("Connection", "keep-alive")
+        self.write(json.dumps({"result": "success", "msg": "Solver started"}))
 
-        # Start the solver process
-        # according to example: https://docs.python.org/3.13/library/asyncio-subprocess.html
-        
         script_path = "backend/solver.py"
         
         # really important to add -u to allow real-time output
-        proc = await asyncio.create_subprocess_shell(
+        solver_proc = await asyncio.create_subprocess_shell(
             f"python -u {script_path}", 
             stdout=asyncio.subprocess.PIPE
         )
-        
-        solver_pid = proc.pid
 
-        while True:
-            line = await proc.stdout.readline()
-            if not line:  # EOFs
-                break
-
-            self.write(line.decode('utf-8'))
-            self.flush()
+        await solver_proc.wait()
         
-        solver_pid = None
+        solver_proc = None
 
 
 class Solver_Kill_Handler(Base_Handler):
     def get(self):
-        global solver_pid
-        if solver_pid:
-            os.kill(solver_pid, signal.SIGINT)
+        global solver_proc
+        if solver_proc is not None:
+            # on windows and macos it's sigint | sigterm
+            # possibly change to proc.terminate() for future version
+
+            os.kill(solver_proc.pid, signal.SIGINT)
             self.write(json.dumps({"result": "success", "msg": "Solver killed"}))
         else:
             self.write(json.dumps({"result": "success", "msg": "No solver running"}))
