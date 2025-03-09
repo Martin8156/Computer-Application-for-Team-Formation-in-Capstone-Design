@@ -4,7 +4,7 @@ import tornado.ioloop
 import tornado.web
 import json
 import subprocess
-
+import verifier
 import asyncio
 
 UPLOAD_FILE_DIR = "files/"
@@ -155,6 +155,18 @@ class Alloc_Solve_Handler(Base_Handler):
             }))
             return
         
+        # stu_csv = verifier.load_csv(STU_FILE)
+        # com_csv = verifier.load_csv(COM_FILE)
+        
+        verification_errors = []
+        verification_errors = verifier.verifier(COM_FILE, STU_FILE)
+        if verification_errors != "Success":
+            self.write(json.dumps({
+                "result": "err", 
+                "msg": f"Verification failed: {verification_errors}"
+            }))
+            return
+    
         self.write(json.dumps({"result": "success", "msg": "Solver started"}))
 
         script_path = "backend/solver.py"
