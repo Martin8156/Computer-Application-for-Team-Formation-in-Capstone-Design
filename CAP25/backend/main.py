@@ -131,8 +131,6 @@ class Alloc_Solve_Handler(Base_Handler):
             }))
             return
         
-        # stu_csv = verifier.load_csv(STU_FILE)
-        # com_csv = verifier.load_csv(COM_FILE)
         
         verification_errors = []
         verification_errors = verifier.verifier(COM_FILE, STU_FILE)
