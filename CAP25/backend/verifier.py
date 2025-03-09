@@ -133,12 +133,12 @@ def verifier(company_csv, student_csv):
     else:
         return "Success"
 
-if __name__ == "__main__":
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    FILES_DIR = os.path.join(BASE_DIR, "example_file")
+# if __name__ == "__main__":
+#     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#     FILES_DIR = os.path.join(BASE_DIR, "example_file")
     
-    company_csv_path = os.path.join(FILES_DIR, "Company.csv")
-    student_csv_path = os.path.join(FILES_DIR, "Student.csv")
+#     company_csv_path = os.path.join(FILES_DIR, "Company.csv")
+#     student_csv_path = os.path.join(FILES_DIR, "Student.csv")
     
-    result = verifier(company_csv_path, student_csv_path)
-    print(result)
+#     result = verifier(company_csv_path, student_csv_path)
+#     print(result)
