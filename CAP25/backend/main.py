@@ -96,39 +96,15 @@ class Current_Alloc_Handler(Base_Handler):
             if not line:  # EOFs
                 break
 
-            self.write(line.decode('utf-8'))
-            self.flush()
+            try:
+                self.write(line.decode('utf-8'))
+                self.flush()
+            
+            except Exception as e:
+                print(f"Error: {str(e)}")
+                break
 
 
-        # try:
-        #     with open(RES_FILE, 'r') as file:
-        #         print(f"Reading from {RES_FILE}")
-        #         data = json.load(file)
-
-        #         # Validate data before sending
-        #         if not isinstance(data, dict):
-        #             raise ValueError("Invalid data format")
-                
-        #         required_keys = ["students", "projects", "skills", "matching"]
-        #         if not all(key in data for key in required_keys):
-        #             raise ValueError("Missing required keys in data")
-                
-        #         print(f"Loaded data: {json.dumps(data)[:200]}...")
-
-        #         self.set_header("Content-Type", "application/json")
-        #         self.write(json.dumps(data))
-
-        # except (json.JSONDecodeError, FileNotFoundError, ValueError) as e:
-
-        #     print(f"Error reading {RES_FILE}: {str(e)}")
-
-        #     # Return empty but valid JSON structure
-        #     self.write(json.dumps({
-        #         "students": [],
-        #         "projects": [],
-        #         "skills": {},
-        #         "matching": {}
-        #     }))
 
 
 class Alloc_Solve_Handler(Base_Handler):
