@@ -100,36 +100,6 @@ class Current_Alloc_Handler(Base_Handler):
             self.flush()
 
 
-        # try:
-        #     with open(RES_FILE, 'r') as file:
-        #         print(f"Reading from {RES_FILE}")
-        #         data = json.load(file)
-
-        #         # Validate data before sending
-        #         if not isinstance(data, dict):
-        #             raise ValueError("Invalid data format")
-                
-        #         required_keys = ["students", "projects", "skills", "matching"]
-        #         if not all(key in data for key in required_keys):
-        #             raise ValueError("Missing required keys in data")
-                
-        #         print(f"Loaded data: {json.dumps(data)[:200]}...")
-
-        #         self.set_header("Content-Type", "application/json")
-        #         self.write(json.dumps(data))
-
-        # except (json.JSONDecodeError, FileNotFoundError, ValueError) as e:
-
-        #     print(f"Error reading {RES_FILE}: {str(e)}")
-
-        #     # Return empty but valid JSON structure
-        #     self.write(json.dumps({
-        #         "students": [],
-        #         "projects": [],
-        #         "skills": {},
-        #         "matching": {}
-        #     }))
-
 
 class Alloc_Solve_Handler(Base_Handler):
     async def post(self):
@@ -155,8 +125,6 @@ class Alloc_Solve_Handler(Base_Handler):
             }))
             return
         
-        # stu_csv = verifier.load_csv(STU_FILE)
-        # com_csv = verifier.load_csv(COM_FILE)
         
         verification_errors = []
         verification_errors = verifier.verifier(COM_FILE, STU_FILE)
