@@ -146,7 +146,7 @@ class Alloc_Solve_Handler(Base_Handler):
         self.write(json.dumps({"result": "success", "msg": "Solver started"}))
         self.finish()
 
-        script_path = "backend/solver.py"
+        script_path = "backend/solver2.py"
         
         # really important to add -u to allow real-time output
         solver_proc = await asyncio.create_subprocess_shell(
