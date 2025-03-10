@@ -15,6 +15,22 @@ function App() {
     fetchMatchingData();
   }, []);
 
+  useEffect(() => {
+    const pollInterval = setInterval(async () => {
+      try {
+        const response = await fetch('http://localhost:8888/match');
+        const data = await response.json();
+        if (data && Object.keys(data).length > 0) {
+          setMatchingData(data);
+        }
+      } catch (err) {
+        console.error('Error fetching match data:', err);
+      }
+    }, 2000);
+
+    return () => clearInterval(pollInterval);
+  }, []);
+
   const fetchMatchingData = async () => {
     try {
       const response = await fetch('http://localhost:8888/matching', {
@@ -225,7 +241,8 @@ function App() {
                         const student = matchingData.students[studentIndex];
                         return (
                           <li key={studentIndex} className="student-item">
-                            {student?.name || `Student ${studentIndex}`}
+                            {student?.name || `Student ${studentIndex}`} 
+                            {student?.eid && `(${student.eid})`}
                           </li>
                         );
                       })}

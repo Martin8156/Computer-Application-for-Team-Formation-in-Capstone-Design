@@ -24,7 +24,7 @@ class Base_Handler(tornado.web.RequestHandler):
 
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
         self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
         self.set_header("Content-Type", "application/json")
 
@@ -185,8 +185,31 @@ class CSV_Output_Handler(Base_Handler):
             self.set_status(500)
             self.write(json.dumps({"result": "error", "msg": f"Error reading CSV file: {str(e)}"}))
 
-application = tornado.web.Application(
-    [
+
+class MatchHandler(Base_Handler):
+    def get(self):
+        if os.path.exists(RES_FILE):
+            with open(RES_FILE, 'r') as file:
+                data = json.load(file)
+                self.write(data)
+        else:
+            self.write({
+                "students": [],
+                "projects": [],
+                "skills": {},
+                "matching": {}
+            })
+
+    def post(self):
+        data = json.loads(self.request.body)
+        with open(RES_FILE, 'w') as file:
+            json.dump(data, file)
+        self.write({"status": "success"})
+
+
+def make_app():
+    return tornado.web.Application([
+        (r"/match", MatchHandler),
         (r"/", Main_Handler),
         (r"/file/upload", Upload_File_Handler),
         # (r"/file/download"),
@@ -196,8 +219,7 @@ application = tornado.web.Application(
         # (r"/action/delete_match"),
         (r"/action/solve", Alloc_Solve_Handler),
         (r"/action/output-csv", CSV_Output_Handler),
-    ]
-)
+    ])
 
 
 if __name__ == "__main__":
@@ -221,5 +243,6 @@ if __name__ == "__main__":
                 "matching": {}
             }, file)
 
+    application = make_app()
     application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()

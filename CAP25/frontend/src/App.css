@@ -84,11 +84,10 @@ select {
 }
 
 .project-match {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .project-match strong {
@@ -99,17 +98,13 @@ select {
 }
 
 .student-list {
-  margin: 0;
+  list-style-type: none;
   padding-left: 20px;
+  margin-top: 10px;
 }
 
 .student-item {
-  background-color: #ffffff;
-  border: 1px solid #e9ecef;
-  border-radius: 3px;
-  margin: 5px 0;
-  padding: 8px 12px;
-  list-style-type: none;
+  padding: 5px 0;
 }
 
 .status-message {
@@ -194,4 +189,29 @@ select {
 .solve-button:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+}
+
+.matches-container {
+  padding: 20px;
+}
+
+.match-group {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.match-group h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.match-group ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.match-group li {
+  padding: 5px 0;
 } 
