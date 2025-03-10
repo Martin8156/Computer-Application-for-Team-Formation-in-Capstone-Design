@@ -111,6 +111,8 @@ class Alloc_Solve_Handler(Base_Handler):
     async def post(self):
         global solver_proc
 
+        print("?????")
+
         if solver_proc is not None:
             self.write(json.dumps(
                 {"result": "err", "msg": "existing an ongoing solver"}
@@ -142,6 +144,7 @@ class Alloc_Solve_Handler(Base_Handler):
             return
     
         self.write(json.dumps({"result": "success", "msg": "Solver started"}))
+        self.finish()
 
         script_path = "backend/solver.py"
         
