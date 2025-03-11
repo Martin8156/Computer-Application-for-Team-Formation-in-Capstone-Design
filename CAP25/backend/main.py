@@ -218,6 +218,7 @@ def make_app():
         # (r"/action/set_match"),
         # (r"/action/delete_match"),
         (r"/action/solve", Alloc_Solve_Handler),
+        (r"/action/kill", Solver_Kill_Handler),
         (r"/action/output-csv", CSV_Output_Handler),
     ])
 
