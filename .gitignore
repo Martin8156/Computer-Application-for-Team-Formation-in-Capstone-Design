@@ -1,3 +1,4 @@
 node_modules
 .vscode
-CAP25/Files/*
+CAP25/files/*
+!CAP25/files/a.txt
