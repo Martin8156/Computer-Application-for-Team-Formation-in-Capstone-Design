@@ -2,12 +2,15 @@ import pandas as pd
 import os
 import json
 
+# Here we assumed that the config file is fomatted correctly
+
 CONFIG_FILE = "config.json"
 
 with open(CONFIG_FILE) as f:
     config = json.load(f)
     STU_MAP = config["student_mapping"]
     COM_MAP = config["company_mapping"]
+    IMP_MAP = config["skill_importance"]
 
 STU_MAP = {int(k): v for k, v in STU_MAP.items()}
 COM_MAP = {int(k): v for k, v in COM_MAP.items()}
@@ -78,6 +81,12 @@ def check_skills(company_df, student_df):
     if company_skills != student_skills:
         errors.append("The skills in the company file and student file do not match")
     
+    for mapped_skill in IMP_MAP.keys():
+        if mapped_skill not in company_skills:
+            errors.append(f"Skill '{mapped_skill}' is not present in the company file")
+        if mapped_skill not in student_skills:
+            errors.append(f"Skill '{mapped_skill}' is not present in the student file")
+
     # Check company values with position details.
     # for col in company_skills:
     #     for idx, val in company_df[col].items():

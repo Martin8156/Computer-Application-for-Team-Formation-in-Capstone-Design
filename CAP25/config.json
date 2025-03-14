@@ -18,5 +18,10 @@
         "3": 4,
         "4": 5,
         "5": 6
+    },
+    "skill_importance": {
+        "Communication, Signal Processing, Networks and Systems": "0.8",
+        "battery chargers, power": "1.8",
+        "blockchain": "0.5"
     }
 }

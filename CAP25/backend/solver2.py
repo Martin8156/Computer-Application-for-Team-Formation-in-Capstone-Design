@@ -4,6 +4,7 @@ from ortools.sat.python import cp_model
 import os
 import json
 import csv
+from fractions import Fraction
 
 BASE_DIR = "files/"
 
@@ -18,9 +19,11 @@ with open(CONFIG_FILE) as f:
     config = json.load(f)
     STU_MAP = config["student_mapping"]
     COM_MAP = config["company_mapping"]
+    IMP_MAP = config["skill_importance"]
 
 STU_MAP = {int(k): v for k, v in STU_MAP.items()}
 COM_MAP = {int(k): v for k, v in COM_MAP.items()}
+IMP_MAP = {k: Fraction(v) for k, v in IMP_MAP.items()}
 
 np.set_printoptions(threshold=np.inf)
 
@@ -52,6 +55,16 @@ np_students = df_students.iloc[:, 2:].astype(int).to_numpy()
 # map company and student skill to updated values
 np_companies = np.vectorize(COM_MAP.get)(np_companies)
 np_students = np.vectorize(STU_MAP.get)(np_students)
+
+# scale the company skill importance by the mapping
+
+scale_factor = lcm([v.denominator for v in IMP_MAP.values()])
+np_companies *= scale_factor
+
+for i, imp in IMP_MAP.items():
+    # get the index of column of the df companies
+    col_idx = df_companies.columns.get_loc(i) - 3
+    np_companies[:, col_idx] //= imp.denominator
 
 
 n_students, n_skills = np_students.shape
@@ -113,7 +126,7 @@ for t in range(n_teams):
 
 
 
-global_factor = lcm(list(COM_MAP.values()))
+global_factor = lcm(np.unique(np_companies))
 
 team_goodness = np.empty(n_teams, dtype=object)
 for t in range(n_teams):
