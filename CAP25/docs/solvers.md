@@ -93,3 +93,47 @@ scaled_skill_vector = [3.3, 2.5]
 ```
 
 tag: TODO, Unsure on lcm functionality within this solver
+
+# Basics for SAT Solver
+
+We implemented Google OR-Tools as the solver for the SAT problems. Here is the Example provided by google:
+
+https://developers.google.com/optimization/cp/cp_example
+
+The three most important thing to note in the solver are:
+
+ - Add constraint needed for a legal solution
+ - Add objectives function to maximize the utility
+ - Always solve for linear problem
+
+## Constraint addition
+
+As we created the variable object, we can treat them as normal integer values like:
+
+```python
+x = model.new_int_var(0, 10, "x")
+y = model.new_int_var(0, 10, "y")
+z = x + y
+```
+
+In the implementation of solver, we stored these variable value into the np array to utilize vector operation like dot product and so.
+
+Then you could add constraints using various relation like inequality and min value:
+
+```python
+model.add(2 * x+ 3 * y <= z)
+model.addMinEquality(z, [x, y])
+```
+
+## Utility function
+
+Basically you want to set a variable as the value to maximize or minimize in the solver. Like:
+
+```python
+model.maximize(z)
+model.maximize(x + y)
+```
+
+## Linearity of problem
+
+Since OR tools is just a linear solver, it cannot take in floating coeeficient and you cannot multiply one variable to another. That would make the problem quadratic. So use some trick to work around it.
