@@ -1,5 +1,16 @@
 import pandas as pd
 import os
+import json
+
+CONFIG_FILE = "config.json"
+
+with open(CONFIG_FILE) as f:
+    config = json.load(f)
+    STU_MAP = config["student_mapping"]
+    COM_MAP = config["company_mapping"]
+
+STU_MAP = {int(k): v for k, v in STU_MAP.items()}
+COM_MAP = {int(k): v for k, v in COM_MAP.items()}
 
 def load_csv(file_path):
     try:
@@ -88,8 +99,8 @@ def check_skills(company_df, student_df):
     for col in company_skills:
         for idx, val in company_df[col].items():
             try:
-                numeric_val = int(val)
-                if numeric_val < 1 or numeric_val > 5:
+                numeric_val = int(val)                    
+                if numeric_val not in COM_MAP.keys():
                     errors.append(f"Error: Company - value {val} at row index {idx} in column '{col}' must be between 1 and 5")
             except Exception:
                 errors.append(f"Error: Company - value {val} at row index {idx} in column '{col}' is not numeric")
@@ -99,7 +110,7 @@ def check_skills(company_df, student_df):
         for idx, val in student_df[col].items():
             try:
                 numeric_val = int(val)
-                if numeric_val < 1 or numeric_val > 5:
+                if numeric_val not in STU_MAP.keys():
                     errors.append(f"Error: Student - value {val} at row index {idx} in column '{col}' must be between 1 and 5")
             except Exception:
                 errors.append(f"Error: Student - value {val} at row index {idx} in column '{col}' is not numeric")

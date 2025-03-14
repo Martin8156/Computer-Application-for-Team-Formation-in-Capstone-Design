@@ -12,6 +12,16 @@ OUTPUT_CSV = BASE_DIR + "out.csv"
 COMP_PATH = BASE_DIR + "Company.csv"
 STUD_PATH = BASE_DIR + "Student.csv"
 
+CONFIG_FILE = "config.json"
+
+with open(CONFIG_FILE) as f:
+    config = json.load(f)
+    STU_MAP = config["student_mapping"]
+    COM_MAP = config["company_mapping"]
+
+STU_MAP = {int(k): v for k, v in STU_MAP.items()}
+COM_MAP = {int(k): v for k, v in COM_MAP.items()}
+
 np.set_printoptions(threshold=np.inf)
 
 
@@ -39,7 +49,10 @@ df_students = pd.read_csv(STUD_PATH)
 np_companies = df_companies.iloc[:, 3:].astype(int).to_numpy()
 np_students = df_students.iloc[:, 2:].astype(int).to_numpy()
 
-# affinity_matrix = np.dot(np_companies, np_students.T)
+# map company and student skill to updated values
+np_companies = np.vectorize(COM_MAP.get)(np_companies)
+np_students = np.vectorize(STU_MAP.get)(np_students)
+
 
 n_students, n_skills = np_students.shape
 n_teams = np_companies.shape[0]
@@ -100,7 +113,7 @@ for t in range(n_teams):
 
 
 
-global_factor = lcm([1,2,3,4,5])
+global_factor = lcm(list(COM_MAP.values()))
 
 team_goodness = np.empty(n_teams, dtype=object)
 for t in range(n_teams):

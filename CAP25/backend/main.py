@@ -229,20 +229,17 @@ if __name__ == "__main__":
     # Ensure the Files directory exists and has correct permissions
     if not os.path.exists(UPLOAD_FILE_DIR):
         os.makedirs(UPLOAD_FILE_DIR)
-        
-    # Ensure out.json is writable
-    if os.path.exists(RES_FILE):
-        os.chmod(RES_FILE, 0o666)  # Make file readable and writable
+    
+    # The chmod problem was mainly caused by opening files in other apps, just don't do that
 
     # Initialize the output file with empty data structure
-    if not os.path.exists(RES_FILE):
-        with open(RES_FILE, 'w') as file:
-            json.dump({
-                "students": [],
-                "projects": [],
-                "skills": {},
-                "matching": {}
-            }, file)
+    with open(RES_FILE, 'w') as file:
+        json.dump({
+            "students": [],
+            "projects": [],
+            "skills": {},
+            "matching": {}
+        }, file)
 
     application = make_app()
     application.listen(8888)
