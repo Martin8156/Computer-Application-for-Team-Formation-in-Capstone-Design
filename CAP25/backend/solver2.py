@@ -178,6 +178,15 @@ def assignment_to_json(val, assignment):
     return team_assignments
 
 
+def avalibility_to_json(val, time_slot):
+    team_availabilities = {}
+    for t in range(n_teams):
+        for i, time in enumerate(AVA_LST):
+            if val(time_slot[t, i]) == 1:
+                team_availabilities[t] = time
+    return team_availabilities
+
+
 class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 
     def __init__(self, assignment, time_slot):
@@ -193,16 +202,18 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
             self.best_obj = cur_obj
 
             parsed_assignment = assignment_to_json(self.Value, self.assignment)
+            parsed_time_slot = avalibility_to_json(self.Value, self.time_slot)
 
             output = {
                 "students": students,
                 "projects": projects,
                 "skills": skill_num_to_name,
-                "matching": parsed_assignment
+                "matching": parsed_assignment,
+                "time_slot": parsed_time_slot,
             }
 
             # output to stdout
-            # print(json.dumps(output))
+            print(json.dumps(output))
             
 
 
@@ -214,11 +225,12 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 
             with open(OUTPUT_CSV, "w", newline="") as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(["Team", "Student Names"])
+                writer.writerow(["Team", "Meet time", "Student Names"])
                 for t, s in parsed_assignment.items():
                     team_name = projects[t]["name"]
+                    team_time = parsed_time_slot[t]
                     student_names = [students[i]["name"] for i in s]
-                    writer.writerow([team_name, *student_names])
+                    writer.writerow([team_name, team_time, *student_names])
 
 
 # Solve the model.
@@ -226,8 +238,8 @@ solver = cp_model.CpSolver()
 solver.parameters.log_search_progress = False
 solver.log_callback = print
 
-# TODO: comment out max_time to run for arbitrary time
-solver.parameters.max_time_in_seconds = 60 * 5
+# comment out max_time to run for arbitrary time
+# solver.parameters.max_time_in_seconds = 60 * 5
 solver.parameters.num_search_workers = max(os.cpu_count() - 1, 1)
 
 solution_callback = TeamFormationCallback(assignment=assignment, time_slot=time_slot)
