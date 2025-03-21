@@ -20,6 +20,7 @@ with open(CONFIG_FILE) as f:
     STU_MAP = config["student_mapping"]
     COM_MAP = config["company_mapping"]
     IMP_MAP = config["skill_importance"]
+    AVA_LST = config["time_avaliability"]
 
 STU_MAP = {int(k): v for k, v in STU_MAP.items()}
 COM_MAP = {int(k): v for k, v in COM_MAP.items()}
@@ -50,11 +51,13 @@ df_students = pd.read_csv(STUD_PATH)
 
 # get numpy array dimensions
 np_companies = df_companies.iloc[:, 3:].astype(int).to_numpy()
-np_students = df_students.iloc[:, 2:].astype(int).to_numpy()
+np_students = df_students.iloc[:, 2 + len(AVA_LST):].astype(int).to_numpy()
+np_available = df_students.iloc[:, 2:2 + len(AVA_LST)].astype(int).to_numpy()
 
 # map company and student skill to updated values
 np_companies = np.vectorize(COM_MAP.get)(np_companies)
 np_students = np.vectorize(STU_MAP.get)(np_students)
+
 
 # scale the company skill importance by the mapping
 
@@ -73,7 +76,9 @@ n_teams = np_companies.shape[0]
 
 # format some data for output
 
-skill_num_to_name = {i: skill for i, skill in enumerate(df_students.columns[2:])}
+skill_num_to_name = {
+    i: skill for i, skill in enumerate(df_students.columns[2 + len(AVA_LST) :])
+}
 
 students = []
 for index, row in df_students.iterrows():
@@ -108,14 +113,33 @@ for i in range(n_students):
     for t in range(n_teams):
         assignment[i, t] = model.NewBoolVar(f"assign_s{i}_t{t}")
 
+time_slot = np.empty((n_teams, len(AVA_LST)), dtype=object)
+for t in range(n_teams):
+    for i, time in enumerate(AVA_LST):
+        time_slot[t, i] = model.NewBoolVar(f"slot_t{t}_time{time}")
+
+# a team has to have 1 time slot available
+for t in range(n_teams):
+    model.Add(sum(time_slot[t, :]) == 1)
+
+# if a student is assigned to a team where the time is not available to him,
+# if student is added to a time slot unavailable to him, then add penalty to the team goodness
+
+for i in range(n_students):
+    for t in range(n_teams):
+        for j, time in enumerate(AVA_LST):
+            model.AddImplication(time_slot[t, j], np_available[i, j]).OnlyEnforceIf(
+                assignment[i, t]
+            )
+
 # setting up constraints of one student can only be assigned to one team
 for i in range(n_students):
     model.Add(sum(assignment[i, :]) == 1)
 
 # setting up constraints of team size
 for t in range(n_teams):
-    model.Add(sum(assignment[:, t]) >= 3)
-    model.Add(sum(assignment[:, t]) <= 5)
+    model.Add(sum(assignment[:, t]) >= 4)
+    model.Add(sum(assignment[:, t]) <= 7)
 
 # setting up constraints of team goodness
 
@@ -123,7 +147,6 @@ for t in range(n_teams):
 # for t in range(n_teams):
 #     team_goodness[t] = model.NewIntVar(0, 1000000, f"team_goodness_{t}")
 #     model.Add(team_goodness[t] == np.dot(affinity_matrix[t, :], assignment[:, t]))
-
 
 
 global_factor = lcm(np.unique(np_companies))
@@ -157,9 +180,10 @@ def assignment_to_json(val, assignment):
 
 class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 
-    def __init__(self, assignment):
+    def __init__(self, assignment, time_slot):
         cp_model.CpSolverSolutionCallback.__init__(self)
         self.assignment = assignment
+        self.time_slot = time_slot
         self.best_obj = None
 
     def on_solution_callback(self):
@@ -169,15 +193,18 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
             self.best_obj = cur_obj
 
             parsed_assignment = assignment_to_json(self.Value, self.assignment)
+
             output = {
                 "students": students,
                 "projects": projects,
                 "skills": skill_num_to_name,
-                "matching": parsed_assignment,
+                "matching": parsed_assignment
             }
 
             # output to stdout
-            print(json.dumps(output))
+            # print(json.dumps(output))
+            
+
 
             # print(cur_obj)
 
@@ -198,9 +225,11 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 solver = cp_model.CpSolver()
 solver.parameters.log_search_progress = False
 solver.log_callback = print
+
+# TODO: comment out max_time to run for arbitrary time
 solver.parameters.max_time_in_seconds = 60 * 5
 solver.parameters.num_search_workers = max(os.cpu_count() - 1, 1)
 
-solution_callback = TeamFormationCallback(assignment=assignment)
+solution_callback = TeamFormationCallback(assignment=assignment, time_slot=time_slot)
 
 status = solver.SolveWithSolutionCallback(model, callback=solution_callback)
