@@ -160,14 +160,14 @@ class Alloc_Solve_Handler(Base_Handler):
 
 
 class Solver_Kill_Handler(Base_Handler):
-    def get(self):
+    def post(self):
         global solver_proc
         if solver_proc is not None:
             # on windows and macos it's sigint | sigterm
             # possibly change to proc.terminate() for future version
 
             os.kill(solver_proc.pid, signal.SIGINT)
-            self.write(json.dumps({"result": "success", "msg": "Solver killed"}))
+            self.write(json.dumps({"result": "success", "msg": "Solver Stopped"}))
         else:
             self.write(json.dumps({"result": "success", "msg": "No solver running"}))
 
