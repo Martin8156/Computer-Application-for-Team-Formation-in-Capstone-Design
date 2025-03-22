@@ -21,6 +21,7 @@ with open(CONFIG_FILE) as f:
     COM_MAP = config["company_mapping"]
     IMP_MAP = config["skill_importance"]
     AVA_LST = config["time_avaliability"]
+    GRP_SIZ = config["group_size"]
 
 STU_MAP = {int(k): v for k, v in STU_MAP.items()}
 COM_MAP = {int(k): v for k, v in COM_MAP.items()}
@@ -138,8 +139,8 @@ for i in range(n_students):
 
 # setting up constraints of team size
 for t in range(n_teams):
-    model.Add(sum(assignment[:, t]) >= 4)
-    model.Add(sum(assignment[:, t]) <= 7)
+    model.Add(sum(assignment[:, t]) >= GRP_SIZ['min'])
+    model.Add(sum(assignment[:, t]) <= GRP_SIZ['max'])
 
 # setting up constraints of team goodness
 

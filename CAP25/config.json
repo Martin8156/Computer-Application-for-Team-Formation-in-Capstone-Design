@@ -28,5 +28,9 @@
     "time_avaliability": [
         "MW 1:30-3:00",
         "MW 3:00-4:30"
-    ]
+    ],
+    "group_size": {
+        "min": 4,
+        "max": 7
+    }
 }
