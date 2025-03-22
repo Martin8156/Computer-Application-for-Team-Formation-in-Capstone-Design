@@ -5,6 +5,7 @@ import os
 import json
 import csv
 from fractions import Fraction
+from itertools import product
 
 BASE_DIR = "files/"
 
@@ -106,18 +107,17 @@ for index, row in df_companies.iterrows():
 
 model = cp_model.CpModel()
 
-# Decision variables: assignment[(i, t)] is True if student i is assigned to team t.
+# Decision variables: assignment[i, t] is True if student i is assigned to team t.
 
 # Create a numpy array to store assignment variables
 assignment = np.empty((n_students, n_teams), dtype=object)
-for i in range(n_students):
-    for t in range(n_teams):
-        assignment[i, t] = model.NewBoolVar(f"assign_s{i}_t{t}")
+
+for i, t in product(range(n_students), range(n_teams)):
+    assignment[i, t] = model.NewBoolVar(f"assign_s{i}_t{t}")
 
 time_slot = np.empty((n_teams, len(AVA_LST)), dtype=object)
-for t in range(n_teams):
-    for i, time in enumerate(AVA_LST):
-        time_slot[t, i] = model.NewBoolVar(f"slot_t{t}_time{time}")
+for t, (i, time) in product(range(n_teams), enumerate(AVA_LST)):
+    time_slot[t, i] = model.NewBoolVar(f"slot_t{t}_time{time}")
 
 # a team has to have 1 time slot available
 for t in range(n_teams):
@@ -126,12 +126,11 @@ for t in range(n_teams):
 # if a student is assigned to a team where the time is not available to him,
 # if student is added to a time slot unavailable to him, then add penalty to the team goodness
 
-for i in range(n_students):
-    for t in range(n_teams):
-        for j, time in enumerate(AVA_LST):
-            model.AddImplication(time_slot[t, j], np_available[i, j]).OnlyEnforceIf(
-                assignment[i, t]
-            )
+for i, t, (j, time) in product(range(n_students), range(n_teams), enumerate(AVA_LST)):
+    model.AddImplication(time_slot[t, j], np_available[i, j]).OnlyEnforceIf(
+        assignment[i, t]
+    )
+
 
 # setting up constraints of one student can only be assigned to one team
 for i in range(n_students):
@@ -199,39 +198,42 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
     def on_solution_callback(self):
         cur_obj = self.ObjectiveValue()
 
-        if self.best_obj is None or cur_obj > self.best_obj:
-            self.best_obj = cur_obj
+        if self.best_obj is not None and cur_obj <= self.best_obj:
+            return
 
-            parsed_assignment = assignment_to_json(self.Value, self.assignment)
-            parsed_time_slot = avalibility_to_json(self.Value, self.time_slot)
+        # if self.best_obj is None or cur_obj > self.best_obj:
+        self.best_obj = cur_obj
 
-            output = {
-                "students": students,
-                "projects": projects,
-                "skills": skill_num_to_name,
-                "matching": parsed_assignment,
-                "time_slot": parsed_time_slot,
-            }
+        parsed_assignment = assignment_to_json(self.Value, self.assignment)
+        parsed_time_slot = avalibility_to_json(self.Value, self.time_slot)
 
-            # output to stdout
-            print(json.dumps(output))
-            
+        output = {
+            "students": students,
+            "projects": projects,
+            "skills": skill_num_to_name,
+            "matching": parsed_assignment,
+            "time_slot": parsed_time_slot,
+        }
+
+        # output to stdout
+        print(json.dumps(output))
+        
 
 
-            # print(cur_obj)
+        # print(cur_obj)
 
-            # output to files
-            with open(OUTPUT_PATH, "w") as file:
-                json.dump(output, file, ensure_ascii=False, indent=2)
+        # output to files
+        with open(OUTPUT_PATH, "w") as file:
+            json.dump(output, file, ensure_ascii=False, indent=2)
 
-            with open(OUTPUT_CSV, "w", newline="") as csvfile:
-                writer = csv.writer(csvfile)
-                writer.writerow(["Team", "Meet time", "Student Names"])
-                for t, s in parsed_assignment.items():
-                    team_name = projects[t]["name"]
-                    team_time = parsed_time_slot[t]
-                    student_names = [students[i]["name"] for i in s]
-                    writer.writerow([team_name, team_time, *student_names])
+        with open(OUTPUT_CSV, "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["Team", "Meet time", "Student Names"])
+            for t, s in parsed_assignment.items():
+                team_name = projects[t]["name"]
+                team_time = parsed_time_slot[t]
+                student_names = [students[i]["name"] for i in s]
+                writer.writerow([team_name, team_time, *student_names])
 
 
 # Solve the model.
