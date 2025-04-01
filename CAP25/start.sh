@@ -1,5 +1,5 @@
 # Start the Python backend
-python backend/main.py
+python backend/main.py &
 
 # Navigate to the Frontend directory
 cd frontend/
