@@ -3,7 +3,6 @@ import signal
 import tornado.ioloop
 import tornado.web
 import json
-import subprocess
 import verifier
 import asyncio
 
