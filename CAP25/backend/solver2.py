@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from ortools.sat.python import cp_model
-import numpy as np
 import os
 import json
 import csv
@@ -16,6 +15,20 @@ STUD_PATH = BASE_DIR + "Student.csv"
 np.set_printoptions(threshold=np.inf)
 
 
+def lcm(xs):
+
+    def gcd(a, b):
+        while b:
+            a, b = b, a % b
+        return a
+
+    if len(xs) == 1:
+        return xs[0]
+    else:
+        temp = lcm(xs[1:])
+        return xs[0] * temp // gcd(xs[0], temp)
+
+
 if os.path.exists(OUTPUT_PATH):
     os.remove(OUTPUT_PATH)
 
@@ -26,8 +39,7 @@ df_students = pd.read_csv(STUD_PATH)
 np_companies = df_companies.iloc[:, 3:].astype(int).to_numpy()
 np_students = df_students.iloc[:, 2:].astype(int).to_numpy()
 
-
-affinity_matrix = np.dot(np_companies, np_students.T)
+# affinity_matrix = np.dot(np_companies, np_students.T)
 
 n_students, n_skills = np_students.shape
 n_teams = np_companies.shape[0]
@@ -81,14 +93,26 @@ for t in range(n_teams):
 
 # setting up constraints of team goodness
 
-team_goodness = {}
+# team_goodness = {}
+# for t in range(n_teams):
+#     team_goodness[t] = model.NewIntVar(0, 1000000, f"team_goodness_{t}")
+#     model.Add(team_goodness[t] == np.dot(affinity_matrix[t, :], assignment[:, t]))
+
+
+
+global_factor = lcm([1,2,3,4,5])
+
+team_goodness = np.empty(n_teams, dtype=object)
 for t in range(n_teams):
     team_goodness[t] = model.NewIntVar(0, 1000000, f"team_goodness_{t}")
-    model.Add(team_goodness[t] == np.dot(affinity_matrix[t, :], assignment[:, t]))
+    skills = global_factor // np_companies[t, :]
+    sum_skill = assignment[:, t] @ np_students * skills
+
+    model.AddMinEquality(team_goodness[t], sum_skill)
 
 min_goodness = model.NewIntVar(0, 1000000, "min_goodness")
 
-model.AddMinEquality(min_goodness, [team_goodness[t] for t in range(n_teams)])
+model.AddMinEquality(min_goodness, team_goodness)
 
 # Objective: maximize the minimum team goodness.
 model.Maximize(min_goodness)
@@ -96,6 +120,7 @@ model.Maximize(min_goodness)
 
 # from assignment directly to json
 def assignment_to_json(val, assignment):
+    
     team_assignments = {}
     for t in range(n_teams):
         team_assignments[t] = [
@@ -127,6 +152,8 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 
             # output to stdout
             print(json.dumps(output))
+
+            # print(cur_obj)
 
             # output to files
             with open(OUTPUT_PATH, "w") as file:

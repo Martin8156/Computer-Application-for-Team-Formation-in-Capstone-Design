@@ -1,15 +1,20 @@
 import os
+import signal
 import tornado.ioloop
 import tornado.web
 import json
 import subprocess
+import verifier
+import asyncio
 
-UPLOAD_FILE_DIR = "Files/"
+UPLOAD_FILE_DIR = "files/"
 MOST_RECENT_FILE = "source"
 RES_FILE = UPLOAD_FILE_DIR + "out.json"
 STU_FILE = UPLOAD_FILE_DIR + "Student.csv"
 COM_FILE = UPLOAD_FILE_DIR + "Company.csv"
+output_csv = UPLOAD_FILE_DIR + "out.csv"
 
+solver_proc = None
 
 class Base_Handler(tornado.web.RequestHandler):
     def prepare(self):
@@ -21,6 +26,7 @@ class Base_Handler(tornado.web.RequestHandler):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_header("Access-Control-Allow-Headers", "x-requested-with")
         self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+        self.set_header("Content-Type", "application/json")
 
     def options(self):
         self.set_status(204)
@@ -53,7 +59,7 @@ class Upload_File_Handler(Base_Handler):
         # Sendback the error message or needed file
         # Start new process of solving combination
         fileinfo = self.request.files["filearg"][0]
-        print("fileinfo is", fileinfo)
+        # print("fileinfo is", fileinfo)
         fname = fileinfo["filename"]
         extn = os.path.splitext(fname)[1]
         cname = self.get_body_argument("file_type") + extn
@@ -63,68 +69,147 @@ class Upload_File_Handler(Base_Handler):
 
 
 class Current_Alloc_Handler(Base_Handler):
+    async def post(self):
 
-    def post(self):
-        random_matching = {
-            "students": [
-                {"name": "alice", "eid": 1234, "skill_set": {0: 1, 1: 5, 2: 3, 3: 2}},
-                {"name": "bob", "eid": 6666, "skill_set": {0: 4, 1: 2, 2: 2, 3: 4}},
-                {"name": "charlie", "eid": 4321, "skill_set": {0: 3, 1: 2, 2: 2, 3: 2}},
-                {"name": "david", "eid": 5555, "skill_set": {0: 2, 1: 3, 2: 1, 3: 5}},
-            ],
-            "projects": [
-                {
-                    "name": "random project A",
-                    "skill_req": {0: 4, 1: 3, 2: 1, 3: 2},
-                },
-                {"name": "random project B", "skill_req": {0: 2, 1: 3, 2: 5, 3: 1}},
-            ],
-            "skills": {
-                0: "AI",
-                1: "Analogue Circuit",
-                2: "Embedded",
-                3: "Operating System",
-            },
-            "matching": {
-                0: [0, 2],
-                1: [1, 3],
-            },
-        }
+        global solver_proc
+        
+        self.set_header("Content-Type", "text/plain")
+        self.set_header("Cache-Control", "no-cache")
+        self.set_header("Connection", "keep-alive")
 
-        # read from actual result of the solution
+        # Start the solver process
+        # according to example: https://docs.python.org/3.13/library/asyncio-subprocess.html
 
-        with open(RES_FILE, 'r') as file:
-            self.write(file.read())
+        if os.path.exists(RES_FILE):
+            with open(RES_FILE, 'r') as file:
+                print(f"Reading from {RES_FILE}")
+                data = json.load(file)
 
-        # self.write(json.dumps(random_matching))
+                self.write(json.dumps(data) + '\n')
+                self.flush()
+        
+        if solver_proc is None:
+            return
+
+        while True:
+            line = await solver_proc.stdout.readline()
+            if not line:  # EOFs
+                break
+
+            try:
+                self.write(line.decode('utf-8'))
+                self.flush()
+            
+            except Exception as e:
+                print(f"Error: {str(e)}")
+                break
+
+
 
 
 class Alloc_Solve_Handler(Base_Handler):
-    def post(self):
-        if not os.path.exists(RES_FILE):
+    async def post(self):
+        global solver_proc
+
+        print("?????")
+
+        if solver_proc is not None:
             self.write(json.dumps(
                 {"result": "err", "msg": "existing an ongoing solver"}
             ))
             return
-        
+
         if not os.path.exists(STU_FILE):
-            self.write(json.dumps(
-                {"result": "err", "msg": "student file does not exist, please upload that first"}
-            ))
+            self.write(json.dumps({
+                "result": "err", 
+                "msg": "Student file does not exist, please upload that first"
+            }))
             return
-        
+
         if not os.path.exists(COM_FILE):
-            self.write(json.dumps(
-                {"result": "err", "msg": "company file does not exist, please upload that first"}
-            ))
+            self.write(json.dumps({
+                "result": "err", 
+                "msg": "Company file does not exist, please upload that first"
+            }))
             return
         
-        subprocess.Popen(['python', 'backend/solver.py'])
-        self.write(json.dumps({"result": "success", "msg": "solver started"}))
+        
+        verification_errors = []
+        verification_errors = verifier.verifier(COM_FILE, STU_FILE)
+        if verification_errors != "Success":
+            self.write(json.dumps({
+                "result": "err", 
+                "msg": f"Verification failed: {verification_errors}"
+            }))
+            return
+    
+        self.write(json.dumps({"result": "success", "msg": "Solver started"}))
+        self.finish()
+
+        script_path = "backend/solver2.py"
+        
+        # really important to add -u to allow real-time output
+        solver_proc = await asyncio.create_subprocess_shell(
+            f"python -u {script_path}", 
+            stdout=asyncio.subprocess.PIPE
+        )
+
+        await solver_proc.wait()
+        
+        solver_proc = None
 
 
-application = tornado.web.Application(
-    [
+class Solver_Kill_Handler(Base_Handler):
+    def get(self):
+        global solver_proc
+        if solver_proc is not None:
+            # on windows and macos it's sigint | sigterm
+            # possibly change to proc.terminate() for future version
+
+            os.kill(solver_proc.pid, signal.SIGINT)
+            self.write(json.dumps({"result": "success", "msg": "Solver killed"}))
+        else:
+            self.write(json.dumps({"result": "success", "msg": "No solver running"}))
+
+
+class CSV_Output_Handler(Base_Handler):
+    def get(self):
+        try:
+            print(f"Start outputing CSV file from {output_csv}")
+            self.set_header("Content-Type", "text/csv")
+            self.set_header("Content-Disposition", "attachment; filename=\"output.csv\"")
+            with open(output_csv, 'r') as f:
+                self.write(f.read())
+            self.finish()
+        except Exception as e:
+            self.set_status(500)
+            self.write(json.dumps({"result": "error", "msg": f"Error reading CSV file: {str(e)}"}))
+
+
+class MatchHandler(Base_Handler):
+    def get(self):
+        if os.path.exists(RES_FILE):
+            with open(RES_FILE, 'r') as file:
+                data = json.load(file)
+                self.write(data)
+        else:
+            self.write({
+                "students": [],
+                "projects": [],
+                "skills": {},
+                "matching": {}
+            })
+
+    def post(self):
+        data = json.loads(self.request.body)
+        with open(RES_FILE, 'w') as file:
+            json.dump(data, file)
+        self.write({"status": "success"})
+
+
+def make_app():
+    return tornado.web.Application([
+        (r"/match", MatchHandler),
         (r"/", Main_Handler),
         (r"/file/upload", Upload_File_Handler),
         # (r"/file/download"),
@@ -133,18 +218,32 @@ application = tornado.web.Application(
         # (r"/action/set_match"),
         # (r"/action/delete_match"),
         (r"/action/solve", Alloc_Solve_Handler),
-    ]
-)
+        (r"/action/kill", Solver_Kill_Handler),
+        (r"/action/output-csv", CSV_Output_Handler),
+    ])
 
 
 if __name__ == "__main__":
+    print("Server started")
 
-    # init the outfile for result 
-    # just in case is not and user can never start the solver
+    # Ensure the Files directory exists and has correct permissions
+    if not os.path.exists(UPLOAD_FILE_DIR):
+        os.makedirs(UPLOAD_FILE_DIR)
+        
+    # Ensure out.json is writable
+    if os.path.exists(RES_FILE):
+        os.chmod(RES_FILE, 0o666)  # Make file readable and writable
 
+    # Initialize the output file with empty data structure
     if not os.path.exists(RES_FILE):
         with open(RES_FILE, 'w') as file:
-            ...
+            json.dump({
+                "students": [],
+                "projects": [],
+                "skills": {},
+                "matching": {}
+            }, file)
 
+    application = make_app()
     application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
