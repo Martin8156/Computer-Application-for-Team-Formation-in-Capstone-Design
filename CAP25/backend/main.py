@@ -170,6 +170,8 @@ class Solver_Kill_Handler(Base_Handler):
             self.write(json.dumps({"result": "success", "msg": "Solver Stopped"}))
         else:
             self.write(json.dumps({"result": "success", "msg": "No solver running"}))
+        
+        solver_proc = None
 
 
 class CSV_Output_Handler(Base_Handler):
