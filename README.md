@@ -24,7 +24,7 @@ The software runs as a website where users (like professors) can input CSV files
 - Clone the repo
 - Cd into CAP25 root direcotry
 - Run "npm install" to install Node.js/JavaScript dependencies
-- On mac, create a venv and  run "pip install -r requirements.txt" to download Python dependencies to your virtual environment
+- On mac, create a venv and  run "pip install -r requirements.txt" to download Python dependencies to your virtual environment. Note: application was tested on Python 3.13.2
 - Enter the command ./start.bat if on windows or ./start.sh if on mac. These scripts will run the backend server in the background and the frontend in the foreground on the same terminal
 
 # Current Issues
