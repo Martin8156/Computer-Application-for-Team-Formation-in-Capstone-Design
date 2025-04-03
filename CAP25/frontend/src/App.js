@@ -271,7 +271,9 @@ function App() {
       console.error('Error killing backend solver:', error);
       setSolverStatus('Error terminating solver');
     }
-  
+
+    await new Promise(resolve => setTimeout(resolve, 20000));
+
     if (solverPollingIntervalRef.current) {
       clearInterval(solverPollingIntervalRef.current);
       //solverPollingIntervalRef.current = null;
