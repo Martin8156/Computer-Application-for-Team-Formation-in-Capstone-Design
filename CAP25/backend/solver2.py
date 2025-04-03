@@ -70,7 +70,7 @@ for i, imp in IMP_MAP.items():
     # get the index of column of the df companies
     col_idx = df_companies.columns.get_loc(i) - 3
     np_companies[:, col_idx] //= imp.denominator
-
+    np_companies[:, col_idx] *= imp.numerator
 
 n_students, n_skills = np_students.shape
 n_teams = np_companies.shape[0]
@@ -88,7 +88,7 @@ for index, row in df_students.iterrows():
         "name": row["Name"],
         "eid": row["EID"],
         "skill_set": {
-            str(i): float(row[skill]) for i, skill in skill_num_to_name.items()
+            str(i): STU_MAP[int(row[skill])] for i, skill in skill_num_to_name.items()
         },
     }
     students.append(student)
@@ -98,7 +98,7 @@ for index, row in df_companies.iterrows():
     project = {
         "name": row["Project_ID"],
         "skill_req": {
-            str(i): float(row[skill]) for i, skill in skill_num_to_name.items()
+            str(i): float((COM_MAP[int(row[skill])] * (1 if skill not in IMP_MAP.keys() else IMP_MAP[skill]))) for i, skill in skill_num_to_name.items()
         },
     }
     projects.append(project)
