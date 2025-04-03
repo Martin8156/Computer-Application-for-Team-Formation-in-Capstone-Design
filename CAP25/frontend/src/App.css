@@ -18,7 +18,7 @@
 }
 
 .matching-data {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -215,3 +215,26 @@ select {
 .match-group li {
   padding: 5px 0;
 } 
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.team-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px; /* Adjust as needed for your columns */
+}
+
+.team-table th,
+.team-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.row-label {
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
