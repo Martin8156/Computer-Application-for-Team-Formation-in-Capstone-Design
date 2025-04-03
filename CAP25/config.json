@@ -1,0 +1,36 @@
+{
+    "note":[
+        "This is the configuration file for the CAP25 project.",
+        "the student mapping has to be a STRING of INT mapping to int",
+        "same as company mapping",
+        "skill importance is a RATIONAL (or decimal) of a STRING",
+        "time avaliability is a list of STRING represent the column name in the student data representing the time avaliability"
+    ],
+    "student_mapping": {
+        "1": 1,
+        "2": 5,
+        "3": 10,
+        "4": 20,
+        "5": 30
+    },
+    "company_mapping": {
+        "1": 1,
+        "2": 3,
+        "3": 4,
+        "4": 5,
+        "5": 6
+    },
+    "skill_importance": {
+        "Communication, Signal Processing, Networks and Systems": "0.8",
+        "battery chargers, power": "1.8",
+        "blockchain": "0.5"
+    },
+    "time_avaliability": [
+        "MW 1:30-3:00",
+        "MW 3:00-4:30"
+    ],
+    "group_size": {
+        "min": 4,
+        "max": 7
+    }
+}

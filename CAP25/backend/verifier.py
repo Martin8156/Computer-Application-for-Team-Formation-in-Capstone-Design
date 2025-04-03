@@ -1,5 +1,19 @@
 import pandas as pd
-import os
+import json
+
+# Here we assumed that the config file is fomatted correctly
+
+CONFIG_FILE = "config.json"
+
+with open(CONFIG_FILE) as f:
+    config = json.load(f)
+    STU_MAP = config["student_mapping"]
+    COM_MAP = config["company_mapping"]
+    IMP_MAP = config["skill_importance"]
+    AVA_LST = config["time_avaliability"]
+
+STU_MAP = {int(k): v for k, v in STU_MAP.items()}
+COM_MAP = {int(k): v for k, v in COM_MAP.items()}
 
 def load_csv(file_path):
     try:
@@ -34,7 +48,7 @@ def check_company_required_columms(company_csv):
 
 def check_student_required_columms(student_csv):
     errors = []
-    required_columns = ['EID', 'Name']
+    required_columns = ['EID', 'Name'] + AVA_LST
     for column in required_columns:
         if column not in student_csv.columns:
             errors.append(f"Missing required column: {column}")
@@ -50,7 +64,7 @@ def check_shape(company_df, student_df):
     for col in ['Project_ID', 'Company', 'Project_Title']:
         if col in company_df.columns:
             company_df.drop(col, axis=1, inplace=True)
-    for col in ['EID', 'Name']:
+    for col in ['EID', 'Name'] + AVA_LST:
         if col in student_df.columns:
             student_df.drop(col, axis=1, inplace=True)
     
@@ -63,10 +77,19 @@ def check_skills(company_df, student_df):
     errors = []
     company_skills = list(company_df.columns)
     student_skills = list(student_df.columns)
+
+    print(f"Company skills: {company_skills}")
+    print(f"Student skills: {student_skills}")
     
     if company_skills != student_skills:
         errors.append("The skills in the company file and student file do not match")
     
+    for mapped_skill in IMP_MAP.keys():
+        if mapped_skill not in company_skills:
+            errors.append(f"Skill '{mapped_skill}' is not present in the company file")
+        if mapped_skill not in student_skills:
+            errors.append(f"Skill '{mapped_skill}' is not present in the student file")
+
     # Check company values with position details.
     # for col in company_skills:
     #     for idx, val in company_df[col].items():
@@ -88,8 +111,8 @@ def check_skills(company_df, student_df):
     for col in company_skills:
         for idx, val in company_df[col].items():
             try:
-                numeric_val = int(val)
-                if numeric_val < 1 or numeric_val > 5:
+                numeric_val = int(val)                    
+                if numeric_val not in COM_MAP.keys():
                     errors.append(f"Error: Company - value {val} at row index {idx} in column '{col}' must be between 1 and 5")
             except Exception:
                 errors.append(f"Error: Company - value {val} at row index {idx} in column '{col}' is not numeric")
@@ -99,10 +122,21 @@ def check_skills(company_df, student_df):
         for idx, val in student_df[col].items():
             try:
                 numeric_val = int(val)
-                if numeric_val < 1 or numeric_val > 5:
+                if numeric_val not in STU_MAP.keys():
                     errors.append(f"Error: Student - value {val} at row index {idx} in column '{col}' must be between 1 and 5")
             except Exception:
                 errors.append(f"Error: Student - value {val} at row index {idx} in column '{col}' is not numeric")
+    
+    if errors:
+        return ",".join(errors)
+
+def check_time(student_df):
+    errors = []
+
+    for idx, row in student_df.iterrows():
+        # one student has to have at least one avalible time
+        if (row[AVA_LST] == 0).all():
+            errors.append(f"Error: Student - EID {row['EID']} has no available time slots")
     
     if errors:
         return ",".join(errors)
@@ -123,6 +157,7 @@ def verifier(company_csv, student_csv):
     
     errors.append(check_company_required_columms(company_df))
     errors.append(check_student_required_columms(student_df))
+    errors.append(check_time(student_df))
     errors.append(check_shape(company_df, student_df))
     errors.append(check_skills(company_df, student_df))
     
