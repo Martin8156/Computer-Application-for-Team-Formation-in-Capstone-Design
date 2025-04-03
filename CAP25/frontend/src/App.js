@@ -210,7 +210,8 @@ function App() {
         setSolverStatus('Solver running...');
         let attempts = 0;
         const maxAttempts = 15;
-        const pollInterval = setInterval(async () => {
+        pollMatchIntervalRef.current = setInterval(fetchMatchData, 2000);
+        solverPollingIntervalRef.current = setInterval(async () => {
           try {
             console.log('Polling for results...');
             const response = await fetch('http://localhost:8888/matching', {
@@ -347,7 +348,7 @@ function App() {
             <p>Company File: {filesUploaded.company ? '✅ Uploaded' : '❌ Not uploaded'}</p>
           </div>
           {filesUploaded.student && filesUploaded.company && (
-            <>
+            <div>
               <button 
                 onClick={handleSolverStart}
                 className="solve-button"
@@ -364,10 +365,7 @@ function App() {
               >
                 Stop Solver
               </button>
-            </>
-            <button onClick={handleSolverStart} className="solve-button" disabled={isLoading}>
-              Start Matching
-            </button>
+            </div>
           )}
           {uploadStatus && <p className="status-message">{uploadStatus}</p>}
           {solverStatus && <p className="status-message">{solverStatus}</p>}
