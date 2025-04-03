@@ -19,15 +19,32 @@ This is a project for an efficient automated method of assigning students to cap
 
 The software runs as a website where users (like professors) can input CSV files with the student needs and the project needs and upload them to the server. The server then runs a solver and returns the matched teams with certain metrics displayed for the user.
 
-# Getting Started
+Note: Application was tested on Python 3.13.2
 
-- Clone the repo
-- Cd into CAP25 root direcotry
-- Run "npm install" to install Node.js/JavaScript dependencies
-- On mac, create a venv and  run "pip install -r requirements.txt" to download Python dependencies to your virtual environment. Note: application was tested on Python 3.13.2
-- Enter the command ./start.bat if on windows or ./start.sh if on mac. These scripts will run the backend server in the background and the frontend in the foreground on the same terminal
+# Getting Started (macOS)
+
+- Install Node.js via Homebrew
+- Clone the repository
+- Go to CAP25 root direcotry
+- Download JavaScript dependencies
+- On mac, create a venv and download dependencies from requirements.txt file. For ease of use, the debug.sh script will do this for you.
+- Run the start.sh script to run the backend server in the background and the frontend in the foreground on the same terminal.
+
+TLDR
+
+In a macOS terminal:
+
+1. /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+2. brew install node
+
+In root directory of repository:
+
+1. cd CAP25
+2. npm install				# to install JavaScript dependencies
+3. ./debug.sh				# to create venv and download dependencies from requirements.txt
+4. source venv/bin/activate 	# to activate venv
+5. ./start.sh					# to run application
 
 # Current Issues
 
-- Only one iteration of solver is allowed before program has to be reset. See *global algo_run*
-- Constraint on time compatibiltiy of students not set up
+- Displaying goodness of fit
