@@ -3,7 +3,6 @@ import signal
 import tornado.ioloop
 import tornado.web
 import json
-import subprocess
 import verifier
 import asyncio
 
@@ -160,16 +159,18 @@ class Alloc_Solve_Handler(Base_Handler):
 
 
 class Solver_Kill_Handler(Base_Handler):
-    def get(self):
+    def post(self):
         global solver_proc
         if solver_proc is not None:
             # on windows and macos it's sigint | sigterm
             # possibly change to proc.terminate() for future version
 
             os.kill(solver_proc.pid, signal.SIGINT)
-            self.write(json.dumps({"result": "success", "msg": "Solver killed"}))
+            self.write(json.dumps({"result": "success", "msg": "Solver Stopped"}))
         else:
             self.write(json.dumps({"result": "success", "msg": "No solver running"}))
+        
+        solver_proc = None
 
 
 class CSV_Output_Handler(Base_Handler):
@@ -229,20 +230,17 @@ if __name__ == "__main__":
     # Ensure the Files directory exists and has correct permissions
     if not os.path.exists(UPLOAD_FILE_DIR):
         os.makedirs(UPLOAD_FILE_DIR)
-        
-    # Ensure out.json is writable
-    if os.path.exists(RES_FILE):
-        os.chmod(RES_FILE, 0o666)  # Make file readable and writable
+    
+    # The chmod problem was mainly caused by opening files in other apps, just don't do that
 
     # Initialize the output file with empty data structure
-    if not os.path.exists(RES_FILE):
-        with open(RES_FILE, 'w') as file:
-            json.dump({
-                "students": [],
-                "projects": [],
-                "skills": {},
-                "matching": {}
-            }, file)
+    with open(RES_FILE, 'w') as file:
+        json.dump({
+            "students": [],
+            "projects": [],
+            "skills": {},
+            "matching": {}
+        }, file)
 
     application = make_app()
     application.listen(8888)
