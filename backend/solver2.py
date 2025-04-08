@@ -186,6 +186,23 @@ def avalibility_to_json(val, time_slot):
                 team_availabilities[t] = time
     return team_availabilities
 
+students
+projects
+
+def metric_team(val, assignment):
+    score_dist = []
+    for t in range(n_teams):
+        skill = sum([
+            np.array(list(students[i]['skill_set'].values())) for i in range(n_students) if val(assignment[i, t]) == 1
+        ])
+        project = np.array(list(projects[t]['skill_req'].values()))
+        print(min(skill/project))
+        score_dist.append(min(skill/project))
+    
+    return score_dist
+
+print(scale_factor)
+print(global_factor)
 
 class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 
@@ -197,6 +214,8 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
 
     def on_solution_callback(self):
         cur_obj = self.ObjectiveValue()
+
+        metric_team(self.Value, self.assignment)
 
         if self.best_obj is not None and cur_obj <= self.best_obj:
             return
@@ -216,7 +235,7 @@ class TeamFormationCallback(cp_model.CpSolverSolutionCallback):
         }
 
         # output to stdout
-        print(json.dumps(output))
+        # print(json.dumps(output))
         
 
 

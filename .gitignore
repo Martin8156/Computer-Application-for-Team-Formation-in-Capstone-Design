@@ -1,7 +1,6 @@
 node_modules
 .vscode
-CAP25/files/*
-!CAP25/files/a.txt
+files/*
 
 /venv
 # dependencies
